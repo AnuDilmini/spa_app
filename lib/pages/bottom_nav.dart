@@ -50,12 +50,12 @@ class _BottomNavState extends State<BottomNav> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image(
-              image:AssetImage('assets/artboard.png'),
+              image:AssetImage('assets/violate.png'),
               height: 30,
               width: 30,
             ),
             title: Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(0.0),
               child: Text('Violate',
                 style: TextStyle(
                     color: Palette.whiteText,
@@ -74,7 +74,7 @@ class _BottomNavState extends State<BottomNav> {
             ),
             title: Padding(
               padding: const EdgeInsets.all(4.0),
-              child: Text('Oraders',
+              child: Text('Orders',
                 style: TextStyle(
                     color: Palette.whiteText,
                     fontSize: 15,

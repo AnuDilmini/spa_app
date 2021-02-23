@@ -16,6 +16,9 @@ class ServiceFindPage extends StatefulWidget {
 class _ServiceFindPageState extends State<ServiceFindPage> {
 
   double height, width;
+  AlertDialog alert;
+  final messageController = TextEditingController();
+
 
   @override
   void initState() {
@@ -39,7 +42,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
     //     statusBarColor: Colors.transparent, // transparent status bar
     //     statusBarIconBrightness: Brightness.dark));
 
-    return Scaffold(
+    return  Scaffold(
         body: Stack(
             children: [
               Container(
@@ -314,19 +317,24 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                 child:Center(
                   child:Container(
                     width : width,
-                  height: height * 1.2 ,
-                  child:   ListView.builder(
+                    height: height * 1.2 ,
+                     child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: 10,
                         itemBuilder: (BuildContext context, int index) {
-                          return listItem(index);
-                        }),
+                          return GestureDetector(
+                              child: listItem(index),
+                            onTap:(){
+                              showAlertDialog(context,"Anu", "Des");
+                            }
+                          );
+                        }
+                     ),
                   )
+                ),
               ),
-              ),
-
             ]
-        )
+          )
     );
   }
 
@@ -410,6 +418,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                             allowHalfRating: true,
                             itemCount: 5,
                             itemSize: width / 25,
+                            unratedColor: Palette.starColor,
                             itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
                             itemBuilder: (context, _) => Icon(
                               Icons.star,
@@ -434,5 +443,104 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
 
     );
 
+  }
+
+  showAlertDialog(BuildContext context, String title, String description) {
+    // set up the buttons
+
+    Widget continueButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        });
+      },
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+         return Center(
+          child:  Container(
+            margin: EdgeInsets.only(left: 25, right: 25,top:height/7),
+            height: height/2.5,
+            width: width,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(30),
+              color: Palette.blurColor,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  width: (width/208) * 40,
+                  height: (width/208) * 40,
+                  child: Image.asset("assets/artboard_pink.png"),
+                ),
+                Center(
+                  child: Container(
+                   margin: EdgeInsets.only( left: 15, right: 15),
+                    child: Text("How it was your reservation with violate!",
+                      maxLines: 1,
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        letterSpacing: 0.01,
+                        fontSize: 16,
+                        color: Palette.pinkBox,
+                    ),),
+                  )
+                ),
+                Container(
+                  margin: EdgeInsets.only( top: 15),
+                  child:  RatingBar.builder(
+                    initialRating: 3,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemSize: width / 20,
+                    unratedColor: Palette.starColor,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                    ),
+                    onRatingUpdate: (rating) {
+                      print(rating);
+                    },
+                  ),
+                ),
+                Center(
+                    child: Container(
+                      margin: EdgeInsets.only( left: 15, right: 15, top: (width/208) * 10),
+                      child: Text("Tell us how we can improve violate?",
+                        maxLines: 1,
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                          letterSpacing: 0.01,
+                          fontSize: 18,
+                          color: Palette.pinkBox,
+                        ),),
+                    )
+                ),
+                Center(
+                    child: Container(
+                      width:width,
+                      height: (width/208) * 44,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Palette.whiteText,
+                      ),
+                      margin: EdgeInsets.only( left: 15, right: 15, top: (width/208) * 8),
+                      // child: TextField()
+                    )
+                ),
+              ],
+             ),
+        )
+        );
+      },
+    );
   }
 }

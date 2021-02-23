@@ -11,7 +11,8 @@ class Palette {
   static const Color greyBox = const Color(0xFFECE6E6);
   static const Color lightPink = const Color(0xFFECE6E6);
   static const Color pinkText = const Color(0xFF745C6A);
-
-
+  static const Color blurColor = const Color(0xFFF5F2EF);
+  static const Color starColor = const Color(0xFFE2E2E2);
+  static const Color greyText = const Color(0xFFAFAFAF);
 
 }
