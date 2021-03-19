@@ -2,7 +2,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/enums/connectivity_status.dart';
+import 'package:flutter_app/pages/network_sensitive.dart';
+import 'package:flutter_app/pages/service_find.dart';
+import 'package:flutter_app/style/local.keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_app/style/palette.dart';
+import 'package:provider/provider.dart';
+import 'bottom_nav.dart';
+import 'location.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -33,6 +41,8 @@ class _HomePageState extends State<HomePage> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
+    var connectionStatus = Provider.of<ConnectivityStatus>(context);
+
 
     SystemChrome.setEnabledSystemUIOverlays([]);
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -40,6 +50,7 @@ class _HomePageState extends State<HomePage> {
     //     statusBarIconBrightness: Brightness.dark));
 
     return Scaffold(
+      backgroundColor: Palette.pinkBox,
       body: Stack(
         children: [
         Container(
@@ -53,6 +64,7 @@ class _HomePageState extends State<HomePage> {
           )
         )
         ),
+
           Positioned(
           top: (height/449) * 20,
           width: width,
@@ -61,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             width: (width/208) * 45,
             height: (width/208) * 45,
             child:
-            Image.asset('assets/artboard.png',
+            Image.asset('assets/artboard3.png',
             ),
           ),
           ),
@@ -91,19 +103,18 @@ class _HomePageState extends State<HomePage> {
               ]
               ),
             ),
-
           ),
           Positioned(
             top: (height/449) * 150,
             width: width,
               child:  Center(
                 child: Text(
-                 'CHOOSE YOUR SELECTION',
+                    LocaleKeys.choose_your_selection,
                   style: TextStyle(
                       fontSize: 25,
                       color: Palette.whiteText,
                       fontFamily: "Audrey-Medium"
-                  )),
+                  )).tr(),
               ),
           ),
           Positioned(
@@ -118,29 +129,43 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(20),
                 color: Palette.pinkBox,
               ),
-                  child: Column(
+                  child: Stack(
                     children: [
-                      Container(
-                          margin: EdgeInsets.only(top: (width/208) * 10,bottom: (width/208) * 5 ),
-                      height: (width/208) * 40,
-                     width: (width/208) * 40,
-                     child:
-                       Image.asset('assets/reservation.png',)
+                      Positioned(
+                        top:  (width/208) * 8,
+                        width:  (width/208) *75,
+                          child: Container(
+                              // margin: EdgeInsets.only(top: (width/208) * 2 ),
+                              height: (width/208) * 50,
+                              width: (width/208) * 50,
+                              child:
+                              Image.asset('assets/reservation.png',
+                                fit: BoxFit.fitWidth,)
+                          ),
                       ),
-                      Text(
-                          'Reservation',
-                          style: TextStyle(
-                              fontSize: 26,
-                              // letterSpacing: 0.01,
-                              color: Palette.whiteText,
-                              fontFamily: "Audrey-Medium"
-                          )),
+                      Positioned(
+                        top:  (width/208) * 55,
+                        width:  (width/208) *75,
+                        child: Center(
+                          child: Text(
+                            LocaleKeys.reservation,
+                            style: TextStyle(
+                                fontSize: 26,
+                                // letterSpacing: 0.01,
+                                color: Palette.whiteText,
+                                fontFamily: "Audrey-Medium"
+                            )).tr(),
+                        ),
+                      ),
                     ],
                   )
             )
             ),
               onTap: (){
-
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BottomNav(index: 0,)),
+                );
               },
             ),
           ),
@@ -156,32 +181,43 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(20),
                         color: Palette.pinkBox,
                       ),
-                      child: Column(
+                      child: Stack(
                         children: [
-                          Container(
-                              margin: EdgeInsets.only(top: (width/208) * 10,bottom: (width/208) * 5 ),
-                              height: (width/208) * 40,
-                              width: (width/208) * 40,
-                              child:
-                              Image.asset('assets/wd.png',)
+                          Positioned(
+                            top:  (width/208) * 0,
+                            width:  (width/208) *75,
+                            child: Container(
+                              // margin: EdgeInsets.only(top: (width/208) * 2 ),
+                                height: (width/208) * 70,
+                                width: (width/208) * 70,
+                                child:
+                                Image.asset('assets/home_service.png',
+                                 )
+                            ),
                           ),
-                        Container(
-                          padding: EdgeInsets.only(left:5,right: 5 ),
-                          child: Text(
-                              'Home Service',
-                              maxLines: 1,
-                              style: TextStyle(
-                                  fontSize: 26,
-                                  // letterSpacing: 0.01,
-                                  color: Palette.whiteText,
-                                  fontFamily: "Audrey-Medium"
-                              )),
+                          Positioned(
+                            top:  (width/208) * 55,
+                            width:  (width/208) *75,
+                            child: Center(
+                              child: Text(
+                                  LocaleKeys.home_service,
+                                  style: TextStyle(
+                                      fontSize: 26,
+                                      // letterSpacing: 0.01,
+                                      color: Palette.whiteText,
+                                      fontFamily: "Audrey-Medium"
+                                  )).tr(),
+                            ),
                           ),
                         ],
-                      )
+                      ),
                   )
               ),
               onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LocationPage()),
+                );
 
               },
             ),

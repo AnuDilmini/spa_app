@@ -1,10 +1,27 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/home.dart';
+import 'package:flutter_app/pages/payment.dart';
+import 'package:flutter_app/pages/profile.dart';
+import 'package:flutter_app/pages/select_time_date.dart';
+import 'package:flutter_app/pages/service_find.dart';
+import 'package:flutter_app/pages/setting.dart';
+import 'package:flutter_app/pages/update_profile.dart';
 import 'package:flutter_app/style/palette.dart';
+import 'package:flutter_app/style/local.keys.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+import 'change_language.dart';
+import 'info_service.dart';
+import 'order_complete.dart';
+import 'order_history.dart';
+import 'orders.dart';
 
 class BottomNav extends StatefulWidget {
-  BottomNav({Key key}) : super(key: key);
+  int index;
+  int subIndex;
+  BottomNav({Key key, this.index,this.subIndex}) : super(key: key);
 
   @override
   _BottomNavState createState() => _BottomNavState();
@@ -12,13 +29,62 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
 
-  int _currentIndex = 0;
+  int _currentIndex = 0, subIndex , page;
+
   PageController _pageController;
+
+  final List<Widget> _children = [
+    ServiceFindPage(), //0
+    Orders(),
+    Profile(),
+    InfoService(),
+    Payment(),
+    OrderComplete(),
+    OrderHistory(),
+    UpdateProfile(),
+    Setting(),
+    ChangeLang(),
+    SelectTimeDate(),
+  ];
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _currentIndex = widget.index;
+    subIndex = widget.subIndex;
+    print("_currentIndex $_currentIndex, subIndex $subIndex ");
+    if(_currentIndex == 0){
+        if(subIndex == 1){
+          page = 3;
+        }else if(subIndex == 2){
+          page = 4;
+        } else if(subIndex == 3) {
+          page = 5;
+        }else if(subIndex == 4){
+          page = 10;
+        }else{
+            page = _currentIndex;
+        }
+    }
+    else if(_currentIndex == 1 ){
+        if(subIndex == 1){
+          page = 6;
+        }else{
+          page = _currentIndex;
+        }
+    }else if(_currentIndex == 2 ){
+        if(subIndex ==1){
+          page = 7;
+        }else if(subIndex == 2) {
+          page = 8;
+        }else if(subIndex == 3){
+          page = 9;
+        }else{
+          page = _currentIndex;
+        }
+    }else{
+       page = _currentIndex;
+    }
   }
 
   @override
@@ -26,43 +92,32 @@ class _BottomNavState extends State<BottomNav> {
     _pageController.dispose();
     super.dispose();
   }
-
-
+  
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       body: SizedBox.expand(
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _currentIndex = index);
-          },
-          children: <Widget>[
-            Container(color: Colors.white,),
-            Container(color: Colors.white,),
-            Container(color: Colors.white,),
-          ],
-        ),
+        child: _children[page],
       ),
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Palette.pinkBox,
-        items: const <BottomNavigationBarItem>[
+        items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image(
-              image:AssetImage('assets/violate.png'),
+              image:AssetImage('assets/artboard.png'),
               height: 30,
               width: 30,
             ),
             title: Padding(
               padding: const EdgeInsets.all(0.0),
-              child: Text('Violate',
+              child: Text(LocaleKeys.violet ,
                 style: TextStyle(
                     color: Palette.whiteText,
                     fontSize: 15,
                     fontFamily: "Poppins-Medium"
                 ),
-              ),
+              ).tr(),
             ),
             // label: 'Violate',
           ),
@@ -74,13 +129,13 @@ class _BottomNavState extends State<BottomNav> {
             ),
             title: Padding(
               padding: const EdgeInsets.all(4.0),
-              child: Text('Orders',
+              child: Text(LocaleKeys.orders,
                 style: TextStyle(
                     color: Palette.whiteText,
                     fontSize: 15,
                     fontFamily: "Poppins-Medium"
                 ),
-              ),
+              ).tr(),
             ),
             // label: 'Orders',
           ),
@@ -92,13 +147,13 @@ class _BottomNavState extends State<BottomNav> {
             ),
             title: Padding(
               padding: const EdgeInsets.all(4.0),
-              child: Text('Profile',
+              child: Text(LocaleKeys.profile,
                 style: TextStyle(
                     color: Palette.whiteText,
                     fontSize: 15,
                     fontFamily: "Poppins-Medium"
                 ),
-              ),
+              ).tr(),
             ),
             // label: 'Profile',
           ),
@@ -106,11 +161,15 @@ class _BottomNavState extends State<BottomNav> {
         currentIndex: _currentIndex,
         unselectedFontSize: 18,
         selectedFontSize: 18,
+          selectedItemColor: Palette.blurColor,
         // selectedLabelStyle: TextStyle(fontFamily: "Audrey-Normal"),
         // unselectedLabelStyle: TextStyle(fontFamily: "Audrey-Normal"),
         onTap: (index){
-          setState(() => _currentIndex = index,
-          );
+            // print("Anu $index");
+         setState(() {
+           _currentIndex = index;
+           page = index;
+         });
         },
       ),
     );
