@@ -44,7 +44,6 @@ dependencies:
   esys_flutter_share: ^1.0.2
   connectivity:
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

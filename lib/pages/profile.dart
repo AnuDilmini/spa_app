@@ -1,4 +1,5 @@
 
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -212,7 +213,8 @@ class _ProfileState extends State<Profile> {
               top: (height/896) * 529,
               left: (width/414) * 45,
               right: (width/414) * 45,
-              child:Center(
+              child: GestureDetector(
+                child: Center(
                 child: Container(
                   height: (height/896) * 79,
                   width: width,
@@ -240,6 +242,15 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
+              ),
+                onTap: () async {
+
+                  final ByteData bytes = await rootBundle.load('assets/pink_art.png');
+                  await Share.file('Spa App', 'pink_art.png',
+                    bytes.buffer.asUint8List(), 'image/png',
+                    text: 'Can book any treatment\n\nPlay store\nhttps://play.google.com/store/apps/details?id=com.wad.lovedigits');
+
+                },
               ),
             ),
             Positioned(

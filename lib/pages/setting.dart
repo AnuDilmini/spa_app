@@ -29,8 +29,6 @@ class _SettingState extends State<Setting> {
   final messageController = TextEditingController();
   bool isSearch = false;
 
-
-
   @override
   void initState() {
     super.initState();
@@ -115,7 +113,7 @@ class _SettingState extends State<Setting> {
                 ),
               ),
                 onTap: () {
-                  print("Anuuuuu*********");
+                  // print("Anuuuuu*********");
                   Navigator.push(
                       context,
                       PageTransition(

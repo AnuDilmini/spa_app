@@ -49,7 +49,6 @@ class _InfoService extends State<InfoService> {
   List<dynamic> serviceList = new List<dynamic>();
   String lngCode = "en";
 
-
   @override
   void initState() {
     super.initState();
@@ -57,7 +56,6 @@ class _InfoService extends State<InfoService> {
     checkDataSet();
 
   }
-
 
   checkDataSet() async {
     lngCode = await SharedPreferencesHelper.getLanguage();
@@ -174,7 +172,8 @@ class _InfoService extends State<InfoService> {
               top: (height/896) * 105,
               left: (width/414) *100,
               right: (width/414) *100,
-              child:  Center(
+              child:  GestureDetector(
+                child: Center(
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
@@ -197,6 +196,9 @@ class _InfoService extends State<InfoService> {
                     ),
                   ),
                 ),
+                onTap: (){
+                },
+              ),
             ),
             Positioned(
               top: (height/896) * 326,
@@ -438,6 +440,185 @@ class _InfoService extends State<InfoService> {
                     ),
                   )
                 ),
+
+            // Positioned(
+            //     top: 0,
+            //     left: 0,
+            //     right: 0,
+            //     child:
+            //     Container(
+            //        height: height,
+            //        width: width,
+            //        color:  Color.fromRGBO(113, 110, 110, 0.62),
+            //        alignment: Alignment.bottomCenter,
+            //        child:
+            //       Container(
+            //           alignment: Alignment.bottomCenter,
+            //         height: height/2,
+            //           decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+            //             color:  Color.fromRGBO(233, 226, 227, 1),
+            //           ),
+            //
+            //           child:
+            //           Column(
+            //             // mainAxisAlignment: MainAxisAlignment.end,
+            //             mainAxisSize: MainAxisSize.min,
+            //             children: [
+            //               Container(
+            //                 height: 2,
+            //                 color: Palette.pinkBox,
+            //                 margin: EdgeInsets.only(  left: (width/414) *100,
+            //                   right: (width/414) *100 ),
+            //
+            //               ),
+            //               Row(
+            //                   children: [
+            //                     Container(
+            //                       width:  (width/414) * 250,
+            //                       alignment: Alignment.centerLeft,
+            //                       child:Text("${companyDetailsData.companyDetails.name}",
+            //                         style: TextStyle(
+            //                             color: Palette.pinkBox,
+            //                             fontSize: 18
+            //                         ),
+            //                       ),
+            //                     ),
+            //
+            //                     Container(
+            //                       alignment: Alignment.centerRight,
+            //                       // width: (width/208) * 12,
+            //                       child:
+            //                       Text("${companyDetailsData.companyDetails.rating}",
+            //                         style: TextStyle(
+            //                             fontSize: 18,
+            //                             color:  Palette.pinkText,
+            //                             fontWeight: FontWeight.w600,
+            //                             fontFamily: "Audrey-Normal"
+            //                         ),
+            //                       ),
+            //                     ),
+            //                     Container(
+            //                       alignment: Alignment.centerRight,
+            //                       child:  RatingBar.builder(
+            //                         initialRating: double.parse(companyDetailsData.companyDetails.rating),
+            //                         minRating: 1,
+            //                         direction: Axis.horizontal,
+            //                         allowHalfRating: true,
+            //                         itemCount: 5,
+            //                         itemSize: width / 35,
+            //                         unratedColor: Palette.starColor,
+            //                         itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+            //                         itemBuilder: (context, _) => Icon(
+            //                           Icons.star,
+            //                           color: Colors.yellow,
+            //                         ),
+            //                         onRatingUpdate: (rating) {
+            //                           print(rating);
+            //                         },
+            //                       ),
+            //                     ),
+            //                   ]
+            //               ),
+            //               SizedBox(
+            //                 height: 25,
+            //               ),
+            //               Row(
+            //                   children: [
+            //                     Container(
+            //                       alignment: Alignment.topLeft,
+            //                       child:Text(LocaleKeys.address,
+            //                         style: TextStyle(
+            //                             color: Palette.pinkBox,
+            //                             fontSize: 17
+            //                         ),
+            //                       ).tr(),
+            //                     ),
+            //                     SizedBox(
+            //                       width: 12,
+            //                     ),
+            //                     Container(
+            //                       alignment: Alignment.topRight,
+            //                       // width: (width/208) * 12,
+            //                       child:
+            //                       Text(companyDetailsData.companyDetails.name,
+            //                         maxLines: 3,
+            //                         style: TextStyle(
+            //                           fontSize: 18,
+            //                           color:  Palette.balckColor,
+            //                           // fontFamily: "Audrey-Normal"
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   ]
+            //               ),
+            //               SizedBox(
+            //                 height: 25,
+            //               ),
+            //               Row(
+            //                   children: [
+            //                     Container(
+            //                       // alignment: Alignment.centerLeft,
+            //                       child:Text(LocaleKeys.phone,
+            //                         style: TextStyle(
+            //                             color: Palette.pinkBox,
+            //                             fontSize: 17
+            //                         ),
+            //                       ).tr(),
+            //                     ),
+            //                     SizedBox(
+            //                       width: 12,
+            //                     ),
+            //                     Container(
+            //                       alignment: Alignment.centerRight,
+            //                       // width: (width/208) * 12,
+            //                       child:
+            //                       Text(companyDetailsData.companyDetails.phone,
+            //                         style: TextStyle(
+            //                           fontSize: 18,
+            //                           color:  Palette.balckColor,
+            //                           // fontFamily: "Audrey-Normal"
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   ]
+            //               ),
+            //               SizedBox(
+            //                 height: 35,
+            //               ),
+            //               Row(
+            //                   children: [
+            //                     Container(
+            //                       // alignment: Alignment.centerLeft,
+            //                       child:Text(LocaleKeys.hours,
+            //                         style: TextStyle(
+            //                             color: Palette.pinkBox,
+            //                             fontSize: 17
+            //                         ),
+            //                       ).tr(),
+            //                     ),
+            //                     SizedBox(
+            //                       width: 12,
+            //                     ),
+            //                     Container(
+            //                       alignment: Alignment.centerRight,
+            //                       // width: (width/208) * 12,
+            //                       child:
+            //                       Text("",
+            //                         style: TextStyle(
+            //                           fontSize: 18,
+            //                           color:  Palette.balckColor,
+            //                           // fontFamily: "Audrey-Normal"
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   ]
+            //               ),
+            //             ],
+            //           )
+            //       ),
+            //     ),
+            // ),
           ]
       )
     );

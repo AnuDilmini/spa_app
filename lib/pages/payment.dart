@@ -283,7 +283,8 @@ class _PaymentState extends State<Payment> {
               top: (height/896) * 463,
               left: (width/414) *20,
               right: (width/414) *20,
-              child:  Center(
+              child:  GestureDetector(
+              child: Center(
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
@@ -301,6 +302,10 @@ class _PaymentState extends State<Payment> {
                     ),
                   ).tr(),
                 ),
+              ),
+                onTap: (){
+                  showComment(context);
+                },
               ),
             ),
             Positioned(
@@ -1419,14 +1424,14 @@ class _PaymentState extends State<Payment> {
         );
 
         int responseCode = response.statusCode;
-        print("responseCode regirtuyr $responseCode");
+        // print("responseCode regirtuyr $responseCode");
         if (responseCode == 200) {
           var convertData = json.decode(response.body);
-          print("convertData $convertData");
+          // print("convertData $convertData");
           var mobile = convertData['data']['user']['mobile'];
           var otpReg = convertData['data']['user']['otp_password'];
           var userId = convertData['data']['user_id'];
-          print("otp $otpReg");
+          // print("otp $otpReg");
           await SharedPreferencesHelper.setCustomerID(userId);
           mobileRegController.clear();
           Navigator.pop(context);
@@ -1470,11 +1475,13 @@ class _PaymentState extends State<Payment> {
           var convertData = json.decode(response.body);
           print("convertData $convertData");
           var token = convertData['token'];
+          String userId = convertData['data']['id'];
           print("token *** $token");
           _pinPutController.clear();
           FocusScope.of(context).requestFocus(new FocusNode());
           Navigator.pop(context);
           await SharedPreferencesHelper.setToken(token);
+          await SharedPreferencesHelper.setCustomerID(userId);
 
           showSnackbar(context, "Success",Colors.blue);
           // setState(() {

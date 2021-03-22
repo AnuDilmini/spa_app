@@ -786,12 +786,10 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                  children: [
                  Container(
                   margin: EdgeInsets.only( top: (height/896) *14),
-                // width: (width/208) * 40,
-                // height: (width/208) * 40,
                   child: Image.asset("assets/pink_art.png"),
                  ),
                  Center(
-              child: Container(
+                   child: Container(
           margin: EdgeInsets.only( top: (height/896) *14, left: 15, right: 15),
           child: Text(LocaleKeys.how_it_was,
           maxLines: 1,
@@ -802,10 +800,10 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
           color: Palette.pinkBox,
           ),).tr(),
           )
-          ),
+                 ),
                  Container(
-          margin: EdgeInsets.only( top: (height/896) *14),
-          child:  RatingBar.builder(
+                  margin: EdgeInsets.only( top: (height/896) *14),
+                  child:  RatingBar.builder(
           initialRating: 3,
           minRating: 1,
           direction: Axis.horizontal,
@@ -822,7 +820,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
           print(rating);
           },
           ),
-          ),
+                 ),
                  Center(
                      child: Container(
           alignment: Alignment.center,
@@ -874,104 +872,6 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
             ),
           );
         });
-
-    // showDialog(
-    //   context: context,
-    //   barrierColor: Palette.blur,
-    //   builder: (BuildContext context) {
-    //    return
-    //        Center(
-    //         child:  Container(
-    //           margin: EdgeInsets.only(left: 25, right: 25,),
-    //           height: height/2.2,
-    //           width: width,
-    //           decoration: BoxDecoration(
-    //             shape: BoxShape.rectangle,
-    //             borderRadius: BorderRadius.circular(30),
-    //             color: Palette.blurColor,
-    //           ),
-    //          child: Column(
-    //         children: [
-    //           Container(
-    //             margin: EdgeInsets.only( top: (height/896) *14),
-    //             // width: (width/208) * 40,
-    //             // height: (width/208) * 40,
-    //             child: Image.asset("assets/pink_art.png"),
-    //           ),
-    //           Center(
-    //             child: Container(
-    //              margin: EdgeInsets.only( top: (height/896) *14, left: 15, right: 15),
-    //               child: Text("How it was your reservation with violate!",
-    //                 maxLines: 1,
-    //                 style: TextStyle(
-    //                   decoration: TextDecoration.none,
-    //                   letterSpacing: 0.01,
-    //                   fontSize: 16,
-    //                   color: Palette.pinkBox,
-    //               ),),
-    //             )
-    //           ),
-    //           Container(
-    //             margin: EdgeInsets.only( top: (height/896) *14),
-    //             child:  RatingBar.builder(
-    //               initialRating: 3,
-    //               minRating: 1,
-    //               direction: Axis.horizontal,
-    //               allowHalfRating: true,
-    //               itemCount: 5,
-    //               itemSize: width / 20,
-    //               unratedColor: Palette.starColor,
-    //               itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-    //               itemBuilder: (context, _) => Icon(
-    //                 Icons.star,
-    //                 color: Colors.yellow,
-    //               ),
-    //               onRatingUpdate: (rating) {
-    //                 print(rating);
-    //               },
-    //             ),
-    //           ),
-    //           Center(
-    //               child: Container(
-    //                 alignment: Alignment.center,
-    //                 margin: EdgeInsets.only( left: 15, right: 15, top:  (height/896) *30),
-    //                 child: Text("Tell us how we can improve violate?",
-    //                   maxLines: 1,
-    //                   style: TextStyle(
-    //                     decoration: TextDecoration.none,
-    //                     letterSpacing: 0.01,
-    //                     fontSize: 18,
-    //                     color: Palette.pinkBox,
-    //                   ),),
-    //               )
-    //           ),
-    //           Center(
-    //               child: Container(
-    //                 width:width,
-    //                 height:  (height/896) *110,
-    //                 decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(20),
-    //                   color: Palette.whiteText,
-    //                 ),
-    //                 margin: EdgeInsets.only( left: 15, right: 15, top:  (height/896) *30),
-    //                 child: TextField(
-    //                   decoration: InputDecoration(
-    //                     hintText: "Write your message here..",
-    //                     hintStyle: TextStyle(
-    //                       fontSize: 18,
-    //                       color: Palette.greyText
-    //                     )
-    //                   ),
-    //                 )
-    //                 // child: TextField()
-    //               )
-    //           ),
-    //         ],
-    //        ),
-    //          ),
-    //       );
-    //   },
-    // );
   }
 
   Future<String> getCompany() async {
