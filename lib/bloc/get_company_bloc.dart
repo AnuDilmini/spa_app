@@ -7,7 +7,7 @@ class CompanyListBloc {
   final BehaviorSubject<CompanyResponse> _subject =
   BehaviorSubject<CompanyResponse>();
 
-  getCompany(String lng, String apiCall, String categoryId) async {
+  getCompany(String lng, String apiCall, List<String> categoryId) async {
     CompanyResponse response = await _repository.getCompany(lng, apiCall, categoryId);
     _subject.sink.add(response);
   }

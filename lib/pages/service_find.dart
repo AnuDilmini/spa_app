@@ -46,6 +46,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isApiCompleted = false;
   List<dynamic> companyList = new List<dynamic>();
+  List<String> selectedCatList = new List<String>();
   var dir;
   File file;
   String lngCode = "en";
@@ -81,51 +82,9 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
 
   checkDataSet() async {
     lngCode = await SharedPreferencesHelper.getLanguage();
-    companyListBloc..getCompany(lngCode, "company", "0" );
+    companyListBloc..getCompany(lngCode, "company", [] );
     categoryListBloc..getCategory(lngCode);
 
-  }
-
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    // print("_localFileHome");
-    return File('$path/json_post.json');
-  }
-
-  Future<File> writeCompanyData(var jsonData) async {
-    File file;
-    file = await _localFile;
-
-    return file.writeAsString('$jsonData');
-  }
-
-  Future<String> readCompanyData() async {
-    bool networkResults = await NetworkCheck.checkNetwork();
-    file = await _localFile;
-    var response = await file.readAsString();
-    var parsedJson = json.decode(response);
-    companyList = parsedJson['data'];
-
-    setState(() {
-      isApiCompleted = true;
-    });
-
-    if (prefs.getInt('time_post_json') != null) {
-      curTime = DateTime.now().millisecondsSinceEpoch;
-      jsonTime = prefs.getInt('time_post_json');
-      difference = curTime - jsonTime;
-      if (difference > 100000) {
-        if (networkResults) {
-          getCompany();
-        }
-      }
-    }
-    return "true";
   }
 
   @override
@@ -368,6 +327,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
 
   Widget _buildCompanyWidget(CompanyResponse data) {
     List<Company> company = data.company;
+
+    print("company ${company.length}");
     if (company.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
@@ -560,9 +521,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 height: (width / 208) * 25,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: ( clickCategoryIndex == index) ? Palette.pinkText:  Palette.greyBox
+                                    color: (selectedCatList.contains((index + 1).toString())) ? Palette.pinkText:  Palette.greyBox
                                 ),
-                                // child: Image.asset('${category[index].icon}'),
                                 child: Image.asset("assets/eyes.png"),
                               ),
                               Center(
@@ -584,16 +544,30 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                         ),
                       ),
                       onTap: () async {
+
                         clickCategoryIndex = index;
                         await SharedPreferencesHelper.setCompanyId(
                             category[index].id.toString());
-                        if(index == 0) {
-                          companyListBloc..getCompany(lngCode, "company", "0" );
-                        }else{
-                          companyListBloc..getCompany(
-                              lngCode, "companies_by_category",
-                              category[index].id.toString());
-                        }
+
+
+                          if(selectedCatList.contains(category[index].id.toString())){
+                            selectedCatList.remove(category[index].id.toString());
+
+                          }else{
+                            selectedCatList.add(category[index].id.toString());
+
+                          }
+                          if(selectedCatList.length == 0){
+                            companyListBloc..getCompany(lngCode, "company", [] );
+
+                          }else {
+                            companyListBloc
+                              ..getCompany(
+                                  lngCode, "companies_by_category",
+                                  selectedCatList);
+                          }
+
+                        // }
                          setState(() {
                            if(clickCategoryIndex == index) {
                              clickCategory = true;
@@ -874,53 +848,6 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
         });
   }
 
-  Future<String> getCompany() async {
-
-    prefs = await SharedPreferences.getInstance();
-    String url = Repository.company;
-    bool networkResults = await NetworkCheck.checkNetwork();
-
-    if (networkResults) {
-      final response = await http.get(
-        Uri.encodeFull(url),
-        headers: {
-          "Accept": "application/json",
-          "Accept-Language": "${context.locale}",
-        },
-
-      );
-
-      int responseCode = response.statusCode;
-      print("response code $responseCode");
-
-      if (responseCode == 200) {
-        writeCompanyData(response.body);
-        var convertData = json.decode(response.body);
-        companyList = convertData['data'];
-
-
-        prefs.setInt('time_post_json', DateTime.now().millisecondsSinceEpoch);
-        setState(() {
-          isApiCompleted = true;
-        });
-
-      } else if (responseCode == 404) {
-        showSnackbar(context, "Data Not Found !");
-      } else if (responseCode == 500) {
-        showSnackbar(context, "server Error");
-      } else {
-        setState(() {
-          showSnackbar(context, "Error while fetching data");
-
-        });
-      }
-      return "sucess";
-    } else {
-      // print("print ---> No Internet !!");
-      showSnackbar(context, "No Internet!");
-    }
-    return "success";
-  }
 
   showSnackbar(BuildContext context, String msg) {
     final snackBar = SnackBar(

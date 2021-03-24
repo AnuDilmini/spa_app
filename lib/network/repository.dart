@@ -8,15 +8,12 @@ import 'package:flutter_app/model/companyDetails.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/model/companyService_response.dart';
 import 'package:flutter_app/model/company_response.dart';
-import 'package:flutter_app/model/login.dart';
-import 'package:flutter_app/network/api_base_helper.dart';
 import 'package:dio/dio.dart';
 import 'api_exceptions.dart';
 
 class Repository {
 
   final Dio _dio = Dio();
-  ApiBaseHelper helper = ApiBaseHelper();
   static String  baseUrl = "https://spa.ammarahmad.net/api/v1";
 
   //POST
@@ -24,6 +21,7 @@ class Repository {
   static String registerNewCustomer = baseUrl+"/register_new_customer";
   static String verifyOtpGetToken = baseUrl+"/verify_otp_get_token";
   static String serviceCategoryAdd = baseUrl+"/service_category";
+  static String companiesByCategory = baseUrl+"/companies-by-category";
 
   //GET
   static String serviceCategory = baseUrl+"/service_category";
@@ -31,16 +29,7 @@ class Repository {
   static String company = baseUrl+"/company";
   static String companyDetails = baseUrl+"/company/";
   static String category = baseUrl+"/category";
-  static String companiesByCategory = baseUrl+"/companies_by_category/";
 
-  Future<User> fetchLogin() async {
-    final response = await helper.get(
-        baseUrl + "/login",
-        params: {
-          'mobile': '+94765956264',
-        });
-    return User.fromJson(response);
-  }
 
   dynamic _returnResponse(Response response) {
     switch (response.statusCode) {
@@ -60,29 +49,64 @@ class Repository {
     }
   }
 
-  Future<CompanyResponse> getCompany(String language, String apiCall, String categoryId) async {
+  Future<CompanyResponse> getCompany(String language, String apiCall, List<String> categoryId) async {
     Options options = Options(headers: {"Accept-Language": language});
-    var params = {'lang': language,};
+
+    print("categoryId ************* $categoryId");
+
     String url = company;
 
     if(apiCall == "company"){
 
       url = company;
+      var params  = {'lang': language,};
+
+      try {
+        Response response = await _dio.get(url, queryParameters: params,
+            options: options);
+
+        var responseOriginal = _returnResponse(response);
+        return CompanyResponse.fromJson(responseOriginal.data);
+      }  on SocketException {
+        throw CompanyResponse.withError('No Internet connection');
+      }
     }else if(apiCall == "companies_by_category"){
-      url = companiesByCategory+categoryId;
+      print("categoryId ************* companies_by_category ");
+      url = companiesByCategory;
+
+      var params =  {'category_ids': categoryId};
+
+      try {
+        Response response = await _dio.post(url, data: params,
+            options: options);
+        if (response.statusCode == 200) {
+          final item = response.data['data'];
+          return CompanyResponse.fromJson(response.data);
+        } else {
+          throw  FetchDataException(response.data.toString());
+        }
+
+      }  on SocketException {
+        throw CompanyResponse.withError('No Internet connection');
+      }
+
     } else{
       url = company;
+      var params  = {'lang': language};
+
+      try {
+        Response response = await _dio.get(url, queryParameters: params,
+            options: options);
+
+        var responseOriginal = _returnResponse(response);
+        return CompanyResponse.fromJson(responseOriginal.data);
+      }  on SocketException {
+        throw CompanyResponse.withError('No Internet connection');
+      }
+
     }
 
-    try {
-      Response response = await _dio.get(url, queryParameters: params,
-          options: options);
 
-      var responseOriginal = _returnResponse(response);
-      return CompanyResponse.fromJson(responseOriginal.data);
-    }  on SocketException {
-      throw CompanyResponse.withError('No Internet connection');
-    }
   }
 
   Future<CompanyDetails> getCompanyDetails(String language, String companyId) async {
