@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/bloc/login_bloc.dart';
 import 'package:flutter_app/enums/connectivity_status.dart';
 import 'package:flutter_app/network/repository.dart';
 import 'package:flutter_app/network/shared.dart';
@@ -18,7 +17,6 @@ import 'package:flutter_app/utils/validator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_app/network/api_base_helper.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -45,12 +43,10 @@ class _PaymentState extends State<Payment> {
   var connectionStatus;
   String pin ;
   bool pinCorrect = false;
-  ApiBaseHelper _helper = ApiBaseHelper();
   final mobileController = TextEditingController();
   final mobileRegController = TextEditingController();
   bool isCompleteApi = false;
 
-  UserLoginBloc userLoginBloc;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
