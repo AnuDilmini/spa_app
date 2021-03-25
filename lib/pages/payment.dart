@@ -1365,7 +1365,7 @@ class _PaymentState extends State<Payment> {
     if (networkResults ) {
       try {
         response = await http.post(
-            Uri.encodeFull(Repository.login),
+            Uri.parse(Repository.login),
             headers: {"Accept": "application/json"},
             body: {
               "mobile": mobileController.text
@@ -1413,7 +1413,7 @@ class _PaymentState extends State<Payment> {
     if (networkResults) {
       try {
         response = await http.post(
-            Uri.encodeFull(url),
+            Uri.parse(url),
             body: {
               "mobile": mobileRegController.text
             }
@@ -1458,7 +1458,7 @@ class _PaymentState extends State<Payment> {
     if (networkResults) {
       try {
         response = await http.post(
-            Uri.encodeFull(url),
+            Uri.parse(url),
             body: {
               "mobile": mobileNo,
               "otp": otp

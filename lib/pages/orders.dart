@@ -1,4 +1,4 @@
-import 'package:delayed_display/delayed_display.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -148,9 +148,7 @@ class _Orders extends State<Orders> {
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60)),
                     color:  Color(0xFFE9E2E3),
                   ),
-                  child:DelayedDisplay(
-                    delay: Duration(seconds: 1),
-                    child: ListView(
+                  child: ListView(
                     children: [
                       Column(
                     children: [
@@ -219,7 +217,7 @@ class _Orders extends State<Orders> {
                   ),
                     ]
               ),
-                  ),
+
             ),
                onTap: (){
                    setState(() {
