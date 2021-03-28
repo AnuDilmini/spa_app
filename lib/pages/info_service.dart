@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -524,11 +524,13 @@ class _InfoService extends State<InfoService> {
                                         borderRadius: BorderRadius.circular(8),
                                         shape: BoxShape.rectangle,
                                       ),//serviceList[index]["image"]
-                                      child:  selectedService[index].image != null ? CachedNetworkImage(
-                                        imageUrl: selectedService[index].image,
-                                        placeholder: (context, url) => CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) => Icon(Icons.error),
-                                      ):
+                                      child:  selectedService[index].image != null ?
+                                          Image.asset(selectedService[index].image):
+                                      // CachedNetworkImage(
+                                      //   imageUrl: selectedService[index].image,
+                                      //   placeholder: (context, url) => CircularProgressIndicator(),
+                                      //   errorWidget: (context, url, error) => Icon(Icons.error),
+                                      // ):
                                       Image.asset("assets/background.png")
                                   ),
                                 ),
@@ -597,6 +599,8 @@ class _InfoService extends State<InfoService> {
                                 }
                             ),
                         ),
+                         GestureDetector(
+                           child:
                          Container(
                            decoration: BoxDecoration(
                              borderRadius: BorderRadius.all( Radius.circular(20)),
@@ -609,8 +613,18 @@ class _InfoService extends State<InfoService> {
                            style: TextStyle(
                              fontSize: 23,
                              color: Palette.pinkBox
-
                            ),).tr()
+                         ),
+                           onTap: (){
+                             if(selectedService.isNotEmpty){
+                               Navigator.push(
+                                   context,
+                                   PageTransition(
+                                     type: PageTransitionType.fade,
+                                     child:  BottomNav(index: 0, subIndex: 4),
+                                   ));
+                             }
+                           },
                          ),
                       ]
                         )
@@ -686,11 +700,13 @@ class _InfoService extends State<InfoService> {
                                 borderRadius: BorderRadius.circular(8),
                                 shape: BoxShape.rectangle,
                               ),//serviceList[index]["image"]
-                              child:  companyServices[index].image != null ? CachedNetworkImage(
-                                imageUrl: companyServices[index].image,
-                                placeholder: (context, url) => CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => Icon(Icons.error),
-                              ):
+                              child:  companyServices[index].image != null ?
+                              Image.asset(companyServices[index].image):
+                              // CachedNetworkImage(
+                              //   imageUrl: companyServices[index].image,
+                              //   placeholder: (context, url) => CircularProgressIndicator(),
+                              //   errorWidget: (context, url, error) => Icon(Icons.error),
+                              // ):
                               Image.asset("assets/background.png")
                           ),
                         ),
@@ -810,11 +826,13 @@ class _InfoService extends State<InfoService> {
                   borderRadius: BorderRadius.circular(8),
                   shape: BoxShape.rectangle,
               ),
-                child:  serviceList[index]["image"] != null ? CachedNetworkImage(
-                imageUrl: serviceList[index]["image"],
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-            ):
+                child:  serviceList[index]["image"] != null ?
+                Image.asset(serviceList[index]["image"]):
+            //     CachedNetworkImage(
+            //     imageUrl: serviceList[index]["image"],
+            //     placeholder: (context, url) => CircularProgressIndicator(),
+            //     errorWidget: (context, url, error) => Icon(Icons.error),
+            // ):
                     Image.asset("assets/ipay.png")
           ),
           ),

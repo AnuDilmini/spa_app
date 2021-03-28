@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                 child:  Container(
               width: (width/208) *75,
               height:  (width/208) * 75,
-              decoration: BoxDecoration(
+                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                 color: Palette.pinkBox,
               ),
@@ -145,12 +145,14 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Positioned(
                         top:  (width/208) * 55,
-                        width:  (width/208) *75,
+                        width:  (width/208) *71,
                         child: Center(
                           child: Text(
                             LocaleKeys.reservation,
+                              textAlign : TextAlign.center,
+                            maxLines: 1,
                             style: TextStyle(
-                                fontSize: 26,
+                                fontSize: 22,
                                 // letterSpacing: 0.01,
                                 color: Palette.whiteText,
                                 fontFamily: "Audrey-Medium"
@@ -197,12 +199,14 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Positioned(
                             top:  (width/208) * 55,
-                            width:  (width/208) *75,
+                            width:  (width/208) *71,
                             child: Center(
                               child: Text(
                                   LocaleKeys.home_service,
+                                  maxLines: 1,
+                                  textAlign : TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 26,
+                                      fontSize: 22,
                                       // letterSpacing: 0.01,
                                       color: Palette.whiteText,
                                       fontFamily: "Audrey-Medium"

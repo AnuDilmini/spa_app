@@ -15,6 +15,7 @@ class Repository {
 
   final Dio _dio = Dio();
   static String  baseUrl = "https://spa.ammarahmad.net/api/v1";
+  static String  iconUrl = "https://spa.ammarahmad.net/storage/app/";
 
   //POST
   static String login = baseUrl+"/login";
