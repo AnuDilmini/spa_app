@@ -82,4 +82,15 @@ class SharedPreferencesHelper {
     List<String>  selectedCategoryList = prefs.getStringList('selectedCategoryList');
     return selectedCategoryList;
   }
+
+  static setSelectedService(String selectedService) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedService', selectedService);
+  }
+
+  static Future<String> getSelectedService() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String selectedCategoryList = prefs.getString('selectedService');
+    return selectedCategoryList;
+  }
 }

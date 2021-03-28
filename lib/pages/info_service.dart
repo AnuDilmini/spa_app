@@ -650,7 +650,7 @@ class _InfoService extends State<InfoService> {
                              ],
                            )
                             ),
-                         GestureDetector(
+                         selectedService.isNotEmpty ? GestureDetector(
                            child:
                          Container(
                            decoration: BoxDecoration(
@@ -666,8 +666,10 @@ class _InfoService extends State<InfoService> {
                              color: Palette.pinkBox
                            ),).tr()
                          ),
-                           onTap: (){
+                           onTap: () async{
                              if(selectedService.isNotEmpty){
+                               // String serviceList = jsonEncode(selectedService);
+                               // await SharedPreferencesHelper.setSelectedService(serviceList);
                                Navigator.push(
                                    context,
                                    PageTransition(
@@ -676,7 +678,8 @@ class _InfoService extends State<InfoService> {
                                    ));
                              }
                            },
-                         ),
+                         ):
+                         Container(),
                       ]
                         )
                       ),
