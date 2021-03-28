@@ -333,6 +333,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
         width : width,
         height:(height/2),
         child: ListView.builder(
+            padding: EdgeInsets.zero,
             scrollDirection: Axis.vertical,
             itemCount:company.length,
             itemBuilder: (BuildContext context, int index) {
@@ -498,15 +499,15 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                   GestureDetector(
                       child: Container(
                         padding: EdgeInsets.only(
-                            left: index == 0 ? (width / 208) * 8 : 0),
+                            left: index == 0 ? (width / 208) * 1 : 0),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
                                 margin: EdgeInsets.only(
-                                    right: (width / 208) * 5),
-                                width: (width / 208) * 25,
-                                height: (width / 208) * 25,
+                                    right: (width / 208) * 0),
+                                width: (width / 208) * 30,
+                                height: (width / 208) * 30,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: (selectedCatList.contains((index + 1).toString())) ? Palette.pinkText:  Palette.greyBox
@@ -520,8 +521,9 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               ),
                               Center(
                                 child: Container(
-                                  width: (width / 208) * 25,
+                                  width: (width / 208) * 35,
                                   alignment: Alignment.center,
+                                  padding: EdgeInsets.only(left: 0),
                                   margin: EdgeInsets.only(top: 7),
                                   child: Text("${category[index].name}",
                                     textAlign: TextAlign.center,
