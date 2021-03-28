@@ -500,105 +500,156 @@ class _InfoService extends State<InfoService> {
                           )
                           ],
                           ),
-                          ): ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount: selectedService.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final item = selectedService[index].id;
-                                    return Dismissible(
-                                      direction: DismissDirection.startToEnd,
-                                        key: Key(item),
-                                        child:  Container(
-                            height: (height/896) * 57,
-                            width: width - (width/414) * 60,
-                            padding: EdgeInsets.only(bottom: (height/896) * 6),
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: (height/896) * 4,
-                                  left: (width/414) * 1,
-                                  child: Container(
-                                      height: (height/896) * 49,
-                                      width:(width/414) * 60,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        shape: BoxShape.rectangle,
-                                      ),//serviceList[index]["image"]
-                                      child:  selectedService[index].image != null ?
-                                          Image.asset(selectedService[index].image):
-                                      // CachedNetworkImage(
-                                      //   imageUrl: selectedService[index].image,
-                                      //   placeholder: (context, url) => CircularProgressIndicator(),
-                                      //   errorWidget: (context, url, error) => Icon(Icons.error),
-                                      // ):
-                                      Image.asset("assets/background.png")
-                                  ),
-                                ),
-                                Positioned(
-                                    top: (height/896) * 10,
-                                    left: (width/414) * 75,
-                                    width: (width/414) * 230,
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text: '${selectedService[index].name}\n',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Palette.pinkBox),
-                                        children: <TextSpan>[
-                                          TextSpan(text: '${selectedService[index].duration_min} min - ${selectedService[index].price} SR',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Palette.labelColor),),
-                                        ],
-                                      ),
-                                    )
-                                ),
-                                Positioned(
-                                  top: (height/896) * 20,
-                                  left: (width/414) *  320,
-                                  child: GestureDetector(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: Palette.pinkBox,
-                                      ),
-                                      height: (height/896) * 26,
-                                      width: (height/896) * 26,
-                                      child: Center(
-                                          child: Icon(Icons.close,
-                                            color: Palette.boxWhite,
-                                            size: 23,)
-                                      ),
-                                    ),
-                                    onTap: (){
+                          ):
+                           Column(
+                             children: [
+                               Container(
+                               height: (height/816) * 220,
+                             child:
+                              ListView.builder(
+                           scrollDirection: Axis.vertical,
+                             itemCount: selectedService.length,
+                             itemBuilder: (BuildContext context, int index) {
+                               final item = selectedService[index].id;
+                               return Dismissible(
+                                 direction: DismissDirection.startToEnd,
+                                 key: Key(item),
+                                 child:  Container(
+                                   height: (height/896) * 57,
+                                   width: width - (width/414) * 60,
+                                   padding: EdgeInsets.only(bottom: (height/896) * 6),
+                                   child: Stack(
+                                     children: [
+                                       Positioned(
+                                         top: (height/896) * 4,
+                                         left: (width/414) * 1,
+                                         child: Container(
+                                             height: (height/896) * 49,
+                                             width:(width/414) * 60,
+                                             decoration: BoxDecoration(
+                                               borderRadius: BorderRadius.circular(8),
+                                               shape: BoxShape.rectangle,
+                                             ),//serviceList[index]["image"]
+                                             child:  selectedService[index].image != null ?
+                                             Image.asset(selectedService[index].image):
+                                             // CachedNetworkImage(
+                                             //   imageUrl: selectedService[index].image,
+                                             //   placeholder: (context, url) => CircularProgressIndicator(),
+                                             //   errorWidget: (context, url, error) => Icon(Icons.error),
+                                             // ):
+                                             Image.asset("assets/background.png")
+                                         ),
+                                       ),
+                                       Positioned(
+                                           top: (height/896) * 10,
+                                           left: (width/414) * 75,
+                                           width: (width/414) * 230,
+                                           child: RichText(
+                                             text: TextSpan(
+                                               text: '${selectedService[index].name}\n',
+                                               style: TextStyle(
+                                                   fontSize: 18,
+                                                   color: Palette.pinkBox),
+                                               children: <TextSpan>[
+                                                 TextSpan(text: '${selectedService[index].duration_min} min - ${selectedService[index].price} SR',
+                                                   style: TextStyle(
+                                                       fontSize: 14,
+                                                       color: Palette.labelColor),),
+                                               ],
+                                             ),
+                                           )
+                                       ),
+                                       Positioned(
+                                         top: (height/896) * 20,
+                                         left: (width/414) *  320,
+                                         child: GestureDetector(
+                                           child: Container(
+                                             decoration: BoxDecoration(
+                                               borderRadius: BorderRadius.circular(8),
+                                               color: Palette.pinkBox,
+                                             ),
+                                             height: (height/896) * 26,
+                                             width: (height/896) * 26,
+                                             child: Center(
+                                                 child: Icon(Icons.close,
+                                                   color: Palette.boxWhite,
+                                                   size: 23,)
+                                             ),
+                                           ),
+                                           onTap: (){
 
-                                      selectedService.removeAt(index);
+                                             selectedService.removeAt(index);
 
 
-                                      setState(() {
-                                      });
+                                             setState(() {
+                                             });
 
-                                    },
-                                  ),
-                                )
-                              ],
+                                           },
+                                         ),
+                                       )
+                                     ],
+                                   ),
+                                 ),
+                                 onDismissed: (direction) {
+                                   // Remove the item from the data source.
+                                   setState(() {
+                                     selectedService.removeAt(index);
+                                   });
+
+                                   // Then show a snackbar.
+                                   // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$item dismissed")));
+                                 },
+                                 background: Container(color: Palette.pinkBox),
+                               );
+
+                             }
+                           ),
+                               ),
+                               Container(
+                                 height: (height/816) * 50,
+                                 // color: Colors.red,
+                                 child: Row(
+                                   children:[
+                                     Expanded(
+                                       flex:1,
+                                         child:
+
+                                     Align(
+                                       alignment: Alignment.centerLeft,
+                                       child: Padding(
+                                           padding:  EdgeInsets.only(left: (width/414) * 15 ),
+                                           child: Text("Total",
+                                       style: TextStyle(
+                                         color: Palette.pinkBox,
+                                         fontSize: 20.0,
+                                         fontWeight: FontWeight.bold
+                                       ),)
+                                     )
+                                     ),
+                                     ),
+                                   Expanded(
+                                       flex:1,
+                                       child:
+                                     Align(
+                                         alignment: Alignment.centerRight,
+                                         child: Padding(
+                                             padding:  EdgeInsets.only(right: (width/414) * 30 ),
+                                             child: Text('${totalPriceSum()} SAR',
+                                               style: TextStyle(
+                                                   color: Palette.pinkBox,
+                                                   fontSize: 20.0,
+                                                   fontWeight: FontWeight.w400
+                                               ),)
+                                         )
+                                     ),
+                                   ),
+
+                                  ]
+                                 )
+                               )
+                             ],
+                           )
                             ),
-                          ),
-                                        onDismissed: (direction) {
-                                        // Remove the item from the data source.
-                                          setState(() {
-                                            selectedService.removeAt(index);
-                                          });
-
-                                        // Then show a snackbar.
-                                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$item dismissed")));
-                                      },
-                                      background: Container(color: Palette.pinkBox),
-                                );
-
-                                }
-                            ),
-                        ),
                          GestureDetector(
                            child:
                          Container(
@@ -650,6 +701,15 @@ class _InfoService extends State<InfoService> {
               ),
           );
         });
+  }
+
+  double totalPriceSum() {
+    double total = 0.0;
+     for(int i = 0; i < selectedService.length ; i++){
+       total = total + double.parse(selectedService[i].price);
+           print("total $total");
+     }
+     return total;
   }
 
   Widget _buildServiceWidget(CompanyServiceResponse data) {
