@@ -3,6 +3,7 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/notifiers/dark_theme_provider.dart';
 import 'package:violet_app/pages/update_profile.dart';
@@ -135,7 +136,8 @@ class _ProfileState extends State<Profile> {
               top: (height/896) * 345,
               left: (width/414) * 45,
               right: (width/414) * 45,
-              child:Center(
+              child: GestureDetector(
+                child: Center(
                 child: Container(
                     height: (height/896) * 79,
                     width: width,
@@ -163,6 +165,10 @@ class _ProfileState extends State<Profile> {
                           ),
                     ),
                 ),
+              ),
+                onTap: () {
+                  launch(_emailLaunchUri.toString());
+                },
               ),
             ),
             Positioned(
@@ -352,4 +358,12 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
+
+   Uri _emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'violetapp@gmail.com',
+      queryParameters: {
+        'subject': 'Contact Us!'
+      }
+  );
 }

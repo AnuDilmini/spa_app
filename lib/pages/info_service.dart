@@ -460,6 +460,7 @@ class _InfoService extends State<InfoService> {
   void slideSheet() {
     showModalBottomSheet(
         context: context,
+        backgroundColor: Colors.transparent,
         builder: (context) {
           return Container(
             color:  Color.fromRGBO(113, 110, 110, 0.62),
@@ -507,7 +508,8 @@ class _InfoService extends State<InfoService> {
                                height: (height/816) * 220,
                              child:
                               ListView.builder(
-                           scrollDirection: Axis.vertical,
+                                  padding: EdgeInsets.zero,
+                             scrollDirection: Axis.vertical,
                              itemCount: selectedService.length,
                              itemBuilder: (BuildContext context, int index) {
                                final item = selectedService[index].id;

@@ -114,6 +114,7 @@ class _Orders extends State<Orders> {
 
                             setState(() {
                               clickOrder = true;
+                              slideSheet();
                               selectOrder = index;
                             });
 
@@ -132,25 +133,126 @@ class _Orders extends State<Orders> {
               ),
             ),
 
-            Positioned(
-              top: (height/896) * 420,
-              left: (width/414) * 0,
-              width: width,
-              child:
-              clickOrder?
+            // Positioned(
+            //   top: (height/896) * 420,
+            //   left: (width/414) * 0,
+            //   width: width,
+            //   child:
+            //   clickOrder?
+            //
+            //  GestureDetector(
+            //      child: Container(
+            //       padding: EdgeInsets.only(top: (height/896)*25 ),
+            //       height: height,
+            //       width: width,
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60)),
+            //         color:  Color(0xFFE9E2E3),
+            //       ),
+            //       child: ListView(
+            //         children: [
+            //           Column(
+            //         children: [
+            //           Text("FOUR SPA",
+            //             style: TextStyle(
+            //               color: Palette.darkPink,
+            //               fontSize: 25,
+            //               fontWeight: FontWeight.normal,
+            //               fontFamily: "Audrey-Normal",
+            //             ),),
+            //           SizedBox(
+            //             height: 35,
+            //           ),
+            //           Text("19 January. 1:12",
+            //             style: TextStyle(
+            //               color: Palette.darkPink,
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.bold,
+            //               fontFamily: "Audrey-Normal",
+            //             ),),
+            //           SizedBox(
+            //             height: 15,
+            //           ),
+            //           Text("HAIR CUT",
+            //             style: TextStyle(
+            //               color: Palette.darkPink,
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.bold,
+            //               fontFamily: "Audrey-Normal",
+            //             ),),
+            //           SizedBox(
+            //             height: 12,
+            //           ),
+            //           Text("100 SAR",
+            //             style: TextStyle(
+            //               color: Palette.darkPink,
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.bold,
+            //               fontFamily: "Audrey-Normal",
+            //             ),),
+            //           SizedBox(
+            //             height: 12,
+            //           ),
+            //           Text("HAIR CUT",
+            //             style: TextStyle(
+            //               color: Palette.darkPink,
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.bold,
+            //               fontFamily: "Audrey-Normal",
+            //             ),),
+            //           SizedBox(
+            //             height: 12,
+            //           ),
+            //           Text("500 SAR",
+            //             style: TextStyle(
+            //               color: Palette.darkPink,
+            //               fontSize: 20,
+            //               fontWeight: FontWeight.bold,
+            //               fontFamily: "Audrey-Normal",
+            //             ),),
+            //           SizedBox(
+            //             height: 15,
+            //           ),
+            //           Image.asset("assets/store.png")
+            //         ],
+            //       ),
+            //         ]
+            //   ),
+            //
+            // ),
+            //    onTap: (){
+            //        setState(() {
+            //          slideSheet();
+            //
+            //          clickOrder = !clickOrder;
+            //        });
+            //    },
+            //  ):
+            //    Container(),
+            // ),
+          ]
+      ),
+    );
+  }
 
-             GestureDetector(
-                 child: Container(
-                  padding: EdgeInsets.only(top: (height/896)*25 ),
-                  height: height,
-                  width: width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60)),
-                    color:  Color(0xFFE9E2E3),
-                  ),
-                  child: ListView(
-                    children: [
-                      Column(
+  void slideSheet() {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return GestureDetector(
+            child:
+           Container(
+            padding: EdgeInsets.only(top: (height/896)*25 ),
+            height: height,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60)),
+              color:  Color(0xFFE9E2E3),
+            ),
+            child: ListView(
+                children: [
+                  Column(
                     children: [
                       Text("FOUR SPA",
                         style: TextStyle(
@@ -215,21 +317,19 @@ class _Orders extends State<Orders> {
                       Image.asset("assets/store.png")
                     ],
                   ),
-                    ]
-              ),
-
+                ]
             ),
-               onTap: (){
-                   setState(() {
-                     clickOrder = !clickOrder;
-                   });
-               },
-             ):
-               Container(),
-            ),
-          ]
-      ),
-    );
+           ),
+            onTap: (){
+              Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.fade,
+                    child:  BottomNav(index: 0, subIndex: 2),
+                  ));
+            },
+          );
+        });
   }
 
   listItem(int index){

@@ -153,7 +153,7 @@ class _UpdateState extends State<UpdateProfile> {
                      Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
-                       height: (height/896) * 41,
+                       height: (height/896) * 44,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(20)),
                          color: Palette.whiteText,
@@ -172,31 +172,31 @@ class _UpdateState extends State<UpdateProfile> {
                        ),
                        ),
                      ),
+                     // Container(
+                     //   margin: EdgeInsets.only(bottom: (height/896) * 20),
+                     //   padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
+                     //   height: (height/896) * 41,
+                     //   decoration: BoxDecoration(
+                     //     borderRadius: BorderRadius.all(Radius.circular(20)),
+                     //     color: Palette.whiteText,
+                     //   ),
+                     //   child:Center(
+                     //     child: TextFormField(
+                     //         decoration: InputDecoration(
+                     //             border: InputBorder.none,
+                     //             hintText: LocaleKeys.password.tr(),
+                     //             hintStyle: TextStyle(
+                     //               fontSize: 15,
+                     //               color: Palette.labelColor,
+                     //             )
+                     //         )
+                     //     ),
+                     //   ),
+                     // ),
                      Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
-                       height: (height/896) * 41,
-                       decoration: BoxDecoration(
-                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                         color: Palette.whiteText,
-                       ),
-                       child:Center(
-                         child: TextFormField(
-                             decoration: InputDecoration(
-                                 border: InputBorder.none,
-                                 hintText: LocaleKeys.password.tr(),
-                                 hintStyle: TextStyle(
-                                   fontSize: 15,
-                                   color: Palette.labelColor,
-                                 )
-                             )
-                         ),
-                       ),
-                     ),
-                     Container(
-                       margin: EdgeInsets.only(bottom: (height/896) * 20),
-                       padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
-                       height: (height/896) * 41,
+                       height: (height/896) * 44,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(20)),
                          color: Palette.whiteText,
@@ -217,7 +217,7 @@ class _UpdateState extends State<UpdateProfile> {
                      Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
-                       height: (height/896) * 41,
+                       height: (height/896) * 44,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(20)),
                          color: Palette.whiteText,
@@ -238,7 +238,7 @@ class _UpdateState extends State<UpdateProfile> {
                      Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
-                       height: (height/896) * 41,
+                       height: (height/896) * 44,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(20)),
                          color: Palette.whiteText,
@@ -259,7 +259,7 @@ class _UpdateState extends State<UpdateProfile> {
                      Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
-                       height: (height/896) * 41,
+                       height: (height/896) * 44,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(20)),
                          color: Palette.whiteText,
@@ -267,7 +267,7 @@ class _UpdateState extends State<UpdateProfile> {
                        child:Center(
                          child: TextFormField(
                              decoration: InputDecoration(
-                                 hintText: LocaleKeys.address.tr(),
+                                 hintText: LocaleKeys.district.tr(),
                                  border: InputBorder.none,
                                  hintStyle: TextStyle(
                                    fontSize: 15,
@@ -280,7 +280,7 @@ class _UpdateState extends State<UpdateProfile> {
                      Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
-                       height: (height/896) * 41,
+                       height: (height/896) * 44,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(20)),
                          color: Palette.whiteText,

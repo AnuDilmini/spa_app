@@ -104,5 +104,6 @@ abstract class  LocaleKeys {
   static const enter_pass = "enter_pass";
   static const renter_your = "renter_your";
   static const ok = "ok";
+  static const district = "district";
 
 }

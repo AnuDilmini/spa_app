@@ -87,8 +87,13 @@ class _PaymentState extends State<Payment> {
 
     return Scaffold(
        key: _scaffoldKey,
-        body: Stack(
+
+        body: SingleChildScrollView(
+        child: Stack(
           children: [
+            Container(
+              height: height* 1.3,
+            ),
             Positioned(
               top: (height/896) * 2,
               width: width,
@@ -116,6 +121,7 @@ class _PaymentState extends State<Payment> {
                 onTap: (){
 
                   FocusScope.of(context).requestFocus(new FocusNode());
+                  Navigator.pop(context);
 
                 },
               ),
@@ -159,7 +165,7 @@ class _PaymentState extends State<Payment> {
                     borderRadius: BorderRadius.circular(20),
                     color: Color.fromRGBO(231, 223, 225, 0.81),
                   ),
-                  height: (height/896) * 237,
+                  height: (height/896) * 240,
                   width: width,
                   child:Column(
                     children: [
@@ -170,7 +176,7 @@ class _PaymentState extends State<Payment> {
                             bottom: BorderSide(width: 2, color: Palette.pinkBox ),
                           ),
                         ),
-                        height: (height/896) * 115,
+                        height: (height/896) * 125,
                         child:ListView.builder(
                             scrollDirection: Axis.vertical,
                             itemCount:20,
@@ -246,24 +252,24 @@ class _PaymentState extends State<Payment> {
                         ),
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 5),
+                        alignment: Alignment.bottomLeft,
+                        padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) *5),
                         child:   RichText(
                           text: TextSpan(
                             text: '* (Include',
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Palette.textGrey),
                             children: <TextSpan>[
                               TextSpan(text: ' VAT',
                                 style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.bold,
                                     color: Palette.textGrey),),
                               TextSpan(text: ' 15.0 %)',
                                 style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Palette.textGrey),),
                             ],
@@ -276,7 +282,7 @@ class _PaymentState extends State<Payment> {
               ),
             ),
             Positioned(
-              top: (height/896) * 463,
+              top: (height/896) * 466,
               left: (width/414) *20,
               right: (width/414) *20,
               child:  GestureDetector(
@@ -287,12 +293,12 @@ class _PaymentState extends State<Payment> {
                     borderRadius: BorderRadius.circular(15),
                     color: Color.fromRGBO(231, 223, 225, 0.81),
                   ),
-                  height: (height/896) * 69,
+                  height: (height/896) * 65,
                   width: width,
                   child: Text(
                     LocaleKeys.add_comment,
                     style: TextStyle(
-                        fontSize: 23,
+                        fontSize: 22,
                         fontWeight: FontWeight.w400,
                         color: Palette.pinkBox
                     ),
@@ -430,6 +436,7 @@ class _PaymentState extends State<Payment> {
             ),
     ]
       ),
+        ),
     );
   }
 

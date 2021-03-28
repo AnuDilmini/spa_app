@@ -41,11 +41,13 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
   AlertDialog alert;
   bool clickCategory = false;
   final messageController = TextEditingController();
+  final searchController = TextEditingController();
   bool isSearch = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isApiCompleted = false;
   List<dynamic> companyList = new List<dynamic>();
   List<String> selectedCatList = new List<String>();
+  List<Category> category =  new List<Category>();
   var dir;
   File file;
   String lngCode = "en";
@@ -176,9 +178,27 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                             width: (width/208) * 120,
                             child:
                             TextFormField(
+                              controller : searchController,
+                              cursorColor: Palette.pinkBox,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
+                                hintText: "Type category",
+                                hintStyle: TextStyle(
+                                  color: Colors.black12
+                                )
                               ),
+                              onChanged: (content) {
+                                if(searchController.text.length > 2){
+                                  print("searchController.text12 ${searchController.text}");
+                                  searchCategory();
+
+                                }else{
+                                  selectedCatList.clear();
+                                  setState(() {
+
+                                  });
+                                }
+                              },
                             ),
                           ),
                           Container(
@@ -228,7 +248,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                 ).tr(),
               ),
               Positioned(
-                  top: (height/449) * 125,
+                  top: (height/449) * 120,
                   left:  0,
                   child: Container(
                       width: width,
@@ -276,6 +296,39 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
             ]
         )
     );
+  }
+
+  void searchCategory(){
+    print("Anu123");
+    if(category.isNotEmpty){
+      print("category fdgd");
+      for(int i = 0; i< category.length; i++){
+        print("${category[i].name}");
+        if(category[i].name.toLowerCase().contains(searchController.text.toLowerCase())){
+          print("true***********");
+          print("category[i].id ${category[i].id}");
+          selectedCatList.clear();
+          selectedCatList.add(category[i].id.toString());
+
+
+          print("selectedCatList$selectedCatList");
+          companyListBloc
+            ..getCompany(
+                lngCode, "companies_by_category",
+                selectedCatList);
+
+          setState(() {
+
+          });
+
+        }else{
+          print("a123");
+        }
+      }
+    }else{
+      print("anuuuuuuuuuu");
+    }
+
   }
 
   Widget _buildLoadingWidget() {
@@ -467,7 +520,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
   }
 
   Widget _buildCategoryWidget(CategoryResponse data) {
-    List<Category> category = data.category;
+    category = data.category;
     if (category.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
@@ -510,7 +563,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 height: (width / 208) * 30,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: (selectedCatList.contains((index + 1).toString())) ? Palette.pinkText:  Palette.greyBox
+                                    color: (selectedCatList.contains(category[index].id.toString())) ? Palette.pinkText:  Palette.greyBox
                                 ),
                                 child: category[index].icon != null ?
                                 Image.network(Repository.iconUrl+category[index].icon,

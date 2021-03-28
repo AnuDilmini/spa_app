@@ -80,7 +80,7 @@ class _SettingState extends State<Setting> {
               ),
             ),
             Positioned(
-              top: (height/896) * 280,
+              top: (height/896) * 260,
               left: (width/414) * 25,
               right: (width/414) * 25,
               child: GestureDetector(
@@ -124,7 +124,50 @@ class _SettingState extends State<Setting> {
               ),
             ),
             Positioned(
-              top: (height/896) * 340,
+              top: (height/896) * 320,
+              left: (width/414) * 25,
+              right: (width/414) * 25,
+              child: GestureDetector(
+                child: Center(
+                child: Container(
+                  height: (height/896) * 79,
+                  // width: width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
+                  child:  Row(
+                    children: [
+                      Container(
+                        width: (width/4) * 3,
+                        alignment: Alignment.centerLeft,
+                        child: Text(LocaleKeys.change_pass,
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Palette.pinkBox,
+                          ),).tr(),
+                      ),
+                      Container(
+                        width: width - ((width/4) * 3 + (width/414) * 50) ,
+                        alignment: Alignment.centerRight,
+                        child: Icon(Icons.navigate_next_outlined,
+                          color: Palette.pinkBox,),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child: BottomNav(index: 2, subIndex: 4),
+                      ));
+                },
+              ),
+            ),
+            Positioned(
+              top: (height/896) * 380,
               left: (width/414) * 25,
               right: (width/414) * 25,
               child:Center(
@@ -157,7 +200,7 @@ class _SettingState extends State<Setting> {
               ),
             ),
             Positioned(
-              top: (height/896) * 400,
+              top: (height/896) * 440,
               left: (width/414) * 25,
               right: (width/414) * 25,
               child:Center(
@@ -190,7 +233,7 @@ class _SettingState extends State<Setting> {
               ),
             ),
             Positioned(
-              top: (height/896) * 460,
+              top: (height/896) * 500,
               left: (width/414) * 25,
               right: (width/414) * 25,
               child:Center(
@@ -223,7 +266,7 @@ class _SettingState extends State<Setting> {
               ),
             ),
             Positioned(
-              top: (height/896) * 520,
+              top: (height/896) * 560,
               left: (width/414) * 25,
               right: (width/414) * 25,
               child:Center(
@@ -256,7 +299,7 @@ class _SettingState extends State<Setting> {
               ),
             ),
             Positioned(
-              top: (height/896) * 580,
+              top: (height/896) * 620,
               left: (width/414) * 25,
               right: (width/414) * 25,
               child:Center(
@@ -288,7 +331,6 @@ class _SettingState extends State<Setting> {
                 ),
               ),
             ),
-
             Positioned(
               top: (height/602) * 45,
               left:  (width/414) * 16 ,
@@ -313,54 +355,54 @@ class _SettingState extends State<Setting> {
                 },
               ),
             ),
-            Positioned(
-              top: (height/896) * 701,
-              left: (width/414) * 55,
-              right: (width/414) * 55,
-              child: GestureDetector(
-                child: Center(
-                  child: Container(
-                    height: (height/896) * 50,
-                    width: width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child:
-                    Card(
-                      color: Palette.pinkBox,
-                      shadowColor: Palette.balckColor,
-                      elevation: 4,
-                      child:   Center(
-                        child: Text(LocaleKeys.edit_profile,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Palette.whiteText,
-                          ),).tr(),
-                      ),
-                    ),
-                  ),
-                ),
-                onTap: (){
-
-
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child:  BottomNav(index: 2, subIndex: 1),
-                      ));
-                  // themeChange.darkTheme = false;
-
-                  // Navigator.push(
-                  //     context,
-                  //     PageTransition(
-                  //       type: PageTransitionType.fade,
-                  //       child:  BottomNav(index: 2, subIndex: 1),
-                  //     ));
-
-                },
-              ),
-            ),
+            // Positioned(
+            //   top: (height/896) * 701,
+            //   left: (width/414) * 55,
+            //   right: (width/414) * 55,
+            //   child: GestureDetector(
+            //     child: Center(
+            //       child: Container(
+            //         height: (height/896) * 50,
+            //         width: width,
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.all(Radius.circular(8)),
+            //         ),
+            //         child:
+            //         Card(
+            //           color: Palette.pinkBox,
+            //           shadowColor: Palette.balckColor,
+            //           elevation: 4,
+            //           child:   Center(
+            //             child: Text(LocaleKeys.edit_profile,
+            //               style: TextStyle(
+            //                 fontSize: 20,
+            //                 color: Palette.whiteText,
+            //               ),).tr(),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //     onTap: (){
+            //
+            //
+            //       Navigator.push(
+            //           context,
+            //           PageTransition(
+            //             type: PageTransitionType.fade,
+            //             child:  BottomNav(index: 2, subIndex: 1),
+            //           ));
+            //       // themeChange.darkTheme = false;
+            //
+            //       // Navigator.push(
+            //       //     context,
+            //       //     PageTransition(
+            //       //       type: PageTransitionType.fade,
+            //       //       child:  BottomNav(index: 2, subIndex: 1),
+            //       //     ));
+            //
+            //     },
+            //   ),
+            // ),
           ]
       ),
     );

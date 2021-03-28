@@ -13,6 +13,7 @@ import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'change_language.dart';
+import 'change_password.dart';
 import 'info_service.dart';
 import 'order_complete.dart';
 import 'order_history.dart';
@@ -45,6 +46,7 @@ class _BottomNavState extends State<BottomNav> {
     Setting(),
     ChangeLang(),
     SelectTimeDate(),
+    ChangePassword(),
   ];
 
   @override
@@ -79,6 +81,8 @@ class _BottomNavState extends State<BottomNav> {
           page = 8;
         }else if(subIndex == 3){
           page = 9;
+        }else if(subIndex == 4){
+          page = 11;
         }else{
           page = _currentIndex;
         }
