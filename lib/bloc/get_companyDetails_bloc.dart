@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app/model/companyDetails.dart';
-import 'package:flutter_app/network/repository.dart';
+import 'package:violet_app/model/companyDetails.dart';
+import 'package:violet_app/network/repository.dart';
 
 class CompanyDetailsDataProvider with ChangeNotifier {
   CompanyDetails companyDetails = CompanyDetails();

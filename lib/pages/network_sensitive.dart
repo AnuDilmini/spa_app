@@ -1,5 +1,5 @@
 // import 'package:flutter/material.dart';
-// import 'package:flutter_app/enums/connectivity_status.dart';
+// import 'package:violet_app/enums/connectivity_status.dart';
 // import 'package:provider/provider.dart';
 //
 // class NetworkSensitive extends StatelessWidget {

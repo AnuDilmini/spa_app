@@ -1,4 +1,4 @@
-# flutter_app
+# violet_app
 
 A new Flutter application.
 

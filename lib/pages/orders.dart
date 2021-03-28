@@ -2,12 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/notifiers/dark_theme_provider.dart';
-import 'package:flutter_app/pages/order_history.dart';
-import 'package:flutter_app/pages/update_profile.dart';
-import 'package:flutter_app/style/palette.dart';
+import 'package:violet_app/notifiers/dark_theme_provider.dart';
+import 'package:violet_app/pages/order_history.dart';
+import 'package:violet_app/pages/update_profile.dart';
+import 'package:violet_app/style/palette.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:flutter_app/style/local.keys.dart';
+import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 

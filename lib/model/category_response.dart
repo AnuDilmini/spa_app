@@ -1,5 +1,5 @@
-import 'package:flutter_app/model/category.dart';
-import 'package:flutter_app/model/company.dart';
+import 'package:violet_app/model/category.dart';
+import 'package:violet_app/model/company.dart';
 
 class CategoryResponse {
   final List<Category> category;

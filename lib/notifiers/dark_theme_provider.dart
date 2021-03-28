@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_app/utils/devfestpreferences.dart';
+import 'package:violet_app/utils/devfestpreferences.dart';
 
 class DarkThemeProvider with ChangeNotifier {
   DevFestPreferences devFestPreferences = DevFestPreferences();

@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/category.dart';
-import 'package:flutter_app/model/category_response.dart';
-import 'package:flutter_app/model/companyDetails.dart';
+import 'package:violet_app/model/category.dart';
+import 'package:violet_app/model/category_response.dart';
+import 'package:violet_app/model/companyDetails.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_app/model/companyService_response.dart';
-import 'package:flutter_app/model/company_response.dart';
+import 'package:violet_app/model/companyService_response.dart';
+import 'package:violet_app/model/company_response.dart';
 import 'package:dio/dio.dart';
 import 'api_exceptions.dart';
 

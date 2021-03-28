@@ -1,4 +1,4 @@
-import 'package:flutter_app/model/company.dart';
+import 'package:violet_app/model/company.dart';
 
 class CompanyResponse {
   final List<Company> company;

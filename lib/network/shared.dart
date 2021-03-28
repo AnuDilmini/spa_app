@@ -1,4 +1,4 @@
-import 'package:flutter_app/pages/setting.dart';
+import 'package:violet_app/pages/setting.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {

@@ -1,15 +1,15 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/home.dart';
-import 'package:flutter_app/pages/payment.dart';
-import 'package:flutter_app/pages/profile.dart';
-import 'package:flutter_app/pages/select_time_date.dart';
-import 'package:flutter_app/pages/service_find.dart';
-import 'package:flutter_app/pages/setting.dart';
-import 'package:flutter_app/pages/update_profile.dart';
-import 'package:flutter_app/style/palette.dart';
-import 'package:flutter_app/style/local.keys.dart';
+import 'package:violet_app/pages/home.dart';
+import 'package:violet_app/pages/payment.dart';
+import 'package:violet_app/pages/profile.dart';
+import 'package:violet_app/pages/select_time_date.dart';
+import 'package:violet_app/pages/service_find.dart';
+import 'package:violet_app/pages/setting.dart';
+import 'package:violet_app/pages/update_profile.dart';
+import 'package:violet_app/style/palette.dart';
+import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'change_language.dart';

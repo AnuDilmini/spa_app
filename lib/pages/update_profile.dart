@@ -2,10 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/pages/profile.dart';
-import 'package:flutter_app/style/palette.dart';
+import 'package:violet_app/pages/profile.dart';
+import 'package:violet_app/style/palette.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:flutter_app/style/local.keys.dart';
+import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 

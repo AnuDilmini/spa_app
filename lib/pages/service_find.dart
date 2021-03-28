@@ -5,18 +5,18 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/bloc/get_category_bloc.dart';
-import 'package:flutter_app/bloc/get_company_bloc.dart';
-import 'package:flutter_app/model/category.dart';
-import 'package:flutter_app/model/category_response.dart';
-import 'package:flutter_app/model/company.dart';
-import 'package:flutter_app/model/company_response.dart';
-import 'package:flutter_app/network/repository.dart';
-import 'package:flutter_app/network/shared.dart';
-import 'package:flutter_app/pages/home.dart';
-import 'package:flutter_app/style/local.keys.dart';
-import 'package:flutter_app/style/palette.dart';
-import 'package:flutter_app/utils/network_check.dart';
+import 'package:violet_app/bloc/get_category_bloc.dart';
+import 'package:violet_app/bloc/get_company_bloc.dart';
+import 'package:violet_app/model/category.dart';
+import 'package:violet_app/model/category_response.dart';
+import 'package:violet_app/model/company.dart';
+import 'package:violet_app/model/company_response.dart';
+import 'package:violet_app/network/repository.dart';
+import 'package:violet_app/network/shared.dart';
+import 'package:violet_app/pages/home.dart';
+import 'package:violet_app/style/local.keys.dart';
+import 'package:violet_app/style/palette.dart';
+import 'package:violet_app/utils/network_check.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:http/http.dart' as http;
@@ -590,7 +590,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
           children:[
             Container(
               margin: EdgeInsets.only(right: (width/208) * 5),
-              width: (width/208) *25,
+              width: (width/208) * 25,
               height:  (width/208) * 25,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,

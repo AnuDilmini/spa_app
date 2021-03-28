@@ -2,12 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/enums/connectivity_status.dart';
-import 'package:flutter_app/pages/network_sensitive.dart';
-import 'package:flutter_app/pages/service_find.dart';
-import 'package:flutter_app/style/local.keys.dart';
+import 'package:violet_app/enums/connectivity_status.dart';
+import 'package:violet_app/pages/network_sensitive.dart';
+import 'package:violet_app/pages/service_find.dart';
+import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_app/style/palette.dart';
+import 'package:violet_app/style/palette.dart';
 import 'package:provider/provider.dart';
 import 'bottom_nav.dart';
 import 'location.dart';
@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             LocaleKeys.reservation,
                             style: TextStyle(
-                                fontSize: 26,
+                                fontSize: 22,
                                 // letterSpacing: 0.01,
                                 color: Palette.whiteText,
                                 fontFamily: "Audrey-Medium"
@@ -202,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                               child: Text(
                                   LocaleKeys.home_service,
                                   style: TextStyle(
-                                      fontSize: 26,
+                                      fontSize: 20,
                                       // letterSpacing: 0.01,
                                       color: Palette.whiteText,
                                       fontFamily: "Audrey-Medium"

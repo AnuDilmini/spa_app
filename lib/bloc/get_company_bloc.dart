@@ -1,5 +1,5 @@
-import 'package:flutter_app/model/company_response.dart';
-import 'package:flutter_app/network/repository.dart';
+import 'package:violet_app/model/company_response.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CompanyListBloc {
