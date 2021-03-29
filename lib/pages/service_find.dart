@@ -559,22 +559,22 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               Container(
                                 margin: EdgeInsets.only(
                                     right: (width / 208) * 0),
-                                width: (width / 208) * 30,
-                                height: (width / 208) * 30,
+                                width: (width / 208) * 35,
+                                height: (width / 208) * 35,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: (selectedCatList.contains(category[index].id.toString())) ? Palette.pinkText:  Palette.greyBox
                                 ),
                                 child: category[index].icon != null ?
                                 Image.network(Repository.iconUrl+category[index].icon,
-                                  width:(width / 208) * 35,
-                                  height:  (width / 208) * 35,):
+                                  width:(width / 208) * 45,
+                                  height:  (width / 208) * 45,):
                                 Image.asset("assets/eyes.png"),
 
                               ),
                               Center(
                                 child: Container(
-                                  width: (width / 208) * 35,
+                                  width: (width / 208) * 50,
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.only(left: 0),
                                   margin: EdgeInsets.only(top: 7),

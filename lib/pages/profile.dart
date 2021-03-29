@@ -1,5 +1,5 @@
 
-import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:share/share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -250,11 +250,15 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
                 onTap: () async {
-
+                  // Anushika, check the example from:
+                  // https://pub.dev/packages/share
+                  // And fix it
+                  /*
                   final ByteData bytes = await rootBundle.load('assets/pink_art.png');
-                  await Share.file('Spa App', 'pink_art.png',
+                  await Share.shareFiles('Spa App', 'pink_art.png',
                     bytes.buffer.asUint8List(), 'image/png',
                     text: 'Can book any treatment\n\nPlay store\nhttps://play.google.com/store/apps/details?id=com.wad.lovedigits');
+                   */
 
                 },
               ),

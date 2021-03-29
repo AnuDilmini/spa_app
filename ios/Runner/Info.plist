@@ -39,17 +39,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>CFBundleLocalizations</key>
     <array>
     	<string>en</string>
     	<string>ar</string>
     </array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<key>LSApplicationQueriesSchemes</key>
     <array>
       <string>https</string>
       <string>http</string>
     </array>
-	<false/>
 </dict>
 </plist>
