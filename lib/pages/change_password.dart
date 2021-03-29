@@ -142,6 +142,7 @@ class _ChangePassword extends State<ChangePassword> {
                   },
                 ),
               ),
+
               Positioned(
                 top: (height/602) * 210,
                 left:  (width/414) * 40,
@@ -175,7 +176,7 @@ class _ChangePassword extends State<ChangePassword> {
                         style: TextStyle(
                             decoration: TextDecoration.none,
                             fontSize: 16,
-                            color: Palette.mainColor
+                            color: Palette.pinkText
                         ),
                         autofocus: false,
                         decoration: InputDecoration(
@@ -226,7 +227,7 @@ class _ChangePassword extends State<ChangePassword> {
                         style: TextStyle(
                             decoration: TextDecoration.none,
                             fontSize: 16,
-                            color: Palette.mainColor
+                            color: Palette.pinkText
                         ),
                         autofocus: false,
                         decoration: InputDecoration(

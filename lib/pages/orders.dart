@@ -413,12 +413,12 @@ class _Orders extends State<Orders> {
                                 size: 20,)
                           ),
                             onTap: (){
-                              // Navigator.push(
-                              //     context,
-                              //     PageTransition(
-                              //       type: PageTransitionType.fade,
-                              //       child:  OrderHistory(),
-                              //     ));
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.fade,
+                                    child:  BottomNav(index: 0, subIndex: 4),
+                                  ));
                             },
                           ),
                         ]
