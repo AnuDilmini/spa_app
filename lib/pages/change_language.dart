@@ -124,21 +124,19 @@ class _ChangeLang extends State<ChangeLang> {
                 child:GestureDetector(
                   child: Center(
                     child: Container(
-                      width: (width/414) * 16,
-                      height: (width/414) * 16,
+                      // width: (width/414) * 25,
+                      // height: (width/414) * 25,
                       child:
-                      Image.asset('assets/back.png',
-                        // fit: BoxFit.fitHeight,
-                      ),
+                      Icon(Icons.arrow_back_ios,
+                      color: Colors.white,
+                      size: 25,)
                     ),
                   ),
                   onTap: (){
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          child:  BottomNav(index: 2, subIndex: 2),
-                        ));
+
+                    print("Anu***");
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                    Navigator.pop(context);
                   },
                 ),
               ),

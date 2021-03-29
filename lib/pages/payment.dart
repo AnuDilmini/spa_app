@@ -110,11 +110,10 @@ class _PaymentState extends State<Payment> {
               child:GestureDetector(
                  child: Center(
                   child: Container(
-                    height:  (width/414) * 5,
-                    width: (width/414) *5,
+
                     child: Icon(Icons.arrow_back_ios,
                     color: Palette.pinkBox,
-                    size: 15,),
+                    size: 20,),
                   ),
               ),
                 onTap: (){
