@@ -87,15 +87,14 @@ class _PaymentState extends State<Payment> {
 
     return Scaffold(
        key: _scaffoldKey,
-
         body: SingleChildScrollView(
         child: Stack(
           children: [
             Container(
-              height: height* 1.3,
+              height: height* 1.0,
             ),
             Positioned(
-              top: (height/896) * 2,
+              top: (height/896) * 42,
               width: width,
               child:Center(
                 child: Container(
@@ -165,7 +164,7 @@ class _PaymentState extends State<Payment> {
                     borderRadius: BorderRadius.circular(20),
                     color: Color.fromRGBO(231, 223, 225, 0.81),
                   ),
-                  height: (height/896) * 240,
+                  height: (height/896) * 260,
                   width: width,
                   child:Column(
                     children: [
@@ -178,6 +177,7 @@ class _PaymentState extends State<Payment> {
                         ),
                         height: (height/896) * 125,
                         child:ListView.builder(
+                            padding: EdgeInsets.zero,
                             scrollDirection: Axis.vertical,
                             itemCount:20,
                             itemBuilder: (BuildContext context, int index) {
@@ -211,6 +211,7 @@ class _PaymentState extends State<Payment> {
                                 flex: 1,
                                 child: Text(
                                   "1150 SAR",
+                                  maxLines: 1,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
@@ -253,7 +254,7 @@ class _PaymentState extends State<Payment> {
                       ),
                       Container(
                         alignment: Alignment.bottomLeft,
-                        padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) *5),
+                        padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 5),
                         child:   RichText(
                           text: TextSpan(
                             text: '* (Include',
@@ -282,7 +283,7 @@ class _PaymentState extends State<Payment> {
               ),
             ),
             Positioned(
-              top: (height/896) * 466,
+              top: (height/896) * 488,
               left: (width/414) *20,
               right: (width/414) *20,
               child:  GestureDetector(
@@ -311,7 +312,7 @@ class _PaymentState extends State<Payment> {
               ),
             ),
             Positioned(
-              top: (height/896) * 537,
+              top: (height/896) * 562,
               left: (width/414) *20,
               right: (width/414) *20,
               child:  Center(
@@ -338,6 +339,7 @@ class _PaymentState extends State<Payment> {
                     margin: EdgeInsets.only(top: (height/896) * 5 ),
                     height: (height/896) * 130,
                     child: ListView.builder(
+                        padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
                           itemCount:3,
                           itemBuilder: (BuildContext context, int index) {
@@ -356,7 +358,7 @@ class _PaymentState extends State<Payment> {
               ),
             ),
             Positioned(
-              top: (height/896) * 760,
+              top: (height/896) * 790,
               left: (width/414) *20,
               right: (width/414) *20,
               child:  GestureDetector(
@@ -391,7 +393,7 @@ class _PaymentState extends State<Payment> {
               ),
             ),
             Positioned(
-            top: (height/896) * 717,
+            top: (height/896) * 737,
             left: (width/414) *32,
             child: GestureDetector(
              child: Container(
@@ -412,7 +414,7 @@ class _PaymentState extends State<Payment> {
             )
             ),
             Positioned(
-                top: (height/896) * 718,
+                top: (height/896) * 738,
                 left: (width/414) * 65,
                 right: (width/414) * 20,
                 child: GestureDetector(
