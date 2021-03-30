@@ -181,7 +181,7 @@ class _ChangePassword extends State<ChangePassword> {
                         autofocus: false,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: LocaleKeys.enter_pass.tr(),
+                            hintText: tr(LocaleKeys.enter_pass.tr()),
                             hintStyle: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 16,
@@ -232,7 +232,7 @@ class _ChangePassword extends State<ChangePassword> {
                         autofocus: false,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: LocaleKeys.renter_your.tr(),
+                            hintText: tr(LocaleKeys.renter_your),
                             hintStyle: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 16,

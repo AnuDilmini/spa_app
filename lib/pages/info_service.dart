@@ -123,12 +123,13 @@ class _InfoService extends State<InfoService> {
               child:GestureDetector(
                 child: Center(
                   child: Container(
-                    width: (width/414) * 16,
-                    height: (width/414) * 16,
+                    width: (width/414) * 15,
+                    height: (width/414) * 15,
                     child:
-                    Image.asset('assets/back.png',
-                      // fit: BoxFit.fitHeight,
-                    ),
+                    Icon(Icons.arrow_back_ios,
+                      size: 25,
+                      color: Palette.whiteText,
+                    )
                   ),
                 ),
                 onTap: (){
@@ -213,7 +214,7 @@ class _InfoService extends State<InfoService> {
             ),
             Positioned(
               top: (height/896) * 326,
-              left: (width/414) *226,
+              right: (width/414) *110,
               child:  GestureDetector(
                 child: Center(
                 child: Container(
@@ -224,7 +225,7 @@ class _InfoService extends State<InfoService> {
                   ),
                   child: Text(LocaleKeys.info,
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 23,
                       color: Palette.pinkBox,
                     ),
                   ).tr(),
@@ -252,7 +253,7 @@ class _InfoService extends State<InfoService> {
                     ),
                     child: Text(LocaleKeys.service,
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 23,
                         color: Palette.pinkBox,
                           ),
                     ).tr(),
@@ -517,7 +518,7 @@ class _InfoService extends State<InfoService> {
                                  direction: DismissDirection.startToEnd,
                                  key: Key(item),
                                  child:  Container(
-                                   height: (height/896) * 57,
+                                   height: (height/896) * 65,
                                    width: width - (width/414) * 60,
                                    padding: EdgeInsets.only(bottom: (height/896) * 6),
                                    child: Stack(

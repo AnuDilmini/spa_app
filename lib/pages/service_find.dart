@@ -131,12 +131,13 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                 child:GestureDetector(
                   child: Center(
                     child: Container(
-                      width: (width/414) * 16,
-                      height: (width/414) * 16,
+                      width: (width/414) * 15,
+                      height: (width/414) * 15,
                       child:
-                      Image.asset('assets/back.png',
-                        // fit: BoxFit.fitHeight,
-                      ),
+                      Icon(Icons.arrow_back_ios,
+                        size: 25,
+                        color: Palette.whiteText,
+                      )
                     ),
                   ),
                   onTap: (){
@@ -174,7 +175,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                     child : Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.only(top: 5, bottom: 5,right:(width/208) * 5),
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only( right:(width/208) * 5),
                             width: (width/208) * 120,
                             child:
                             TextFormField(
@@ -184,7 +186,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 border: InputBorder.none,
                                 hintText: "Type category",
                                 hintStyle: TextStyle(
-                                  color: Colors.black12
+                                  color: Palette.pinkText
                                 )
                               ),
                               onChanged: (content) {
@@ -204,7 +206,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                           Container(
                             // width:  (width/208) *30,
                             child:
-                            Image.asset('assets/search.png',),
+                            Icon(Icons.search,
+                              color: Palette.pinkBox,)
                           ),
                         ]
                       // child: Image.asset('assets/search.png',
@@ -224,9 +227,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                       color: Palette.greyBox,
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    child: Image.asset('assets/search.png',
-                      // fit: BoxFit.fitHeight,
-                    ),
+                    child: Icon(Icons.search,
+                    color: Palette.pinkBox,)
                   ),
                   onTap: (){
                     setState(() {
@@ -563,7 +565,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 height: (width / 208) * 35,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: (selectedCatList.contains(category[index].id.toString())) ? Palette.pinkText:  Palette.greyBox
+                                    color: (selectedCatList.contains(category[index].id.toString())) ?  Colors.brown:  Palette.greyBox
                                 ),
                                 child: category[index].icon != null ?
                                 Image.network(Repository.iconUrl+category[index].icon,
