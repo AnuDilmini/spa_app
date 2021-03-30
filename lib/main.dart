@@ -42,7 +42,6 @@ void main() async {
         path: 'lang', // <-- change patch to your
         fallbackLocale: Locale('en', 'US'),
         startLocale: Locale('en', 'US'),
-        // startLocale: Locale('en', 'US'),
         child: MyApp(appLanguage: appLanguage)
     ),
 

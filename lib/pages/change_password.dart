@@ -149,7 +149,7 @@ class _ChangePassword extends State<ChangePassword> {
                 child: Center(
                   child: Container(
                       child:
-                      Text(LocaleKeys.change_language,
+                      Text(LocaleKeys.change_pass,
                         style: TextStyle(
                           fontSize: 18,
                           color: Palette.pinkBox,

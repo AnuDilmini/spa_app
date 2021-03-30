@@ -197,6 +197,7 @@ class _ChangeLang extends State<ChangeLang> {
                             print("Radio $val");
                             setSelectedRadio(val);
                             context.locale = Locale('ar', '');
+
                             print("ara    ${context.locale.languageCode}  context.locale.languageCode");
                             await  SharedPreferencesHelper.setLanguage("ar");
 
