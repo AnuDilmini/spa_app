@@ -15,6 +15,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'change_language.dart';
 import 'change_password.dart';
 import 'info_service.dart';
+import 'location.dart';
 import 'order_complete.dart';
 import 'order_history.dart';
 import 'orders.dart';
@@ -47,6 +48,7 @@ class _BottomNavState extends State<BottomNav> {
     ChangeLang(),
     SelectTimeDate(),
     ChangePassword(),
+    LocationPage(),// 12
   ];
 
   @override
@@ -64,6 +66,8 @@ class _BottomNavState extends State<BottomNav> {
           page = 5;
         }else if(subIndex == 4){
           page = 10;
+        }else if(subIndex == 5){
+          page = 12;
         }else{
             page = _currentIndex;
         }

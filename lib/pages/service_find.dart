@@ -110,14 +110,14 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                 ),
               ),
               Positioned(
-                top: (height/449) * 1,
+                top: (height/449) * 6,
                 width: width,
                 child:Center(
                   child: Container(
-                    width: (width/414) * 64,
-                    height: (width/602) * 90,
+                    width: (width/414) * 45,
+                    height: (width/602) * 45,
                     child:
-                    Image.asset('assets/artboard3.png',
+                    Image.asset('assets/artboard.png',
                       width: (width/414) * 64,
                       height: (width/602) * 90,
                       // fit: BoxFit.fitHeight,
@@ -175,8 +175,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                         children: [
                           Container(
                             alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only( right:(width/208) * 5),
-                            width: (width/208) * 120,
+                            // padding: EdgeInsets.only( right:(width/208) * 5),
+                            width: (width/208) * 112,
                             child:
                             TextFormField(
                               controller : searchController,
@@ -203,10 +203,9 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                             ),
                           ),
                           Container(
-                            // width:  (width/208) *30,
+                            padding: EdgeInsets.all(5.0),
                             child:
-                            Icon(Icons.search,
-                              color: Palette.pinkBox,)
+                            Image.asset('assets/search.png',),
                           ),
                         ]
                       // child: Image.asset('assets/search.png',
@@ -220,14 +219,15 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                   },
                 ): GestureDetector(
                   child: Container(
+                    padding: EdgeInsets.all(5.0),
                     width: (width/208) * 25,
                     height: (height/448) * 20,
                     decoration: BoxDecoration(
                       color: Palette.greyBox,
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    child: Icon(Icons.search,
-                    color: Palette.pinkBox,)
+                    child:
+                    Image.asset('assets/search.png',),
                   ),
                   onTap: (){
                     setState(() {

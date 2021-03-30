@@ -70,10 +70,10 @@ class _HomePageState extends State<HomePage> {
           width: width,
           child:Center(
             child: Container(
-            width: (width/208) * 45,
-            height: (width/208) * 45,
+            width: (width/208) * 20,
+            height: (width/208) * 20,
             child:
-            Image.asset('assets/artboard3.png',
+            Image.asset('assets/artboard.png',
             ),
           ),
           ),
@@ -220,7 +220,7 @@ class _HomePageState extends State<HomePage> {
               onTap: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LocationPage()),
+                  MaterialPageRoute(builder: (context) => BottomNav(index: 0,subIndex: 5,)),
                 );
 
               },
