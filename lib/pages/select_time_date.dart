@@ -188,7 +188,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
             ),
             Positioned(
               top: (height/896) * 339,
-              left: (width/414) * 50,
+              left: (width/414) * 30,
               right: (width/414) * 30,
               child: Container(
                   alignment: Alignment.topLeft,
@@ -247,7 +247,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
             ),
             Positioned(
               top: (height/896) * 390,
-              left: (width/414) * 50,
+              left: (width/414) * 30,
               right: (width/414) * 30,
               child:  Container(
                 height: (height/896) * 375,

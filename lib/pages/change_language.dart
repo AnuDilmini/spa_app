@@ -121,30 +121,34 @@ class _ChangeLang extends State<ChangeLang> {
               Positioned(
                 top: (height/602) * 45,
                 left:  (width/414) * 16 ,
+                right:  (width/414) * 16 ,
                 child:GestureDetector(
-                  child: Center(
-                    child: Container(
-                      // width: (width/414) * 25,
-                      // height: (width/414) * 25,
+                  child: Container(
+                      alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
                       child:
                       Icon(Icons.arrow_back_ios,
                       color: Colors.white,
                       size: 25,)
-                    ),
                   ),
                   onTap: (){
 
-                    print("Anu***");
                     FocusScope.of(context).requestFocus(new FocusNode());
-                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.fade,
+                          child: BottomNav(index: 2, subIndex: 2),
+                        ));
                   },
                 ),
               ),
               Positioned(
                 top: (height/602) * 210,
                 left:  (width/414) * 16 ,
+                right:  (width/414) *20 ,
                 child: Center(
                     child: Container(
+                        width: width,
                       child:
                       Text(LocaleKeys.change_language,
                         style: TextStyle(
@@ -157,6 +161,7 @@ class _ChangeLang extends State<ChangeLang> {
               Positioned(
                 top: (height/602) * 235,
                 left:  (width/414) * 16 ,
+                right:  (width/414) * 16 ,
                 child: Center(
                     child: Container(
                       height: (height/602) * 180,

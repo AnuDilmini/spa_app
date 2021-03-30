@@ -127,18 +127,17 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
               ),
               Positioned(
                 top: (height/602) * 44,
-                left:  (width/414) * 16 ,
+                left:  (width/414) * 16,
+                right:  (width/414) * 16,
                 child:GestureDetector(
-                  child: Center(
-                    child: Container(
-                      width: (width/414) * 15,
-                      height: (width/414) * 15,
+                  child: Container(
+                      alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+                      width: width,
                       child:
-                      Icon(Icons.arrow_back_ios,
-                        size: 25,
-                        color: Palette.whiteText,
-                      )
-                    ),
+                        Icon(Icons.arrow_back_ios,
+                          size: 25,
+                          color: Palette.whiteText,
+                        )
                   ),
                   onTap: (){
                     Navigator.push(
@@ -515,7 +514,6 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                           ));
                     }
                 );
-
             }
         ),
       );
@@ -565,14 +563,13 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 height: (width / 208) * 35,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: (selectedCatList.contains(category[index].id.toString())) ?  Colors.brown:  Palette.greyBox
+                                    color: (selectedCatList.contains(category[index].id.toString())) ?  Palette.pinkText :  Palette.greyBox
                                 ),
                                 child: category[index].icon != null ?
                                 Image.network(Repository.iconUrl+category[index].icon,
                                   width:(width / 208) * 45,
                                   height:  (width / 208) * 45,):
                                 Image.asset("assets/eyes.png"),
-
                               ),
                               Center(
                                 child: Container(

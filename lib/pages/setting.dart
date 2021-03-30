@@ -334,24 +334,24 @@ class _SettingState extends State<Setting> {
             Positioned(
               top: (height/602) * 45,
               left:  (width/414) * 16 ,
-              child:GestureDetector(
-                child: Center(
-                  child: Container(
-                    width: (width/414) * 16,
-                    height: (width/414) * 16,
+              right:  (width/414) * 16 ,
+              child: GestureDetector(
+                child:  Container(
+                    alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+                    width: width,
                     child:
-                    Image.asset('assets/back.png',
-                      // fit: BoxFit.fitHeight,
-                    ),
+                    Icon(Icons.arrow_back_ios,
+                    color: Palette.whiteText,
+                    size: 25,)
                   ),
-                ),
+
                 onTap: (){
-                  // Navigator.push(
-                  //     context,
-                  //     PageTransition(
-                  //       type: PageTransitionType.fade,
-                  //       child: Orders(),
-                  //     ));
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child: BottomNav(index: 2, subIndex: 0),
+                      ));
                 },
               ),
             ),

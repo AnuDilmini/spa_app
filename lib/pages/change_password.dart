@@ -121,16 +121,15 @@ class _ChangePassword extends State<ChangePassword> {
               Positioned(
                 top: (height/602) * 45,
                 left:  (width/414) * 16 ,
+                right:  (width/414) * 16 ,
                 child:GestureDetector(
-                  child: Center(
-                    child: Container(
-                      width: (width/414) * 16,
-                      height: (width/414) * 16,
+                  child:  Container(
+                      alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+                      width: width,
                       child:
-                      Image.asset('assets/back.png',
-                        // fit: BoxFit.fitHeight,
-                      ),
-                    ),
+                      Icon(Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 25,)
                   ),
                   onTap: (){
                     Navigator.push(
@@ -146,8 +145,10 @@ class _ChangePassword extends State<ChangePassword> {
               Positioned(
                 top: (height/602) * 210,
                 left:  (width/414) * 40,
+                right:  (width/414) * 40,
                 child: Center(
                   child: Container(
+                    width: width,
                       child:
                       Text(LocaleKeys.change_pass,
                         style: TextStyle(
@@ -160,10 +161,10 @@ class _ChangePassword extends State<ChangePassword> {
               Positioned(
                 top: (height/602) * 235,
                 left:  (width/414) * 35,
-                right:  (width/414) * 80,
+                right:  (width/414) * 35,
                 child: Center(
                   child: Container(
-                    padding: EdgeInsets.only(left: (width/414) * 15),
+                    padding: EdgeInsets.only(left: (width/414) * 15, right:  (width/414) * 15),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                         color:  Palette.whiteText
@@ -196,9 +197,11 @@ class _ChangePassword extends State<ChangePassword> {
 
               Positioned(
                 top: (height/602) * 280,
-                left:  (width/414) * 40,
+                left:  (width/414) * 35,
+                right:  (width/414) * 35,
                 child: Center(
                   child: Container(
+                    width: width,
                       child:
                       Text(LocaleKeys.renter_pass,
                         style: TextStyle(
@@ -211,10 +214,10 @@ class _ChangePassword extends State<ChangePassword> {
               Positioned(
                 top: (height/602) * 305,
                 left:  (width/414) * 35,
-                right:  (width/414) * 80,
+                right:  (width/414) * 35,
                 child: Center(
                   child: Container(
-                      padding: EdgeInsets.only(left: (width/414) * 15),
+                      padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(25)),
                           color:  Palette.whiteText

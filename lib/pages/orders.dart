@@ -339,7 +339,7 @@ class _Orders extends State<Orders> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(left: (width/414) * 25),
+            padding: EdgeInsets.only(left: (width/414) * 25, right: (width/414) * 25),
             child: Text("7 May 2020",
               style: TextStyle(
                 color: Palette.darkPink,
@@ -357,7 +357,7 @@ class _Orders extends State<Orders> {
             child: Row(
                 children:[
                   Container(
-                    padding: EdgeInsets.only(left:  (width/414) * 25),
+                    padding: EdgeInsets.only(left:  (width/414) * 25,right: (width/414) * 25 ),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:[

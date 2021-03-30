@@ -120,18 +120,17 @@ class _InfoService extends State<InfoService> {
             Positioned(
               top: (height/602) * 40,
               left:  (width/414) * 16 ,
+              right:  (width/414) * 16 ,
               child:GestureDetector(
-                child: Center(
-                  child: Container(
-                    width: (width/414) * 15,
-                    height: (width/414) * 15,
+                child: Container(
+                      alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+
                     child:
                     Icon(Icons.arrow_back_ios,
                       size: 25,
                       color: Palette.whiteText,
                     )
                   ),
-                ),
                 onTap: (){
                   Navigator.push(
                       context,
