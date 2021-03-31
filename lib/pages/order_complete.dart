@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:violet_app/pages/update_profile.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:violet_app/style/local.keys.dart';
 
+import 'bottom_nav.dart';
 import 'home.dart';
 
 class OrderComplete extends StatefulWidget {
@@ -237,7 +240,7 @@ class _OrderComplete extends State<OrderComplete> {
               ),
             ),
             Positioned(
-              top: (height/896) * 132,
+              top: (height/896) * 134,
               left: (width/414) * 378,
               child: GestureDetector(
                 child: Container(
@@ -250,6 +253,7 @@ class _OrderComplete extends State<OrderComplete> {
                   ),
                 ),
                 onTap: (){
+                  showFeedback(context);
 
                 },
               ),
@@ -257,6 +261,133 @@ class _OrderComplete extends State<OrderComplete> {
           ]
       ),
     );
+  }
+
+  showFeedback(BuildContext context) {
+
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierColor: Palette.blur,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(20.0)), //this right here
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(30),
+                color: Palette.blurColor,
+              ),
+              height: height/2.2,
+              child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    children: [
+                     GestureDetector(
+                       child:
+                      Container(
+                        alignment: Alignment.topRight,
+                        margin: EdgeInsets.only( top: (height/896) *0,  ),
+                        child: Image.asset("assets/close.png"),
+                      ),
+                       onTap: (){
+                         Navigator.push(
+                             context,
+                             PageTransition(
+                               type: PageTransitionType.fade,
+                               child:  BottomNav(index: 0, subIndex: 0),
+                             ));
+                       },
+                     ),Container(
+                        margin: EdgeInsets.only( top: (height/896) *1),
+                        child: Image.asset("assets/pink_art.png"),
+                      ),
+                      Center(
+                          child: Container(
+                            margin: EdgeInsets.only( top: (height/896) *14, left: 15, right: 15),
+                            child: Text(LocaleKeys.how_it_was,
+                              maxLines: 1,
+                              style: TextStyle(
+                                decoration: TextDecoration.none,
+                                letterSpacing: 0.01,
+                                fontSize: 16,
+                                color: Palette.pinkBox,
+                              ),).tr(),
+                          )
+                      ),
+                      Container(
+                        margin: EdgeInsets.only( top: (height/896) *14),
+                        child:  RatingBar.builder(
+                          initialRating: 0,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemSize: width / 20,
+                          unratedColor: Palette.starColor,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
+                        ),
+                      ),
+                      Center(
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.only( left: 15, right: 15, top:  (height/896) *30),
+                            child: Text(LocaleKeys.tell_us,
+                              maxLines: 1,
+                              style: TextStyle(
+                                decoration: TextDecoration.none,
+                                letterSpacing: 0.01,
+                                fontSize: 18,
+                                color: Palette.pinkBox,
+                              ),).tr(),
+                          )
+                      ),
+                      Center(
+                          child: Container(
+                              padding: EdgeInsets.only( left: (width/414) * 15, right: (width/414) * 15, top:  (height/896) *2),
+                              width:width,
+                              height:  (height/896) *110,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Palette.whiteText,
+                              ),
+                              margin: EdgeInsets.only( left: 15, right: 15, top:  (height/896) *30),
+                              child: TextFormField(
+                                maxLines: 3,
+                                style: TextStyle(
+                                    decoration: TextDecoration.none,
+                                    fontSize: 18,
+                                    color: Palette.mainColor
+                                ),
+                                autofocus: false,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: LocaleKeys.write_your_message_here.tr(),
+                                    hintStyle: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        fontSize: 18,
+                                        color: Palette.greyText
+                                    )
+                                ),
+                              )
+                            // child: TextField()
+                          )
+                      ),
+                    ],
+                  )
+              ),
+            ),
+          );
+        });
   }
 
 
