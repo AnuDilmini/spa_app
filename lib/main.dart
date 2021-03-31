@@ -9,7 +9,6 @@ import 'package:violet_app/pages/home.dart';
 import 'package:violet_app/pages/info_service.dart';
 import 'package:violet_app/pages/location.dart';
 import 'package:violet_app/pages/order_complete.dart';
-import 'package:violet_app/pages/order_history.dart';
 import 'package:violet_app/pages/orders.dart';
 import 'package:violet_app/pages/payment.dart';
 import 'package:violet_app/pages/profile.dart';

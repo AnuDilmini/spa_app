@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:violet_app/notifiers/dark_theme_provider.dart';
-import 'package:violet_app/pages/order_history.dart';
 import 'package:violet_app/pages/update_profile.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:page_transition/page_transition.dart';
@@ -321,12 +320,6 @@ class _Orders extends State<Orders> {
             ),
            ),
             onTap: (){
-              Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.fade,
-                    child:  BottomNav(index: 0, subIndex: 2),
-                  ));
             },
           );
         });

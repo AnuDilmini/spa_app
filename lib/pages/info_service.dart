@@ -9,6 +9,7 @@ import 'package:violet_app/bloc/get_companyDetails_bloc.dart';
 import 'package:violet_app/bloc/get_companyServic_bloce.dart';
 import 'package:violet_app/model/companyService.dart';
 import 'package:violet_app/model/companyService_response.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/style/local.keys.dart';
 import 'package:violet_app/style/palette.dart';
@@ -111,7 +112,7 @@ class _InfoService extends State<InfoService> {
               width: width,
               child:Center(
                 child: Container(
-                  height: (height/896) * 61,
+                  height: (height/896) * 55,
                   child: Image.asset("assets/pink_art.png",
                   ),
                 ),
@@ -670,8 +671,8 @@ class _InfoService extends State<InfoService> {
                          ),
                            onTap: () async{
                              if(selectedService.isNotEmpty){
-                               // String serviceList = jsonEncode(selectedService);
-                               // await SharedPreferencesHelper.setSelectedService(serviceList);
+                               String serviceList = CompanyServices.encode(selectedService);
+                               await SharedPreferencesHelper.setSelectedService(serviceList);
                                Navigator.push(
                                    context,
                                    PageTransition(
@@ -765,8 +766,8 @@ class _InfoService extends State<InfoService> {
                                 borderRadius: BorderRadius.circular(8),
                                 shape: BoxShape.rectangle,
                               ),//serviceList[index]["image"]
-                              child:  companyServices[index].image != null ?
-                              Image.asset(companyServices[index].image):
+                              child: companyServices[index].image != null ?
+                              Image.network(Repository.iconUrl+companyServices[index].image):
                               // CachedNetworkImage(
                               //   imageUrl: companyServices[index].image,
                               //   placeholder: (context, url) => CircularProgressIndicator(),

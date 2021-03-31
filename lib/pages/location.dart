@@ -123,8 +123,6 @@ class _LocationState extends State<LocationPage> {
                 ),
               ),
             ),
-
-
             Positioned(
               top: (height/602) * 45,
               left:  (width/414) * 16 ,

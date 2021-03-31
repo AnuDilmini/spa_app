@@ -105,5 +105,6 @@ abstract class  LocaleKeys {
   static const renter_your = "renter_your";
   static const ok = "ok";
   static const district = "district";
+  static const wait = "wait";
 
 }
