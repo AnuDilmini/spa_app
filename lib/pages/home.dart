@@ -66,14 +66,14 @@ class _HomePageState extends State<HomePage> {
         ),
 
           Positioned(
-          top: (height/449) * 20,
+          top: (height/449) * 10,
           width: width,
           child:Center(
             child: Container(
-            width: (width/208) * 20,
-            height: (width/208) * 20,
+            width: (width/208) * 60,
+            height: (width/208) * 60,
             child:
-            Image.asset('assets/artboard.png',
+            Image.asset('assets/artboard_white.png',
             ),
           ),
           ),

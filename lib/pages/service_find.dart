@@ -114,12 +114,11 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                 width: width,
                 child:Center(
                   child: Container(
-                    width: (width/414) * 45,
-                    height: (width/602) * 45,
+                    width: (width/414) * 90,
+                    height: (width/602) * 90,
                     child:
-                    Image.asset('assets/artboard.png',
-                      width: (width/414) * 64,
-                      height: (width/602) * 90,
+                    Image.asset('assets/artboard_white.png',
+
                       // fit: BoxFit.fitHeight,
                     ),
                   ),

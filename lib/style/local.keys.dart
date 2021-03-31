@@ -106,5 +106,6 @@ abstract class  LocaleKeys {
   static const ok = "ok";
   static const district = "district";
   static const wait = "wait";
+  static const or_you_can_login = "or_you_can_login";
 
 }

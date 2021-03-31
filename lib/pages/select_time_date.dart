@@ -132,6 +132,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
               child: GestureDetector(
                 child: Center(
                   child: Container(
+                    padding: EdgeInsets.all(2.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: Palette.lightPink,
@@ -431,7 +432,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
               color: Palette.pinkBox,
               borderRadius: BorderRadius.all(Radius.circular(30)),
             ),
-         child: Text(
+            child: Text(
            LocaleKeys.confirm,
            style: TextStyle(
              fontSize: 26,
@@ -440,7 +441,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
          ).tr()
           ),
             onTap: () async{
-
 
                 String customerId = await SharedPreferencesHelper.getCustomerID();
 
@@ -739,21 +739,18 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         padding: EdgeInsets.only(top: (height/896) *10, left: (width/414) * 18, right: (width/414) * 18),
                         child:Center (
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Expanded(
-                                flex:1,
-                                child: GestureDetector(
+                               GestureDetector(
                                     child: Container(
                                         decoration: BoxDecoration(
-                                          border: Border(
-                                            right: BorderSide(width: 1, color: Palette.pinkBox ),
-                                          ),
+
                                         ),
-                                        child: Text("${LocaleKeys.new_register_now}",
+                                        child: Text("${LocaleKeys.or_you_can_login}",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: 14,
-                                            color: Palette.labelColor,
+                                            color: Palette.pinkBox,
                                           ),).tr()
                                     ),
                                     onTap: (){
@@ -761,24 +758,21 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                       showLoginDialog(context);
                                     }
                                 ),
-                              ),
-                              Expanded(
-                                flex:1,
-                                child:
+                                SizedBox(width: 10),
                                 Container(
                                   decoration: BoxDecoration(
                                     border: Border(
-                                      left: BorderSide(width: 1, color: Palette.pinkBox ),
+                                      bottom: BorderSide(width: 1, color: Palette.pinkBox ),
                                     ),
                                   ),
-                                  child: Text(LocaleKeys.forget_password,
+                                  child: Text(LocaleKeys.login,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Palette.labelColor,
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.pinkBox,
                                     ),).tr(),
                                 ),
-                              ),
                             ],
                           ),
                         ),

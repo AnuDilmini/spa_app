@@ -109,13 +109,12 @@ class _InfoService extends State<InfoService> {
             ),
             Positioned(
               top: (height/896) * 2,
-              width: width,
-              child:Center(
-                child: Container(
+              left: (width/414) * 160,
+              child: Container(
                   height: (height/896) * 55,
                   child: Image.asset("assets/pink_art.png",
                   ),
-                ),
+
               ),
             ),
             Positioned(
@@ -182,7 +181,7 @@ class _InfoService extends State<InfoService> {
             ),
             Positioned(
               top: (height/896) * 105,
-              left: (width/414) *100,
+              left: (width/414) *90,
               right: (width/414) *100,
               child:  GestureDetector(
                 child: Center(
@@ -214,7 +213,7 @@ class _InfoService extends State<InfoService> {
             ),
             Positioned(
               top: (height/896) * 326,
-              right: (width/414) *110,
+              right: (width/414) *125,
               child:  GestureDetector(
                 child: Center(
                 child: Container(
@@ -225,7 +224,7 @@ class _InfoService extends State<InfoService> {
                   ),
                   child: Text(LocaleKeys.info,
                     style: TextStyle(
-                      fontSize: 23,
+                      fontSize: 25,
                       color: Palette.pinkBox,
                     ),
                   ).tr(),
@@ -242,7 +241,7 @@ class _InfoService extends State<InfoService> {
             ),
             Positioned(
               top: (height/896) * 326,
-              left: (width/414) * 112,
+              left: (width/414) * 116,
               child:  GestureDetector(
                 child: Center(
                   child: Container(
@@ -253,7 +252,7 @@ class _InfoService extends State<InfoService> {
                     ),
                     child: Text(LocaleKeys.service,
                       style: TextStyle(
-                        fontSize: 23,
+                        fontSize: 25,
                         color: Palette.pinkBox,
                           ),
                     ).tr(),
