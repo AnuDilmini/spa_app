@@ -15,8 +15,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'change_language.dart';
 import 'change_password.dart';
 import 'info_service.dart';
+import 'location.dart';
 import 'order_complete.dart';
-import 'order_history.dart';
 import 'orders.dart';
 
 class BottomNav extends StatefulWidget {
@@ -32,8 +32,6 @@ class _BottomNavState extends State<BottomNav> {
 
   int _currentIndex = 0, subIndex , page;
 
-  PageController _pageController;
-
   final List<Widget> _children = [
     ServiceFindPage(), //0
     Orders(),
@@ -41,12 +39,12 @@ class _BottomNavState extends State<BottomNav> {
     InfoService(),
     Payment(),
     OrderComplete(),
-    OrderHistory(),
     UpdateProfile(),
     Setting(),
     ChangeLang(),
     SelectTimeDate(),
     ChangePassword(),
+    LocationPage(),// 11
   ];
 
   @override
@@ -54,7 +52,7 @@ class _BottomNavState extends State<BottomNav> {
     super.initState();
     _currentIndex = widget.index;
     subIndex = widget.subIndex;
-    print("_currentIndex $_currentIndex, subIndex $subIndex ");
+    // print("_currentIndex $_currentIndex, subIndex $subIndex ");
     if(_currentIndex == 0){
         if(subIndex == 1){
           page = 3;
@@ -63,26 +61,24 @@ class _BottomNavState extends State<BottomNav> {
         } else if(subIndex == 3) {
           page = 5;
         }else if(subIndex == 4){
-          page = 10;
+          page = 9;
+        }else if(subIndex == 5){
+          page = 11;
         }else{
             page = _currentIndex;
         }
     }
     else if(_currentIndex == 1 ){
-        if(subIndex == 1){
-          page = 6;
-        }else{
-          page = _currentIndex;
-        }
+      page = _currentIndex;
     }else if(_currentIndex == 2 ){
         if(subIndex ==1){
-          page = 7;
+          page = 6;
         }else if(subIndex == 2) {
-          page = 8;
+          page = 7;
         }else if(subIndex == 3){
-          page = 9;
+          page = 8;
         }else if(subIndex == 4){
-          page = 11;
+          page = 10;
         }else{
           page = _currentIndex;
         }
@@ -93,7 +89,6 @@ class _BottomNavState extends State<BottomNav> {
 
   @override
   void dispose() {
-    _pageController.dispose();
     super.dispose();
   }
   

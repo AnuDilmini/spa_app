@@ -1,8 +1,9 @@
 
-import 'package:share/share.dart';
+// import 'package:share/share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/notifiers/dark_theme_provider.dart';
@@ -250,43 +251,35 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
                 onTap: () async {
-                  // Anushika, check the example from:
-                  // https://pub.dev/packages/share
-                  // And fix it
-                  /*
-                  final ByteData bytes = await rootBundle.load('assets/pink_art.png');
-                  await Share.shareFiles('Spa App', 'pink_art.png',
-                    bytes.buffer.asUint8List(), 'image/png',
-                    text: 'Can book any treatment\n\nPlay store\nhttps://play.google.com/store/apps/details?id=com.wad.lovedigits');
-                   */
+
+                  Share.share('Check out our spa app', subject: 'Look what I made!');
 
                 },
               ),
             ),
-            Positioned(
-              top: (height/602) * 45,
-              left:  (width/414) * 16 ,
-              child:GestureDetector(
-                child: Center(
-                  child: Container(
-                    width: (width/414) * 16,
-                    height: (width/414) * 16,
-                    child:
-                    Image.asset('assets/back.png',
-                      // fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                ),
-                onTap: (){
-                  // Navigator.push(
-                  //     context,
-                  //     PageTransition(
-                  //       type: PageTransitionType.fade,
-                  //       child: Orders(),
-                  //     ));
-                },
-              ),
-            ),
+            // Positioned(
+            //   top: (height/602) * 45,
+            //   left:  (width/414) * 16 ,
+            //   right:  (width/414) * 16 ,
+            //   child:GestureDetector(
+            //     child: Container(
+            //         alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+            //         width: width,
+            //         child:
+            //         Icon(Icons.arrow_back_ios,
+            //         color: Palette.whiteText,
+            //         size: 25,)
+            //     ),
+            //     onTap: (){
+            //       // Navigator.push(
+            //       //     context,
+            //       //     PageTransition(
+            //       //       type: PageTransitionType.fade,
+            //       //       child: Orders(),
+            //       //     ));
+            //     },
+            //   ),
+            // ),
             Positioned(
               top: (height/602) * 80,
               left: (width/414) * 350,

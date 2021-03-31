@@ -91,12 +91,12 @@ class _UpdateState extends State<UpdateProfile> {
               child:GestureDetector(
                 child: Center(
                   child: Container(
-                    width: (width/414) * 16,
-                    height: (width/414) * 16,
+                    width: width,
+                    alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
                     child:
-                    Image.asset('assets/back.png',
-                      // fit: BoxFit.fitHeight,
-                    ),
+                    Icon(Icons.arrow_back_ios,
+                      color: Colors.white,
+                      size: 25,)
                   ),
                 ),
                 onTap: (){

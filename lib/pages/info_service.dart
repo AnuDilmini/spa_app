@@ -9,6 +9,7 @@ import 'package:violet_app/bloc/get_companyDetails_bloc.dart';
 import 'package:violet_app/bloc/get_companyServic_bloce.dart';
 import 'package:violet_app/model/companyService.dart';
 import 'package:violet_app/model/companyService_response.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/style/local.keys.dart';
 import 'package:violet_app/style/palette.dart';
@@ -111,7 +112,7 @@ class _InfoService extends State<InfoService> {
               width: width,
               child:Center(
                 child: Container(
-                  height: (height/896) * 61,
+                  height: (height/896) * 55,
                   child: Image.asset("assets/pink_art.png",
                   ),
                 ),
@@ -120,17 +121,17 @@ class _InfoService extends State<InfoService> {
             Positioned(
               top: (height/602) * 40,
               left:  (width/414) * 16 ,
+              right:  (width/414) * 16 ,
               child:GestureDetector(
-                child: Center(
-                  child: Container(
-                    width: (width/414) * 16,
-                    height: (width/414) * 16,
+                child: Container(
+                      alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+
                     child:
-                    Image.asset('assets/back.png',
-                      // fit: BoxFit.fitHeight,
-                    ),
+                    Icon(Icons.arrow_back_ios,
+                      size: 25,
+                      color: Palette.whiteText,
+                    )
                   ),
-                ),
                 onTap: (){
                   Navigator.push(
                       context,
@@ -213,7 +214,7 @@ class _InfoService extends State<InfoService> {
             ),
             Positioned(
               top: (height/896) * 326,
-              left: (width/414) *226,
+              right: (width/414) *110,
               child:  GestureDetector(
                 child: Center(
                 child: Container(
@@ -224,7 +225,7 @@ class _InfoService extends State<InfoService> {
                   ),
                   child: Text(LocaleKeys.info,
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 23,
                       color: Palette.pinkBox,
                     ),
                   ).tr(),
@@ -252,7 +253,7 @@ class _InfoService extends State<InfoService> {
                     ),
                     child: Text(LocaleKeys.service,
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 23,
                         color: Palette.pinkBox,
                           ),
                     ).tr(),
@@ -517,7 +518,7 @@ class _InfoService extends State<InfoService> {
                                  direction: DismissDirection.startToEnd,
                                  key: Key(item),
                                  child:  Container(
-                                   height: (height/896) * 57,
+                                   height: (height/896) * 65,
                                    width: width - (width/414) * 60,
                                    padding: EdgeInsets.only(bottom: (height/896) * 6),
                                    child: Stack(
@@ -670,8 +671,8 @@ class _InfoService extends State<InfoService> {
                          ),
                            onTap: () async{
                              if(selectedService.isNotEmpty){
-                               // String serviceList = jsonEncode(selectedService);
-                               // await SharedPreferencesHelper.setSelectedService(serviceList);
+                               String serviceList = CompanyServices.encode(selectedService);
+                               await SharedPreferencesHelper.setSelectedService(serviceList);
                                Navigator.push(
                                    context,
                                    PageTransition(
@@ -765,8 +766,8 @@ class _InfoService extends State<InfoService> {
                                 borderRadius: BorderRadius.circular(8),
                                 shape: BoxShape.rectangle,
                               ),//serviceList[index]["image"]
-                              child:  companyServices[index].image != null ?
-                              Image.asset(companyServices[index].image):
+                              child: companyServices[index].image != null ?
+                              Image.network(Repository.iconUrl+companyServices[index].image):
                               // CachedNetworkImage(
                               //   imageUrl: companyServices[index].image,
                               //   placeholder: (context, url) => CircularProgressIndicator(),

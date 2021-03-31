@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class CompanyServices {
   final String id;
   final String company_id;
@@ -19,5 +21,27 @@ class CompanyServices {
         duration_min = json["duration_min"],
         name = json["name"],
         description = json["description"];
+
+  static Map<String, dynamic> toMap(CompanyServices companyServices) => {
+    'id': companyServices.id,
+    'company_id': companyServices.company_id,
+    'category_id': companyServices.category_id,
+    'image': companyServices.image,
+    'price': companyServices.price,
+    'duration_min': companyServices.duration_min,
+    'name': companyServices.name,
+    'description': companyServices.description,
+  };
+
+  static String encode(List<CompanyServices> companyServices) => json.encode(
+    companyServices
+        .map<Map<String, dynamic>>((companyServices) => CompanyServices.toMap(companyServices))
+        .toList(),
+  );
+
+  static List<CompanyServices> decode(String musics) =>
+      (json.decode(musics) as List<dynamic>)
+          .map<CompanyServices>((item) => CompanyServices.fromJson(item))
+          .toList();
 
 }

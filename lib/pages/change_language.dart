@@ -121,23 +121,23 @@ class _ChangeLang extends State<ChangeLang> {
               Positioned(
                 top: (height/602) * 45,
                 left:  (width/414) * 16 ,
+                right:  (width/414) * 16 ,
                 child:GestureDetector(
-                  child: Center(
-                    child: Container(
-                      width: (width/414) * 16,
-                      height: (width/414) * 16,
+                  child: Container(
+                      alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
                       child:
-                      Image.asset('assets/back.png',
-                        // fit: BoxFit.fitHeight,
-                      ),
-                    ),
+                      Icon(Icons.arrow_back_ios,
+                      color: Colors.white,
+                      size: 25,)
                   ),
                   onTap: (){
+
+                    FocusScope.of(context).requestFocus(new FocusNode());
                     Navigator.push(
                         context,
                         PageTransition(
                           type: PageTransitionType.fade,
-                          child:  BottomNav(index: 2, subIndex: 2),
+                          child: BottomNav(index: 2, subIndex: 2),
                         ));
                   },
                 ),
@@ -145,8 +145,10 @@ class _ChangeLang extends State<ChangeLang> {
               Positioned(
                 top: (height/602) * 210,
                 left:  (width/414) * 16 ,
+                right:  (width/414) *20 ,
                 child: Center(
                     child: Container(
+                        width: width,
                       child:
                       Text(LocaleKeys.change_language,
                         style: TextStyle(
@@ -159,6 +161,7 @@ class _ChangeLang extends State<ChangeLang> {
               Positioned(
                 top: (height/602) * 235,
                 left:  (width/414) * 16 ,
+                right:  (width/414) * 16 ,
                 child: Center(
                     child: Container(
                       height: (height/602) * 180,
@@ -199,6 +202,7 @@ class _ChangeLang extends State<ChangeLang> {
                             print("Radio $val");
                             setSelectedRadio(val);
                             context.locale = Locale('ar', '');
+
                             print("ara    ${context.locale.languageCode}  context.locale.languageCode");
                             await  SharedPreferencesHelper.setLanguage("ar");
 

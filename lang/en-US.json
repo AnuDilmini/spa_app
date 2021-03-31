@@ -103,6 +103,7 @@
   "enter_pass" : "Enter your new Password",
   "renter_your" : "Renter your new Password",
   "ok" : "OK",
-  "district" : "District"
+  "district" : "District",
+  "wait" : "Wait..."
 
 }

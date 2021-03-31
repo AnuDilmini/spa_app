@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:violet_app/notifiers/dark_theme_provider.dart';
-import 'package:violet_app/pages/order_history.dart';
 import 'package:violet_app/pages/update_profile.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:page_transition/page_transition.dart';
@@ -321,12 +320,6 @@ class _Orders extends State<Orders> {
             ),
            ),
             onTap: (){
-              Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.fade,
-                    child:  BottomNav(index: 0, subIndex: 2),
-                  ));
             },
           );
         });
@@ -339,7 +332,7 @@ class _Orders extends State<Orders> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(left: (width/414) * 25),
+            padding: EdgeInsets.only(left: (width/414) * 25, right: (width/414) * 25),
             child: Text("7 May 2020",
               style: TextStyle(
                 color: Palette.darkPink,
@@ -357,7 +350,7 @@ class _Orders extends State<Orders> {
             child: Row(
                 children:[
                   Container(
-                    padding: EdgeInsets.only(left:  (width/414) * 25),
+                    padding: EdgeInsets.only(left:  (width/414) * 25,right: (width/414) * 25 ),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:[
@@ -413,12 +406,12 @@ class _Orders extends State<Orders> {
                                 size: 20,)
                           ),
                             onTap: (){
-                              // Navigator.push(
-                              //     context,
-                              //     PageTransition(
-                              //       type: PageTransitionType.fade,
-                              //       child:  OrderHistory(),
-                              //     ));
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.fade,
+                                    child:  BottomNav(index: 0, subIndex: 4),
+                                  ));
                             },
                           ),
                         ]
