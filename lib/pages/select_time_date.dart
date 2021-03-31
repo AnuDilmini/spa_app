@@ -431,14 +431,13 @@ class _SelectTimeDate extends State<SelectTimeDate> {
               color: Palette.pinkBox,
               borderRadius: BorderRadius.all(Radius.circular(30)),
             ),
-         child: Text( isClickConfirm?
-           LocaleKeys.confirm :
-           LocaleKeys.wait,
+         child: Text(
+           LocaleKeys.confirm,
            style: TextStyle(
              fontSize: 26,
              color: Palette.whiteText
            ),
-         )
+         ).tr()
           ),
             onTap: () async{
 
@@ -453,9 +452,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         child:  BottomNav(index: 0, subIndex:2),
                       ));
                 }else{
-                  setState(() {
-                    isClickConfirm = false;
-                  });
+
                   showLoginDialog(context);
                 }
             },
@@ -1283,6 +1280,17 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         },
                       ),
 
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        width: width,
+                        padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
+                        child: Text("$otpLogin",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Palette.pinkBox,
+                          ),).tr(),
+                      ),
+
                     ],
                   )
               ),
@@ -1461,18 +1469,25 @@ class _SelectTimeDate extends State<SelectTimeDate> {
           var convertData = json.decode(response.body);
           print("convertData $convertData");
           var token = convertData['token'];
-          String userId = convertData['data']['id'];
+          String userId = convertData['user']['id'];
           print("token *** $token");
           _pinPutController.clear();
-          FocusScope.of(context).requestFocus(new FocusNode());
-          Navigator.pop(context);
+
           await SharedPreferencesHelper.setToken(token);
           await SharedPreferencesHelper.setCustomerID(userId);
 
-          showSnackbar(context, "Success",Colors.blue);
-          // setState(() {
-          //
-          // });
+          FocusScope.of(context).requestFocus(new FocusNode());
+          Navigator.pop(context);
+
+          showSnackbar(context, "Success", Palette.lightPink);
+
+          Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child:  BottomNav(index: 0, subIndex:2),
+              ));
+
         } else if (responseCode == 425) {
           Navigator.pop(context);
           showAlert(context, "Number already exist !");
@@ -1482,7 +1497,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         }
       } catch (Exception) {
         Navigator.pop(context);
-        showAlert(context, " Error !");
+        showAlert(context, " Error $Exception!");
       }
     } else {
       Navigator.pop(context);

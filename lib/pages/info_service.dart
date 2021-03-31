@@ -534,7 +534,7 @@ class _InfoService extends State<InfoService> {
                                                shape: BoxShape.rectangle,
                                              ),//serviceList[index]["image"]
                                              child:  selectedService[index].image != null ?
-                                             Image.asset(selectedService[index].image):
+                                             Image.network(Repository.iconUrl+selectedService[index].image):
                                              // CachedNetworkImage(
                                              //   imageUrl: selectedService[index].image,
                                              //   placeholder: (context, url) => CircularProgressIndicator(),
@@ -545,21 +545,26 @@ class _InfoService extends State<InfoService> {
                                        ),
                                        Positioned(
                                            top: (height/896) * 10,
-                                           left: (width/414) * 75,
+                                           left: (width/414) * 73,
                                            width: (width/414) * 230,
-                                           child: RichText(
-                                             text: TextSpan(
-                                               text: '${selectedService[index].name}\n',
-                                               style: TextStyle(
-                                                   fontSize: 18,
-                                                   color: Palette.pinkBox),
-                                               children: <TextSpan>[
-                                                 TextSpan(text: '${selectedService[index].duration_min} min - ${selectedService[index].price} SR',
-                                                   style: TextStyle(
-                                                       fontSize: 14,
-                                                       color: Palette.labelColor),),
-                                               ],
-                                             ),
+                                           child: Column(
+                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                             children: [
+                                               Text(
+                                                 "${selectedService[index].name}",
+                                                 maxLines: 1,
+                                                 overflow: TextOverflow.clip,
+                                                 style: TextStyle(
+                                                     fontSize: 18,
+                                                     color: Palette.pinkBox),
+                                               ),
+                                               Text(
+                                                 "'${selectedService[index].duration_min} min - ${selectedService[index].price} SR'",
+                                                 style: TextStyle(
+                                                     fontSize: 14,
+                                                     color: Palette.labelColor),
+                                               )
+                                             ],
                                            )
                                        ),
                                        Positioned(
