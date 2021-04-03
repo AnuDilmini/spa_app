@@ -402,19 +402,21 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                         height:  (height/449) * 45,
                         child: Row(
                             children: [
+
                               Container(
-                                width:  (width/208) * 47,
-                                decoration: BoxDecoration(
+                                width:  (width/208) * 57,
+                                child: company[index].image != null ? Image.network(Repository.iconUrl+company[index].image, width: 92, height: 72) : null,
+                                decoration: company[index].image == null ? BoxDecoration(
                                     color: Palette.pinkBox,
                                     borderRadius: BorderRadius.all(Radius.circular(18)),
                                     image: new DecorationImage(
                                       image: new AssetImage("assets/background.png"),
                                       fit: BoxFit.fill,
                                     )
-                                ),
+                                ) : null,
                               ),
                               Container(
-                                  padding: EdgeInsets.only(left:  (width/208) * 10, top:  (height/449) * 5 , right: (height/449) * 5),
+                                  padding: EdgeInsets.only(left:  (width/208) * 5, top:  (height/449) * 5 , right: (height/449) * 5),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -558,8 +560,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               Container(
                                 margin: EdgeInsets.only(
                                     right: (width / 208) * 0),
-                                width: (width / 208) * 35,
-                                height: (width / 208) * 35,
+                                width: (width / 208) * 30,
+                                height: (width / 208) * 30,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: (selectedCatList.contains(category[index].id.toString())) ?  Palette.pinkText :  Palette.greyBox

@@ -19,13 +19,13 @@ class Company{
         country_id = json["country_id"],
         city_id = json["city_id"],
         phone = json["phone"],
-        image = json["image"],
+        image = json["logo"],
         rating = json["rating"],
         status = json["status"],
         name = json["name"],
         description = json["description"],
         business_name = json["business_name"],
-        city = City.fromJson(json["city"]);
+        city = (json["city"] != null) ? City.fromJson(json["city"]) : new City(id: 0, name: "");
 }
 
 class City {

@@ -33,7 +33,7 @@ void main() async {
   AppLanguage appLanguage = AppLanguage();
   await appLanguage.fetchLocale();
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitUp
   ]);
   runApp(
 
