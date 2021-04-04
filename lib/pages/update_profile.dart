@@ -244,18 +244,32 @@ class _UpdateState extends State<UpdateProfile> {
                          color: Palette.whiteText,
                        ),
                        child:Center(
-                         child: TextFormField(
-                             decoration: InputDecoration(
-                                 hintText: LocaleKeys.city.tr(),
-                                 border: InputBorder.none,
-                                 hintStyle: TextStyle(
-                                   fontSize: 15,
-                                   color: Palette.labelColor,
-                                 )
-                             )
-                         ),
+                          child:
+                         Container(
+                           alignment: Alignment.centerLeft,
+
+                                 child: new DropdownButton<String>(
+                                   hint: Text(
+                                     LocaleKeys.city,
+                                   style: TextStyle(
+                                     fontSize: 15,
+                                     color: Palette.labelColor,
+                                   ),).tr(),
+                                   underline: Container(),
+                                 items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                                 return new DropdownMenuItem<String>(
+                                   value: value,
+                                   child: new Text(value,
+                                     style: TextStyle(
+                                       color: Palette.labelColor,
+                                     ),),
+                                 );
+                               }).toList(),
+                               onChanged: (_) {},
+                             ),
                        ),
                      ),
+                   ),
                      Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
@@ -340,4 +354,5 @@ class _UpdateState extends State<UpdateProfile> {
       ),
     );
   }
+
 }
