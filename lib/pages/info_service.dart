@@ -82,6 +82,8 @@ class _InfoService extends State<InfoService> {
 
     final companyDetailsData = Provider.of<CompanyDetailsDataProvider>(context);
 
+
+    print("[companyDetailsData.companyDetails.image ${companyDetailsData.companyDetails.logo}");
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
@@ -195,14 +197,19 @@ class _InfoService extends State<InfoService> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children:[
-                        // Image.asset("assets/cart.png",
-                        // height: (height/896) * 124,
-                        // width: (width/414) * 75,),
-                        Text("FOUR\n SPA",
+                        Container(
+                          padding: EdgeInsets.only(bottom: 10),
+                          width:  (width/208) * 57,
+                          child: companyDetailsData.companyDetails.logo  != null ? Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo, width: 92, height: 72) : null,
+
+                        ),
+                        Text(companyDetailsData.companyDetails.name ,
+                        maxLines: 2,
+                        overflow: TextOverflow.clip,
                         style: TextStyle(
-                          fontSize: 28,
+                          fontSize: 22,
                           color: Color.fromRGBO(247, 127, 151, 1),
-                        ),),
+                        ),).tr(),
                       ]
                     ),
                   ),
@@ -458,6 +465,8 @@ class _InfoService extends State<InfoService> {
   }
 
   void slideSheet() {
+
+
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -750,6 +759,7 @@ class _InfoService extends State<InfoService> {
         width : width,
         height:(height/2),
         child:  ListView.builder(
+            padding: EdgeInsets.zero,
             scrollDirection: Axis.vertical,
             itemCount: companyServices.length,
             itemBuilder: (BuildContext context, int index) {

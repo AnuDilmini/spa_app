@@ -156,9 +156,9 @@ class _PaymentState extends State<Payment> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:[
-                            Image.asset("assets/cart.png",
-                              height: (height/896) * 45,
-                              width: (width/414) * 27,),
+                            // Image.asset("assets/cart.png",
+                            //   height: (height/896) * 45,
+                            //   width: (width/414) * 27,),
                             Text("FOUR\n SPA",
                               style: TextStyle(
                                 fontSize: 11,
@@ -268,7 +268,7 @@ class _PaymentState extends State<Payment> {
                                 padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 5),
                                 child:   Row(
                                   children: [
-                                    Text(tr('* ( ${LocaleKeys.include_vat}'),
+                                    Text(tr('* ( ${LocaleKeys.include_vat.tr()}'),
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
@@ -319,12 +319,12 @@ class _PaymentState extends State<Payment> {
                   ),
                   Center(
                     child: Container(
-                      padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 10 ),
+                      padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 8 ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Color.fromRGBO(231, 223, 225, 0.81),
                       ),
-                      height: (height/896) * 163,
+                      height: (height/896) * 180,
                       width: width,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -339,12 +339,13 @@ class _PaymentState extends State<Payment> {
                             ),
                           ).tr(),
                           Container(
-                            margin: EdgeInsets.only(top: (height/896) * 10 ),
-                            height: (height/896) * 110,
+                            padding: EdgeInsets.only(top: (height/896) * 3 ),
+                            height: (height/896) * 124,
                             child: ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,
-                                itemCount: 2,
+                                itemCount: 3,
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                       child: listPayment(index),
@@ -389,6 +390,8 @@ class _PaymentState extends State<Payment> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             LocaleKeys.i_agree,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 16,
                               letterSpacing: 2,
@@ -826,8 +829,8 @@ class _PaymentState extends State<Payment> {
                     shape: BoxShape.rectangle,
                     image: new DecorationImage(
                       image: index == 0 ? new AssetImage("assets/master.png") :
-                     new AssetImage("assets/ipay.png"),
-                          // : new AssetImage("assets/cash.png")
+                      index == 1 ?  new AssetImage("assets/ipay.png")
+                          : new AssetImage("assets/cash.png"),
                       ),
                     )
                 )
@@ -837,7 +840,9 @@ class _PaymentState extends State<Payment> {
               left: (width/414) * 75,
               width: (width/414) * 170,
               child:Text(
-                   '**** **** 3256',
+                index == 0 ?'**** **** 3256' :
+                index ==1 ? "Apple Pay":
+                "Cash",
                   style: TextStyle(
                       letterSpacing: 2,
                       fontSize: 16,

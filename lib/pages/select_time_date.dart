@@ -176,6 +176,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     width : width,
                     height: (height/896) * 37,
                     child: ListView.builder(
+                        padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
                         itemCount: 5,
                         itemBuilder: (BuildContext context, int index) {
@@ -321,6 +322,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
               Container(
                 height: (height/896) * 140,
                 child: ListView(
+                  padding: EdgeInsets.zero,
                  scrollDirection: Axis.vertical,
                   children: [
                     Wrap(
@@ -663,7 +665,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             autofocus: false,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: LocaleKeys.phone_number.tr() ,
+                                hintText: LocaleKeys.enter_your_number.tr() ,
                                 hintStyle: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontSize: 15,
@@ -1019,7 +1021,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             autofocus: false,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: LocaleKeys.phone_number.tr() ,
+                                hintText: LocaleKeys.enter_your_number.tr() ,
                                 hintStyle: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontSize: 15,

@@ -104,6 +104,7 @@ class _Orders extends State<Orders> {
                 height: height,
                 width: width,
                 child:  ListView.builder(
+                    padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
                     itemCount:20,
                     itemBuilder: (BuildContext context, int index) {
@@ -250,6 +251,7 @@ class _Orders extends State<Orders> {
               color:  Color(0xFFE9E2E3),
             ),
             child: ListView(
+                padding: EdgeInsets.zero,
                 children: [
                   Column(
                     children: [

@@ -3,6 +3,7 @@ class CompanyDetails{
   final String country_id;
   final String city_id;
   final String image;
+  final String logo;
   final String phone;
   final String rating;
   final String status;
@@ -11,7 +12,7 @@ class CompanyDetails{
   final String business_name;
   final City city;
 
-  CompanyDetails({this.id, this.country_id, this.city_id, this.image, this.phone, this.rating, this.status, this.name, this.business_name,
+  CompanyDetails({this.id, this.country_id, this.city_id, this.image, this.logo,  this.phone, this.rating, this.status, this.name, this.business_name,
       this.city, this.description});
 
 
@@ -22,6 +23,7 @@ class CompanyDetails{
         city_id : json["city_id"],
         phone : json["phone"],
         image : json["image"],
+        logo : json["logo"],
         rating : json["rating"],
         status : json["status"],
         name : json["name"],

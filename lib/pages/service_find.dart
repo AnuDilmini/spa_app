@@ -48,13 +48,13 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
   List<dynamic> companyList = new List<dynamic>();
   List<String> selectedCatList = new List<String>();
   List<Category> category =  new List<Category>();
+  List<Company> company  =  new List<Company>();
   var dir;
   File file;
   String lngCode = "en";
   SharedPreferences prefs;
   int curTime, jsonTime, difference;
   int clickCategoryIndex ;
-
 
   @override
   void initState() {
@@ -182,15 +182,22 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               cursorColor: Palette.pinkBox,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "Type category",
+                                hintText: tr(LocaleKeys.what_you_are_looking.tr()),
                                 hintStyle: TextStyle(
-                                  color: Palette.pinkText
+                                  color: Palette.textGrey
                                 )
                               ),
                               onChanged: (content) {
-                                if(searchController.text.length > 2){
+                                if(searchController.text.length > 3){
                                   print("searchController.text12 ${searchController.text}");
                                   searchCategory();
+
+                                }else if(searchController.text.length == 0){
+                                  selectedCatList.clear();
+                                  setState(() {
+
+                                  });
+                                  companyListBloc..getCompany(lngCode, "company", [] );
 
                                 }else{
                                   selectedCatList.clear();
@@ -303,13 +310,12 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
     if(category.isNotEmpty){
       print("category fdgd");
       for(int i = 0; i< category.length; i++){
-        print("${category[i].name}");
+        print("${category[i].name}searchController.text ${searchController.text} ");
         if(category[i].name.toLowerCase().contains(searchController.text.toLowerCase())){
           print("true***********");
           print("category[i].id ${category[i].id}");
           selectedCatList.clear();
           selectedCatList.add(category[i].id.toString());
-
 
           print("selectedCatList$selectedCatList");
           companyListBloc
@@ -321,11 +327,34 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
 
           });
 
-        }else{
-          print("a123");
+          break;
+        }else {
+          selectedCatList.clear();
+          // companyListBloc..getCompany(lngCode, "company", [] );
+
+          for (int j = 0; j < company.length; j++) {
+
+
+            if (company[j].name.toLowerCase().contains(
+                searchController.text.toLowerCase())) {
+              print("true***********");
+
+             print("company[j].name ${company[j].name}  searchController.text${searchController.text}");
+              Company selectedCom = company[j];
+              company.clear();
+              company.add(selectedCom);
+
+              setState(() {
+
+              });
+
+              break;
+            }
+          }
         }
-      }
-    }else{
+
+        }
+      } else{
       print("anuuuuuuuuuu");
     }
 
@@ -359,7 +388,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
   }
 
   Widget _buildCompanyWidget(CompanyResponse data) {
-    List<Company> company = data.company;
+
+    company  =  data.company;
 
     print("company ${company.length}");
     if (company.length == 0) {
@@ -402,7 +432,6 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                         height:  (height/449) * 45,
                         child: Row(
                             children: [
-
                               Container(
                                 width:  (width/208) * 57,
                                 child: company[index].image != null ? Image.network(Repository.iconUrl+company[index].image, width: 92, height: 72) : null,
@@ -413,7 +442,9 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                       image: new AssetImage("assets/background.png"),
                                       fit: BoxFit.fill,
                                     )
-                                ) : null,
+                                ) :BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(18)),
+                                ),
                               ),
                               Container(
                                   padding: EdgeInsets.only(left:  (width/208) * 5, top:  (height/449) * 5 , right: (height/449) * 5),
@@ -546,6 +577,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
           width: width,
           height: (height / 2),
           child: ListView.builder(
+              padding: EdgeInsets.zero,
               scrollDirection: Axis.horizontal,
               itemCount: category.length,
               itemBuilder: (BuildContext context, int index) {
@@ -560,24 +592,22 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               Container(
                                 margin: EdgeInsets.only(
                                     right: (width / 208) * 0),
-                                width: (width / 208) * 30,
-                                height: (width / 208) * 30,
+                                width: (width / 208) * 28,
+                                height: (width / 208) * 28,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: (selectedCatList.contains(category[index].id.toString())) ?  Palette.pinkText :  Palette.greyBox
                                 ),
                                 child: category[index].icon != null ?
                                 Image.network(Repository.iconUrl+category[index].icon,
-                                  width:(width / 208) * 45,
-                                  height:  (width / 208) * 45,):
+                                  ):
                                 Image.asset("assets/eyes.png"),
                               ),
                               Center(
                                 child: Container(
                                   width: (width / 208) * 50,
                                   alignment: Alignment.center,
-                                  padding: EdgeInsets.only(left: 0),
-                                  margin: EdgeInsets.only(top: 7),
+                                  padding: EdgeInsets.only(left: 0, top: 5),
                                   child: Text("${category[index].name}",
                                     textAlign: TextAlign.center,
                                     overflow: TextOverflow.clip,
@@ -600,6 +630,9 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
 
                         if(selectedCatList.contains(category[index].id.toString())){
                           selectedCatList.remove(category[index].id.toString());
+
+                          print("Anu");
+                          searchController.clear();
 
                         }else{
                           selectedCatList.add(category[index].id.toString());

@@ -254,7 +254,6 @@ class _OrderComplete extends State<OrderComplete> {
                 ),
                 onTap: (){
                   showFeedback(context);
-
                 },
               ),
             ),
@@ -280,10 +279,11 @@ class _OrderComplete extends State<OrderComplete> {
                 borderRadius: BorderRadius.circular(30),
                 color: Palette.blurColor,
               ),
-              height: height/2.2,
+              // height: height/2.2,
               child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                      GestureDetector(
                        child:
@@ -365,7 +365,7 @@ class _OrderComplete extends State<OrderComplete> {
                                 maxLines: 3,
                                 style: TextStyle(
                                     decoration: TextDecoration.none,
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     color: Palette.mainColor
                                 ),
                                 autofocus: false,
@@ -374,13 +374,42 @@ class _OrderComplete extends State<OrderComplete> {
                                     hintText: LocaleKeys.write_your_message_here.tr(),
                                     hintStyle: TextStyle(
                                         decoration: TextDecoration.none,
-                                        fontSize: 18,
+                                        fontSize: 14,
                                         color: Palette.greyText
                                     )
                                 ),
                               )
                             // child: TextField()
                           )
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Center(
+                        child :
+                       GestureDetector(
+                         child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                              color: Palette.pinkBox,
+                            ),
+                          width:  (width/414) * 85,
+                          height: (height/896) * 45,
+                          child: Center(
+                            child: Text(LocaleKeys.submit,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              fontFamily:"Audrey-Medium.otf",
+                              color: Palette.whiteText
+                            ),
+                          ),
+                          ),
+                        ),
+                       onTap:(){
+
+                       }
+                       ),
                       ),
                     ],
                   )

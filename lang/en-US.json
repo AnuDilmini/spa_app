@@ -105,6 +105,8 @@
   "ok" : "OK",
   "district" : "District",
   "or_you_can_login" : "Or you can",
-  "wait" : "Wait..."
+  "wait" : "Wait...",
+  "submit" : "submit",
+  "what_you_are_looking" : "What you are looking for..."
 
 }
