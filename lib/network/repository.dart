@@ -15,7 +15,7 @@ class Repository {
 
   final Dio _dio = Dio();
   // static String  baseUrl = "https://spa.ammarahmad.net/api/v1/mobile";
-  static String  baseUrl = "https://violetapp.net/admin;
+  static String  baseUrl = "https://violetapp.net/admin";
   static String  iconUrl = "https://spa.ammarahmad.net/storage/app/";
 
   //POST
