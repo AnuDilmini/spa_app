@@ -506,27 +506,25 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                             ),
                                             Container(
                                               alignment: Alignment.centerRight,
-                                              child:  RatingBar.builder(
+                                              child: RatingBar.builder(
+                                                ignoreGestures: true,
                                                 initialRating: double.parse((company[index].rating)),
                                                 minRating: 1,
                                                 direction: Axis.horizontal,
                                                 allowHalfRating: true,
                                                 itemCount: 5,
                                                 itemSize: width / 35,
-                                                unratedColor: Palette.starColor,
+                                                unratedColor: Palette.greyText,
                                                 itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
                                                 itemBuilder: (context, _) => Icon(
                                                   Icons.star,
                                                   color: Colors.yellow,
                                                 ),
                                                 onRatingUpdate: (rating) {
-                                                  print(rating);
                                                 },
                                               ),
                                             ),
                                           ],
-
-
                                         ),
                                       ),
                                     ],

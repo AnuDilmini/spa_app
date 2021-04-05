@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  calendar_timeline:
+    dependency: "direct main"
+    description:
+      name: calendar_timeline
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.1"
   characters:
     dependency: transitive
     description:
@@ -224,13 +231,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_week_view:
-    dependency: "direct main"
-    description:
-      name: flutter_week_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   google_maps_flutter:
     dependency: "direct main"
     description:
@@ -448,6 +448,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.26.0"
+  scrollable_positioned_list:
+    dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.10"
   share:
     dependency: "direct main"
     description:

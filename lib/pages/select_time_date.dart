@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,6 +41,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
   int month = 4;
   String pin ;
   bool pinCorrect = false;
+  DateTime _selectedDate;
   List<String> months = ["January", "February", "March", "April",
   "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -67,6 +69,8 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         .height;
 
     SystemChrome.setEnabledSystemUIOverlays([]);
+
+    _selectedDate = DateTime.now().add(Duration(days: 5));
 
     return Scaffold(
       key: _scaffoldKey,
@@ -215,90 +219,117 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                       ),).tr()
                 ),
             ),
+            // Positioned(
+            //   top: (height/896) * 339,
+            //   left: (width/414) * 30,
+            //   right: (width/414) * 30,
+            //   child: Container(
+            //       alignment: Alignment.topLeft,
+            //       height: (height/896) * 37,
+            //       width: width,
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //           children: [
+            //             GestureDetector(
+            //             child: Icon(Icons.arrow_back_ios,
+            //               color: Palette.pinkBox,
+            //               size: 15,),
+            //               onTap: (){
+            //                 if(month> 0){
+            //                   setState(() {
+            //                     month = month -1;
+            //                     currentPageIndex = currentPageIndex-1;
+            //                   });
+            //
+            //                 }
+            //               },
+            //             ),
+            //             SizedBox(
+            //               width: 10,
+            //             ),
+            //           Container(
+            //             alignment: Alignment.center,
+            //             width: width/5,
+            //               child: Text("${months[month]}",
+            //         style: TextStyle(
+            //           fontFamily: "Audrey-Medium",
+            //           color: Palette.darkPink,
+            //           fontSize: 18,
+            //           fontWeight: FontWeight.w300,
+            //         ),),
+            //           ),
+            //             SizedBox(
+            //               width: 10,
+            //             ),
+            //           GestureDetector(
+            //             child:  Icon(Icons.arrow_forward_ios,
+            //               color: Palette.pinkBox,
+            //               size: 15,),
+            //           onTap: (){
+            //               if(month< 11){
+            //                 setState(() {
+            //                   month = month +1;
+            //                   currentPageIndex = currentPageIndex+1;
+            //                 });
+            //               }
+            //           },
+            //        ),
+            //     ]
+            //     ),
+            //   ),
+            // ),
             Positioned(
-              top: (height/896) * 339,
-              left: (width/414) * 30,
-              right: (width/414) * 30,
-              child: Container(
-                  alignment: Alignment.topLeft,
-                  height: (height/896) * 37,
-                  width: width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                        child: Icon(Icons.arrow_back_ios,
-                          color: Palette.pinkBox,
-                          size: 15,),
-                          onTap: (){
-                            if(month> 0){
-                              setState(() {
-                                month = month -1;
-                                currentPageIndex = currentPageIndex-1;
-                              });
-
-                            }
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                      Container(
-                        alignment: Alignment.center,
-                        width: width/5,
-                          child: Text("${months[month]}",
-                    style: TextStyle(
-                      fontFamily: "Audrey-Medium",
-                      color: Palette.darkPink,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                    ),),
-                      ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                      GestureDetector(
-                        child:  Icon(Icons.arrow_forward_ios,
-                          color: Palette.pinkBox,
-                          size: 15,),
-                      onTap: (){
-                          if(month< 11){
-                            setState(() {
-                              month = month +1;
-                              currentPageIndex = currentPageIndex+1;
-                            });
-                          }
-                      },
-                   ),
-                ]
-                ),
-              ),
-            ),
-            Positioned(
-              top: (height/896) * 390,
+              top: (height/896) * 355,
               left: (width/414) * 30,
               right: (width/414) * 30,
               child:  Container(
-                height: (height/896) * 375,
-              child: PageView.builder(
-                 onPageChanged: (value) {
-                  setState(() {
-                  currentPageIndex = value;
-                  month = currentPageIndex;
-                  });
-                  },
-                pageSnapping: true,
-                allowImplicitScrolling: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: 12,
-                // ignore: missing_return
-                itemBuilder: (BuildContext context, int index) {
-                 return monthItem(index);
-                }),
-             ),
+                alignment: Alignment.topCenter,
+                  child: CalendarTimeline(
+                    initialDate: _selectedDate,
+                    firstDate: DateTime(DateTime.now().year -1, 1, 15),
+                    lastDate: DateTime.now().add(Duration(days: 365)),
+                    onDateSelected: (date) {
+                      print("date $date");
+                      _selectedDate = date;
+                    },
+                    leftMargin: 0,
+                    monthColor:  Palette.pinkBox,
+                    dayColor: Palette.darkPink,
+                    activeDayColor: Colors.white,
+                    activeBackgroundDayColor: Palette.pinkBox,
+                    dotsColor:  Palette.pinkBox,
+                    selectableDayPredicate: (date) => date.day != 23,
+                    locale: context.locale.languageCode== "en" ? 'en' : 'ar',
+                  )
+              ),
             ),
+            // Positioned(
+            //   top: (height/896) * 390,
+            //   left: (width/414) * 30,
+            //   right: (width/414) * 30,
+            //   child:  Container(
+            //     height: (height/896) * 375,
+            //   child: PageView.builder(
+            //      onPageChanged: (value) {
+            //       setState(() {
+            //       currentPageIndex = value;
+            //       month = currentPageIndex;
+            //       });
+            //       },
+            //     pageSnapping: true,
+            //     allowImplicitScrolling: true,
+            //     scrollDirection: Axis.horizontal,
+            //     itemCount: 12,
+            //     // ignore: missing_return
+            //     itemBuilder: (BuildContext context, int index) {
+            //      return monthItem(index);
+            //     }),
+            //  ),
+            // ),
+
+
             Positioned(
-              top: (height/896) * 550,
+              top: (height/896) * 520,
               left: (width/414) * 50,
               right: (width/414) * 30,
               child: Container(
@@ -314,8 +345,23 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     ),).tr()
               ),
             ),
-            Positioned(
-              top: (height/896) * 590,
+
+
+
+            // Positioned(
+            //   top: (height/896) * 575,
+            //   left: (width/414) * 50,
+            //   right: (width/414) * 30,
+            //   child: SfCalendar(
+            //     view: CalendarView.week,
+            //     timeSlotViewSettings: TimeSlotViewSettings(
+            //       timeIntervalHeight: 100,
+            //     ),
+            //   ),
+            // ),
+
+              Positioned(
+              top: (height/896) * 575,
               left: (width/414) * 50,
               right: (width/414) * 30,
               child:
@@ -419,14 +465,12 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                 ),
               )
             ),
-      Positioned(
-          top: (height/896) * 740,
-
-          left: (width/414) * 135,
-          right: (width/414) *135,
-          child: GestureDetector(
+            Positioned(
+              top: (height/896) * 725,
+              left: (width/414) * 135,
+              right: (width/414) *135,
+              child: GestureDetector(
               child: Container(
-
             alignment: Alignment.center,
             width: (width/414) * 135,
             height: (height/896) * 47,
@@ -459,11 +503,12 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                 }
             },
           ),
-        ),
+           ),
       ]
      ),
     );
   }
+
 
   @override
   void dispose() {
@@ -1006,7 +1051,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           ),
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.only(top: (height/896) *10),
-                          padding: EdgeInsets.only( left:10),
+                          padding: EdgeInsets.only( left:10,right: 10),
                           height: (height/896) * 57,
                           width: (width/414) * 312,
                           child: TextFormField(
@@ -1033,7 +1078,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only( top: (height/896) * 10, left: (width/414) * 18),
+                        margin: EdgeInsets.only( top: (height/896) * 10, left: (width/414) * 18, right: (width/414) * 18 ),
                         child: Text(LocaleKeys.a_digit,
                           style: TextStyle(
                             fontSize: 17,
@@ -1076,11 +1121,11 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 child: GestureDetector(
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      border: Border(
-                                        right: BorderSide(width: 1, color: Palette.pinkBox ),
-                                      ),
+                                      // border: Border(
+                                      //   right: BorderSide(width: 1, color: Palette.pinkBox ),
+                                      // ),
                                     ),
-                                    child: Text(LocaleKeys.new_register_now,
+                                    child: Text(LocaleKeys.new_register_now.tr(),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 14,
@@ -1093,16 +1138,23 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                   },
                                 ),
                               ),
+                              SizedBox(
+                                width: 2,
+                                height:  (height/896) * 24,
+                                child: Container(
+                                    color: Palette.pinkBox
+                              ),
+                              ),
                               Expanded(
                                 flex:1,
                                 child:
                                 Container(
                                   decoration: BoxDecoration(
-                                    border: Border(
-                                      left: BorderSide(width: 1, color: Palette.pinkBox ),
-                                    ),
+                                    // border: Border(
+                                    //   left: BorderSide(width: 1, color: Palette.pinkBox ),
+                                    // ),
                                   ),
-                                  child: Text(LocaleKeys.forget_password,
+                                  child: Text(LocaleKeys.forget_password.tr(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 14,

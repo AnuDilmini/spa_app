@@ -43,6 +43,7 @@ class _InfoService extends State<InfoService> {
   List<dynamic> serviceList = new List<dynamic>();
   String lngCode = "en";
   List<CompanyServices> selectedService = new List();
+  // bool isCompleted = false;
 
 
   @override
@@ -61,6 +62,11 @@ class _InfoService extends State<InfoService> {
     final companyDetailsData = Provider.of<CompanyDetailsDataProvider>(context, listen: false);
     companyDetailsData..getCompanyDetails(lngCode, companyId);
     companyServiceBloc..getCompanyService(lngCode, companyId);
+    // Future.delayed(const Duration(milliseconds: 600), () {
+    //   setState(() {
+    //     isCompleted = true;
+    //   });
+    // });
 
   }
 
@@ -82,8 +88,7 @@ class _InfoService extends State<InfoService> {
 
     final companyDetailsData = Provider.of<CompanyDetailsDataProvider>(context);
 
-
-    print("[companyDetailsData.companyDetails.image ${companyDetailsData.companyDetails.logo}");
+    // print("[companyDetailsData.companyDetails.image ${companyDetailsData.companyDetails.logo}");
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
@@ -203,16 +208,16 @@ class _InfoService extends State<InfoService> {
                           child: companyDetailsData.companyDetails.logo  != null ? Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo, width: 92, height: 72) : null,
 
                         ),
-                        Text(companyDetailsData.companyDetails.name ,
+                        Text(companyDetailsData.companyDetails.name == null? "": companyDetailsData.companyDetails.name,
                         maxLines: 2,
                         overflow: TextOverflow.clip,
                         style: TextStyle(
                           fontSize: 22,
                           color: Color.fromRGBO(247, 127, 151, 1),
-                        ),).tr(),
+                        ),),
                       ]
                     ),
-                  ),
+                  ) ,
                 ),
                 onTap: (){
                 },
@@ -323,6 +328,7 @@ class _InfoService extends State<InfoService> {
                             Container(
                                     alignment: Alignment.centerRight,
                                     child:  RatingBar.builder(
+                                      ignoreGestures: true,
                                       initialRating: double.parse(companyDetailsData.companyDetails.rating),
                                       minRating: 1,
                                       direction: Axis.horizontal,
@@ -669,6 +675,7 @@ class _InfoService extends State<InfoService> {
                          selectedService.isNotEmpty ? GestureDetector(
                            child:
                          Container(
+
                            decoration: BoxDecoration(
                              borderRadius: BorderRadius.all( Radius.circular(20)),
                              color:  Color.fromRGBO(248, 246, 246, 1),
@@ -676,11 +683,15 @@ class _InfoService extends State<InfoService> {
                            alignment: Alignment.center,
                            height: (height/816) * 43,
                            width: (width/414) * 187,
-                           child: Text(LocaleKeys.checkout,
+                           child: Center(
+                               child: Text(LocaleKeys.checkout,
                            style: TextStyle(
+                             fontFamily: "Audrey-Medium",
                              fontSize: 23,
+                             fontWeight: FontWeight.w600,
                              color: Palette.pinkBox
                            ),).tr()
+                           ),
                          ),
                            onTap: () async{
                              if(selectedService.isNotEmpty){
@@ -706,7 +717,7 @@ class _InfoService extends State<InfoService> {
                         child: Center(
                           child: Container(
                             alignment: Alignment.center,
-                            height: 5,
+                            height: (height/816) * 9,
                             width: (width/414) * 140,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all( Radius.circular(20)),

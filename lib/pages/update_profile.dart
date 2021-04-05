@@ -2,6 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:violet_app/bloc/get_city_bloc.dart';
+import 'package:violet_app/model/city_response.dart';
+import 'package:violet_app/model/company.dart';
+import 'package:violet_app/network/repository.dart';
+import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/pages/profile.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:page_transition/page_transition.dart';
@@ -25,11 +30,21 @@ class _UpdateState extends State<UpdateProfile> {
   AlertDialog alert;
   final messageController = TextEditingController();
   bool isSearch = false;
+  String lngCode = "en";
+  List<String> cityList = ["Dammam"];
+  String _cityValue ;
 
 
   @override
   void initState() {
     super.initState();
+
+    checkDataSet();
+  }
+
+  checkDataSet() async {
+    lngCode = await SharedPreferencesHelper.getLanguage();
+    cityListBloc..getCity(lngCode);
   }
 
   @override
@@ -151,6 +166,24 @@ class _UpdateState extends State<UpdateProfile> {
                    child: Column(
                    children: [
                      Container(
+                       child: StreamBuilder<CityResponse>(
+                           stream: cityListBloc.subject.stream,
+                           builder: (context, AsyncSnapshot<CityResponse> snapshot) {
+                             if (snapshot.hasData) {
+                               if (snapshot.data.error != null &&
+                                   snapshot.data.error.length > 0) {
+                                 return _buildErrorWidget(snapshot.data.error);
+                               }
+                               return _buildCityList(snapshot.data);
+                             } else if (snapshot.hasError) {
+                               return _buildErrorWidget(snapshot.error);
+                             } else {
+                               return _buildLoadingWidget();
+                             }
+                           }
+                       )
+                     ),
+                     Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
                        height: (height/896) * 44,
@@ -235,6 +268,7 @@ class _UpdateState extends State<UpdateProfile> {
                          ),
                        ),
                      ),
+
                      Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
@@ -243,33 +277,44 @@ class _UpdateState extends State<UpdateProfile> {
                          borderRadius: BorderRadius.all(Radius.circular(20)),
                          color: Palette.whiteText,
                        ),
-                       child:Center(
+                       child:
+                            Center(
                           child:
                          Container(
                            alignment: Alignment.centerLeft,
-
-                                 child: new DropdownButton<String>(
-                                   hint: Text(
-                                     LocaleKeys.city,
-                                   style: TextStyle(
-                                     fontSize: 15,
-                                     color: Palette.labelColor,
-                                   ),).tr(),
-                                   underline: Container(),
-                                 items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                                 return new DropdownMenuItem<String>(
-                                   value: value,
-                                   child: new Text(value,
+                                 child:DropdownButtonHideUnderline(
+                                   child: DropdownButton<String>(
+                                     isExpanded: true,
+                                     value: _cityValue,
+                                     hint:  Text(LocaleKeys.city,
                                      style: TextStyle(
+                                       fontSize: 15,
                                        color: Palette.labelColor,
-                                     ),),
-                                 );
-                               }).toList(),
-                               onChanged: (_) {},
-                             ),
+                                     )).tr(),
+                                     onChanged: (value) async {
+
+                                       setState(() {
+                                         _cityValue = value;
+                                       });
+                                     },
+                                     items: cityList.map((String value) {
+                                       return DropdownMenuItem<String>(
+                                         value: value,
+                                         child: Container(
+                                           width:  (width/414) * 200,
+                                           child: Text(
+                                                _cityValue.toString(),
+                                                 style: TextStyle(
+                                                     color: Palette.pinkBox,
+                                                     fontSize: 16.0),
+                                               ),
+                                         ),
+                                       );
+                                     }).toList(),
+                                   ),
+                                 )),
                        ),
-                     ),
-                   ),
+                       ),
                      Container(
                        margin: EdgeInsets.only(bottom: (height/896) * 20),
                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15),
@@ -354,5 +399,74 @@ class _UpdateState extends State<UpdateProfile> {
       ),
     );
   }
+
+  getCityList(){
+    return StreamBuilder<CityResponse>(
+        stream: cityListBloc.subject.stream,
+        builder: (context, AsyncSnapshot<CityResponse> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.error != null &&
+                snapshot.data.error.length > 0) {
+              return _buildErrorWidget(snapshot.data.error);
+            }
+            return _buildCityList(snapshot.data);
+          } else if (snapshot.hasError) {
+            return _buildErrorWidget(snapshot.error);
+          } else {
+            return _buildLoadingWidget();
+          }
+        }
+    );
+  }
+
+  Widget _buildErrorWidget(String error) {
+    cityList.clear();
+    return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Error occured: $error"),
+          ],
+        ));
+
+  }
+
+  Widget _buildCityList(CityResponse data) {
+
+    List<City> cities = data.city;
+    cityList.clear();
+
+    if(cities.isNotEmpty) {
+
+      for (int i = 0 ; i < cities.length ; i++){
+        print("name*********** ${cities[i].name}");
+        cityList.add(cities[i].name);
+      }
+    }
+    return Container();
+
+
+  }
+
+
+
+  Widget _buildLoadingWidget() {
+    cityList.clear();
+
+    return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Palette.pinkBox),
+                strokeWidth: 1.0,
+              ),
+            )
+          ],
+        ));
+
+  }
+
 
 }

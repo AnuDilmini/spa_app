@@ -46,6 +46,7 @@ dependencies:
   video_player: ^2.1.0
   google_maps_flutter: ^2.0.2
   location: ^4.1.1
+  calendar_timeline: ^0.7.1
   country_code_picker: ^2.0.1
 
 dev_dependencies:

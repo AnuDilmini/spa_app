@@ -134,7 +134,12 @@ class _PaymentState extends State<Payment> {
                 onTap: (){
 
                   FocusScope.of(context).requestFocus(new FocusNode());
-                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child:  BottomNav(index: 0, subIndex: 1),
+                      ));
 
                 },
               ),

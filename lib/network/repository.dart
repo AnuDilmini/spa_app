@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:violet_app/model/category.dart';
 import 'package:violet_app/model/category_response.dart';
+import 'package:violet_app/model/city_response.dart';
 import 'package:violet_app/model/companyDetails.dart';
 import 'package:http/http.dart' as http;
 import 'package:violet_app/model/companyService_response.dart';
@@ -31,6 +32,7 @@ class Repository {
   static String company = baseUrl+"/company";
   static String companyDetails = baseUrl+"/company/";
   static String category = baseUrl+"/category";
+  static String city = baseUrl+"/city";
 
 
   dynamic _returnResponse(Response response) {
@@ -50,6 +52,31 @@ class Repository {
             'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
     }
   }
+
+
+  Future<CityResponse> getCity(String language) async {
+    Options options = Options(headers: {"Accept-Language": language});
+
+    String url = city;
+
+
+      try {
+        Response response = await _dio.get(url,
+            options: options);
+        if (response.statusCode == 200) {
+          // final item = response.data['data'];
+          print("response.data ** ${response.data}");
+          return CityResponse.fromJson(response.data);
+        } else {
+          throw  FetchDataException(response.data.toString());
+        }
+
+      }  on SocketException {
+        throw CityResponse.withError('No Internet connection');
+      }
+
+    }
+
 
   Future<CompanyResponse> getCompany(String language, String apiCall, List<String> categoryId) async {
     Options options = Options(headers: {"Accept-Language": language});
