@@ -190,7 +190,7 @@ class _InfoService extends State<InfoService> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Color.fromRGBO(247, 127, 151, 0.18),
+                      // color: Color.fromRGBO(247, 127, 151, 0.18),
                     ),
                     height: (height/896) * 215,
                     width: width,

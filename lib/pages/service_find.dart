@@ -182,7 +182,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               cursorColor: Palette.pinkBox,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: tr(LocaleKeys.what_you_are_looking.tr()),
+                                hintText: tr(LocaleKeys.what_you_are_looking),
                                 hintStyle: TextStyle(
                                   color: Palette.textGrey
                                 )
@@ -579,10 +579,11 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
           child: ListView.builder(
               padding: EdgeInsets.zero,
               scrollDirection: Axis.horizontal,
-              itemCount: category.length,
+              itemCount: category.length +1 ,
               itemBuilder: (BuildContext context, int index) {
                 return
-                  GestureDetector(
+
+                    GestureDetector(
                       child: Container(
                         padding: EdgeInsets.only(
                             left: index == 0 ? (width / 208) * 1 : 0),
