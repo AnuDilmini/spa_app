@@ -187,44 +187,53 @@ class _InfoService extends State<InfoService> {
                   ),
             ),
             Positioned(
-              top: (height/896) * 105,
+              top: (height/896) * 150,
               left: (width/414) *90,
               right: (width/414) *100,
-              child:  GestureDetector(
-                child: Center(
-                  child: Container(
-                    decoration: BoxDecoration(
+              child: Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(8),
-                      // color: Color.fromRGBO(247, 127, 151, 0.18),
-                    ),
-                    height: (height/896) * 215,
-                    width: width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children:[
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          width:  (width/208) * 57,
-                          child: companyDetailsData.companyDetails.logo  != null ? Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo, width: 92, height: 72) : null,
-
-                        ),
-                        Text(companyDetailsData.companyDetails.name == null? "": companyDetailsData.companyDetails.name,
-                        maxLines: 2,
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: Color.fromRGBO(247, 127, 151, 1),
-                        ),),
-                      ]
-                    ),
-                  ) ,
-                ),
-                onTap: (){
-                },
+                  ),
+                width:  (height/896)* 75,
+                height: (height/896) * 75,
+                child: companyDetailsData.companyDetails.logo  != null ? Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo, width: 92, height: 72) : null,
               ),
+              // GestureDetector(
+              //   child: Center(
+              //     child: Container(
+              //       decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(8),
+              //         color: Color.fromRGBO(247, 127, 151, 0.18),
+              //       ),
+              //       height: (height/896) * 180,
+              //       width: width,
+              //       child: Column(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children:[
+              //           Container(
+              //             padding: EdgeInsets.only(bottom: 10),
+              //             width:  (height/896)* 100,
+              //             height: (height/896) * 100,
+              //             child: companyDetailsData.companyDetails.logo  != null ? Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo, width: 92, height: 72) : null,
+              //           ),
+              //           // Text(companyDetailsData.companyDetails.name == null? "": companyDetailsData.companyDetails.name,
+              //           // maxLines: 2,
+              //           // overflow: TextOverflow.clip,
+              //           // style: TextStyle(
+              //           //   fontSize: 22,
+              //           //   color: Color.fromRGBO(247, 127, 151, 1),
+              //           // ),),
+              //         ]
+              //       ),
+              //     ) ,
+              //   ),
+              //   onTap: (){
+              //   },
+              // ),
             ),
             Positioned(
-              top: (height/896) * 326,
+              top: (height/896) * 310,
               right: (width/414) *125,
               child:  GestureDetector(
                 child: Center(
@@ -252,7 +261,7 @@ class _InfoService extends State<InfoService> {
               ),
             ),
             Positioned(
-              top: (height/896) * 326,
+              top: (height/896) * 310,
               left: (width/414) * 116,
               child:  GestureDetector(
                 child: Center(
@@ -280,7 +289,7 @@ class _InfoService extends State<InfoService> {
               ),
             ),
             Positioned(
-              top: (height/896) * 378,
+              top: (height/896) * 370,
               left: (width/414) * 12,
               right: (width/414) * 12,
               child:

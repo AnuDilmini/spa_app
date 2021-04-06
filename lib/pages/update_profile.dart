@@ -13,6 +13,11 @@ import 'package:page_transition/page_transition.dart';
 import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import "package:flutter/material.dart";
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 
 import 'bottom_nav.dart';
 
@@ -31,7 +36,7 @@ class _UpdateState extends State<UpdateProfile> {
   final messageController = TextEditingController();
   bool isSearch = false;
   String lngCode = "en";
-  List<String> cityList = ["Dammam"];
+  List cityList = List();
   String _cityValue ;
 
 
@@ -40,6 +45,15 @@ class _UpdateState extends State<UpdateProfile> {
     super.initState();
 
     checkDataSet();
+
+    new Timer.periodic(
+      Duration(seconds: 1),
+          (Timer timer) {
+   setState(() {
+
+   });
+      },
+    );
   }
 
   checkDataSet() async {
@@ -282,8 +296,8 @@ class _UpdateState extends State<UpdateProfile> {
                           child:
                          Container(
                            alignment: Alignment.centerLeft,
-                                 child:DropdownButtonHideUnderline(
-                                   child: DropdownButton<String>(
+                                 child: DropdownButton(
+                                   underline: Container(),
                                      isExpanded: true,
                                      value: _cityValue,
                                      hint:  Text(LocaleKeys.city,
@@ -291,19 +305,19 @@ class _UpdateState extends State<UpdateProfile> {
                                        fontSize: 15,
                                        color: Palette.labelColor,
                                      )).tr(),
-                                     onChanged: (value) async {
+                                     onChanged: (value_) async {
 
                                        setState(() {
-                                         _cityValue = value;
+                                         _cityValue = value_;
                                        });
                                      },
-                                     items: cityList.map((String value) {
-                                       return DropdownMenuItem<String>(
-                                         value: value,
+                                     items: cityList.map((item) {
+                                       return DropdownMenuItem(
+                                         value: item,
                                          child: Container(
                                            width:  (width/414) * 200,
                                            child: Text(
-                                                _cityValue.toString(),
+                                             item,
                                                  style: TextStyle(
                                                      color: Palette.pinkBox,
                                                      fontSize: 16.0),
@@ -311,7 +325,6 @@ class _UpdateState extends State<UpdateProfile> {
                                          ),
                                        );
                                      }).toList(),
-                                   ),
                                  )),
                        ),
                        ),
@@ -433,22 +446,17 @@ class _UpdateState extends State<UpdateProfile> {
 
   Widget _buildCityList(CityResponse data) {
 
-    List<City> cities = data.city;
+    List cities = data.city;
     cityList.clear();
 
-    if(cities.isNotEmpty) {
-
-      for (int i = 0 ; i < cities.length ; i++){
-        print("name*********** ${cities[i].name}");
-        cityList.add(cities[i].name);
+    for(int i = 0 ; i < cities.length; i ++ ){
+      cityList.add(cities[i].name);
+      print("cities[i].name*************  ${cities[i].name}");
       }
-    }
+
     return Container();
 
-
-  }
-
-
+    }
 
   Widget _buildLoadingWidget() {
     cityList.clear();
@@ -468,5 +476,58 @@ class _UpdateState extends State<UpdateProfile> {
 
   }
 
+}
 
+class _MyAppState extends State<UpdateProfile> {
+  String _mySelection;
+
+  final String url = Repository.city;
+
+  List data = List(); //edited line
+
+  Future<String> getSWData() async {
+    var res = await http
+        .get(Uri.parse(url), headers: {"Accept": "application/json"});
+    print("res.body ********${res.body}");
+    var resBody = json.decode(res.body);
+    data = resBody["data"];
+    setState(() {
+
+    });
+
+    print(resBody);
+
+    return "Sucess";
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getSWData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text("Hospital Management"),
+      ),
+      body: new Center(
+        child: new DropdownButton(
+          items: data.map((item) {
+            return new DropdownMenuItem(
+              child: new Text(item['name']),
+              value: item['id'].toString(),
+            );
+          }).toList(),
+          onChanged: (newVal) {
+            setState(() {
+              _mySelection = newVal;
+            });
+          },
+          value: _mySelection,
+        ),
+      ),
+    );
+  }
 }

@@ -70,7 +70,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 
-    _selectedDate = DateTime.now().add(Duration(days: 5));
+    _selectedDate = DateTime.now();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -715,7 +715,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                     decoration: TextDecoration.none,
                                     fontSize: 15,
                                     fontWeight: FontWeight.normal,
-                                    color: Palette.pinkBox
+                                  color: Color.fromRGBO(149, 152, 154, 0.38),
                                 )
                             ),
                           ),
@@ -1071,7 +1071,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                     decoration: TextDecoration.none,
                                     fontSize: 15,
                                     fontWeight: FontWeight.normal,
-                                    color: Palette.pinkBox
+                                  color: Color.fromRGBO(149, 152, 154, 0.38),
                                 )
                             ),
                           )

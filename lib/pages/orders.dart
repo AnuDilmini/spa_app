@@ -366,8 +366,8 @@ class _Orders extends State<Orders> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: (height/896) * 14),
-                    width: (width/414) * 220,
+                    padding: EdgeInsets.only(left: (height/896) * 10),
+                    width: (width/414) * 200,
                     child: Center(
                         child:  RichText(
                           text: TextSpan(
@@ -386,7 +386,7 @@ class _Orders extends State<Orders> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: (width/414) *10,),
+                    padding: EdgeInsets.only(left: (width/414) *10),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children:[

@@ -577,7 +577,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
           child: ListView.builder(
               padding: EdgeInsets.zero,
               scrollDirection: Axis.horizontal,
-              itemCount: category.length +1 ,
+              itemCount: category.length,
               itemBuilder: (BuildContext context, int index) {
                 return
 
