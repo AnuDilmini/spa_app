@@ -93,4 +93,15 @@ class SharedPreferencesHelper {
     String selectedCategoryList = prefs.getString('selectedService');
     return selectedCategoryList;
   }
+
+  static setDateTime(String dateTime) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('dateTime', dateTime);
+  }
+
+  static Future<String> getDateTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String dateTime = prefs.getString('dateTime');
+    return dateTime;
+  }
 }

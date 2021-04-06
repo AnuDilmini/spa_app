@@ -41,9 +41,16 @@ class _SelectTimeDate extends State<SelectTimeDate> {
   int month = 4;
   String pin ;
   bool pinCorrect = false;
+  bool selectTime = false;
+  int selectedTime;
   DateTime _selectedDate;
   List<String> months = ["January", "February", "March", "April",
   "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  List<String> time = ["1", "2", "3", "4",
+    "5", "6", "7", "8", "9", "10", "11", "12",
+    "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
+    "24"];
 
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
@@ -119,7 +126,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                       size: 25,)
                 ),
                 onTap: (){
-
                   FocusScope.of(context).requestFocus(new FocusNode());
                   Navigator.push(
                       context,
@@ -299,7 +305,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     activeBackgroundDayColor: Palette.pinkBox,
                     dotsColor:  Palette.pinkBox,
                     selectableDayPredicate: (date) => date.day != 23,
-                    locale: context.locale.languageCode== "en" ? 'en' : 'ar',
+                    locale: context.locale.languageCode,
                   )
               ),
             ),
@@ -326,13 +332,11 @@ class _SelectTimeDate extends State<SelectTimeDate> {
             //     }),
             //  ),
             // ),
-
-
             Positioned(
-              top: (height/896) * 520,
+              top: (height/896) * 522,
               left: (width/414) * 50,
               right: (width/414) * 30,
-              child: Container(
+              child:   Container(
                   alignment: Alignment.topLeft,
                   height: (height/896) * 37,
                   width: width,
@@ -345,9 +349,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     ),).tr()
               ),
             ),
-
-
-
             // Positioned(
             //   top: (height/896) * 575,
             //   left: (width/414) * 50,
@@ -361,112 +362,50 @@ class _SelectTimeDate extends State<SelectTimeDate> {
             // ),
 
               Positioned(
-              top: (height/896) * 575,
-              left: (width/414) * 50,
+              top: (height/896) * 570,
+              left: (width/414) * 30,
               right: (width/414) * 30,
-              child:
-              Container(
-                height: (height/896) * 140,
-                child: ListView(
+              child: Container(
+                height:(width/414) * 65,
+                width: width,
+                  child: ListView.builder(
                   padding: EdgeInsets.zero,
-                 scrollDirection: Axis.vertical,
-                  children: [
-                    Wrap(
-                         spacing: 20,
-                         crossAxisAlignment :WrapCrossAlignment.center,
-                         alignment: WrapAlignment.center,
-                         direction : Axis.horizontal,
-                         children: [
-                            Container(
-                              width: (width/414) * 50,
-                              height:(width/414) * 50,
-                              decoration: BoxDecoration(
-                                color: Palette.greyBox,
-                                shape: BoxShape.circle,
-                              ),
-                              // child: Text("${months[month]}"),
-                            ),
-                            Container(
-                              width: (width/414) * 50,
-                              height:(width/414) * 50,
-                              decoration: BoxDecoration(
-                                color: Palette.greyBox,
-                                shape: BoxShape.circle,
-                              ),
-                              // child: Text("1"),
-                            ),
-                            Container(
-                              width: (width/414) * 50,
-                              height:(width/414) * 50,
-                              decoration: BoxDecoration(
-                                color: Palette.greyBox,
-                                shape: BoxShape.circle,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 24,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                        child: Container(
+                          margin: EdgeInsets.only(right: (width/414) * 2),
+                          width: (width/414) * 55,
+                          height:(width/414) * 40,
+                          decoration: BoxDecoration(
+                            color: index == selectedTime ?  Palette.pinkBox :Colors.transparent,
+                            borderRadius: index == selectedTime ? BorderRadius.all(Radius.circular(12)): BorderRadius.all(Radius.circular(0))
+                          ),
+                          child:Center(
+                           child: Text(time[index],
+                           style: TextStyle(
+                             color: index == selectedTime ? Colors.white : Palette.darkPink,
+                             fontSize: index == selectedTime ? 26 : 24,
+                             fontWeight:  index == selectedTime ? FontWeight.bold : FontWeight.w500
+                           ),),
+                         ),
+                        ),
+                        onTap:(){
+                          print("index ****$index");
 
-                              ),
-                              // child: Text("1"),
-                            ),
-                            Container(
-                              width: (width/414) * 50,
-                              height:(width/414) * 50,
-                              decoration: BoxDecoration(
-                                color: Palette.greyBox,
-                                shape: BoxShape.circle,
-                              ),
-                              // child: Text("1"),
-                            ),
-                            Container(
-                              width: (width/414) * 50,
-                              height:(width/414) * 50,
-                              decoration: BoxDecoration(
-                                color: Palette.greyBox,
-                                shape: BoxShape.circle,
-                              ),
-                              // child: Text("1"),
-                            ),
-                            Container(
-                              width: (width/414) * 50,
-                              height:(width/414) * 50,
-                              decoration: BoxDecoration(
-                                color: Palette.greyBox,
-                                shape: BoxShape.circle,
-                              ),
-                              // child: Text("1"),
-                            ),
-                            Container(
-                              width: (width/414) * 50,
-                              height:(width/414) * 50,
-                              decoration: BoxDecoration(
-                                color: Palette.greyBox,
-                                shape: BoxShape.circle,
-                              ),
-                              // child: Text("1"),
-                            ),
-                            Container(
-                              width: (width/414) * 50,
-                              height:(width/414) * 50,
-                              decoration: BoxDecoration(
-                                color: Palette.greyBox,
-                                shape: BoxShape.circle,
-                              ),
-                              // child: Text("1"),
-                            ),
-                            Container(
-                      width: (width/414) * 50,
-                      height:(width/414) * 50,
-                      decoration: BoxDecoration(
-                        color: Palette.greyBox,
-                        shape: BoxShape.circle,
-                      ),
-                      // child: Text("1"),
-                    ),
-                    ]
-                   ),
-                  ],
-                ),
-              )
+                            selectedTime = index;
+                            print("selectedTime ****$selectedTime");
+                          setState(() {
+                          });
+                        }
+                    );
+                  }
+              ),
+              ),
             ),
             Positioned(
-              top: (height/896) * 725,
+              top: (height/896) * 720,
               left: (width/414) * 135,
               right: (width/414) *135,
               child: GestureDetector(
@@ -508,7 +447,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
      ),
     );
   }
-
 
   @override
   void dispose() {
@@ -631,7 +569,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         ],
       ),
     );
-
   }
 
   showRegisterDialog(BuildContext context) {
@@ -802,11 +739,13 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                     ),
                                     onTap: (){
                                       FocusScope.of(context).requestFocus(new FocusNode());
+                                      Navigator.pop(context);
                                       showLoginDialog(context);
                                     }
                                 ),
                                 SizedBox(width: 10),
-                                Container(
+                                GestureDetector(
+                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border(
                                       bottom: BorderSide(width: 1, color: Palette.pinkBox ),
@@ -819,6 +758,12 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                       fontWeight: FontWeight.bold,
                                       color: Palette.pinkBox,
                                     ),).tr(),
+                                ),
+                                    onTap: (){
+                                      FocusScope.of(context).requestFocus(new FocusNode());
+                                      Navigator.pop(context);
+                                      showLoginDialog(context);
+                                    }
                                 ),
                             ],
                           ),
@@ -1054,6 +999,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           padding: EdgeInsets.only( left:10,right: 10),
                           height: (height/896) * 57,
                           width: (width/414) * 312,
+                          child: Center(
                           child: TextFormField(
                             controller: mobileController,
                             keyboardType: TextInputType.phone,
@@ -1075,13 +1021,14 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 )
                             ),
                           )
+                          ),
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only( top: (height/896) * 10, left: (width/414) * 18, right: (width/414) * 18 ),
+                        margin: EdgeInsets.only( top: (height/896) *20, left: (width/414) * 18, right: (width/414) * 18 ),
                         child: Text(LocaleKeys.a_digit,
                           style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 14,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
