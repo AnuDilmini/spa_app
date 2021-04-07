@@ -155,7 +155,9 @@ class _ProfileState extends State<Profile> {
                                 height: (height/896) * 25,
                                 width: (width/414) *25,
                                 margin: EdgeInsets.only(left: (width/414) * 20, right: (width/414) * 10 ),
-                                child: Image.asset("assets/phone.png"),
+                                child: Icon(Icons.phone,
+                                    color: Palette.pinkBox
+                                ),
                               ),
                               Text(LocaleKeys.contact_us,
                               style: TextStyle(
@@ -194,7 +196,9 @@ class _ProfileState extends State<Profile> {
                           height: (height/896) * 25,
                           width: (width/414) *25,
                           margin: EdgeInsets.only(left: (width/414) * 20, right: (width/414) * 10 ),
-                          child: Image.asset("assets/setting.png"),
+                          child:  Icon(Icons.settings,
+                              color: Palette.pinkBox
+                          ),
                         ),
                         Text(LocaleKeys.Settings,
                           style: TextStyle(
@@ -238,7 +242,9 @@ class _ProfileState extends State<Profile> {
                           height: (height/896) * 25,
                           width: (width/414) *25,
                           margin: EdgeInsets.only(left: (width/414) * 20, right: (width/414) * 10 ),
-                          child: Image.asset("assets/share.png"),
+                          child: Icon(Icons.share_outlined,
+                              color: Palette.pinkBox
+                          ),
                         ),
                         Text(LocaleKeys.share_app,
                           style: TextStyle(

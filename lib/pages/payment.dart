@@ -50,8 +50,8 @@ class _PaymentState extends State<Payment> {
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
   List<CompanyServices> selectedService = new List();
-
-
+  double total = 0.0;
+  int selectPayment ;
 
   @override
   void initState() {
@@ -65,6 +65,7 @@ class _PaymentState extends State<Payment> {
     if (serviceListJson != "") {
       selectedService = CompanyServices.decode(serviceListJson);
       selectedServiceCount = selectedService.length;
+      totalPriceSum();
     }
     setState(() {
 
@@ -195,17 +196,47 @@ class _PaymentState extends State<Payment> {
                                 ),
                               ),
                               height: (height/896) * 130,
-                              child:ListView.builder(
+                              child:selectedService.isNotEmpty ? ListView.builder(
                                   padding: EdgeInsets.zero,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: selectedServiceCount,
+                                  itemCount: selectedService.length,
                                   itemBuilder: (BuildContext context, int index) {
-                                    return GestureDetector(
-                                        child: listItem(index),
-                                        onTap:(){
-                                        }
+                                    final item = selectedService[index].id;
+                                    return Dismissible(
+                                        direction: DismissDirection.startToEnd,
+                                        key: Key(item),
+                                          child: listItem(index),
+                                      onDismissed: (direction) {
+                                        total = total - double.parse(selectedService[index].price);
+                                        selectedService.removeAt(index);
+
+                                        print("total*********** $total");
+                                        setState(() {
+                                        });
+                                        // minusPriceSum(double.parse(selectedService[index].price));
+
+                                        // Then show a snackbar.
+                                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$item dismissed")));
+                                      },
+                                      background: Container(color: Palette.pinkBox),
                                     );
                                   }
+                              ):  Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Column(
+                                      children: <Widget>[
+                                        Text(
+                                          "No Selected Services",
+                                          style: TextStyle(color: Palette.pinkBox),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             Container(
@@ -257,7 +288,7 @@ class _PaymentState extends State<Payment> {
                                   Expanded(
                                       flex: 1,
                                       child:  Text(
-                                        "${totalPriceSum()} SAR",
+                                        "$total SAR",
                                         style: TextStyle(
                                             fontSize: 17,
                                             fontWeight: FontWeight.w500,
@@ -356,6 +387,7 @@ class _PaymentState extends State<Payment> {
                                       child: listPayment(index),
                                       onTap:(){
 
+
                                       }
                                   );
                                 }
@@ -449,283 +481,7 @@ class _PaymentState extends State<Payment> {
               ),
 
             ),
-            // Positioned(
-            //   top: (height/896) * 221,
-            //   left: (width/414) *20,
-            //   right: (width/414) *20,
-            //   child:  Center(
-            //     child: Container(
-            //       padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 15 , bottom: (height/896) * 15),
-            //       decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.circular(20),
-            //         color: Color.fromRGBO(231, 223, 225, 0.81),
-            //       ),
-            //       // height: (height/896) * 260,
-            //       width: width,
-            //       child:Column(
-            //         children: [
-            //           Container(
-            //             padding: EdgeInsets.only(bottom: (height/896) * 5 ),
-            //             decoration: BoxDecoration(
-            //               border: Border(
-            //                 bottom: BorderSide(width: 2, color: Palette.pinkBox ),
-            //               ),
-            //             ),
-            //             height: (height/896) * 130,
-            //             child:ListView.builder(
-            //                 padding: EdgeInsets.zero,
-            //                 scrollDirection: Axis.vertical,
-            //                 itemCount: selectedServiceCount,
-            //                 itemBuilder: (BuildContext context, int index) {
-            //                   return GestureDetector(
-            //                       child: listItem(index),
-            //                       onTap:(){
-            //                         showLoginDialog(context);
-            //                       }
-            //                   );
-            //                 }
-            //             ),
-            //           ),
-            //           Container(
-            //             padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 8),
-            //             child: Row(
-            //               children: [
-            //                 Expanded(
-            //                   flex: 3,
-            //                 child: Text(
-            //                   LocaleKeys.delivery_charge,
-            //                   style: TextStyle(
-            //                       fontSize: 17,
-            //                       fontWeight: FontWeight.w500,
-            //                       color: Palette.pinkBox
-            //                   ),
-            //                 ).tr()
-            //                 ),
-            //                 Expanded(
-            //                     flex: 1,
-            //                     child: Text(
-            //                       "1150 SAR",
-            //                       maxLines: 1,
-            //                       style: TextStyle(
-            //                           fontSize: 16,
-            //                           fontWeight: FontWeight.w500,
-            //                           color: Palette.pinkBox
-            //                       ),
-            //                     )
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //           Container(
-            //             alignment: Alignment.center,
-            //             padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 2),
-            //             child: Row(
-            //               children: [
-            //                 Expanded(
-            //                     flex: 3,
-            //                     child: Text(
-            //                       LocaleKeys.total,
-            //                       style: TextStyle(
-            //                           fontSize: 16,
-            //                           fontWeight: FontWeight.w500,
-            //                           color: Palette.pinkBox
-            //                       ),
-            //                     ).tr()
-            //                 ),
-            //                 Expanded(
-            //                     flex: 1,
-            //                     child:  Text(
-            //                       "${totalPriceSum()} SAR",
-            //                       style: TextStyle(
-            //                           fontSize: 17,
-            //                           fontWeight: FontWeight.w500,
-            //                           color: Palette.pinkBox
-            //                       ),
-            //                     )
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //           Container(
-            //             alignment: Alignment.bottomLeft,
-            //             padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 5),
-            //             child:   Row(
-            //               children: [
-            //                 Text(tr('* ( ${LocaleKeys.include_vat}'),
-            //                 style: TextStyle(
-            //                     fontSize: 12,
-            //                     fontWeight: FontWeight.w500,
-            //                     color: Palette.textGrey),
-            //                 ),
-            //                 Text("15.0 % )",
-            //                   style: TextStyle(
-            //                       fontSize: 12,
-            //                       fontWeight: FontWeight.w500,
-            //                       color: Palette.textGrey),
-            //                 ),
-            //               ],
-            //             )
-            //           ),
-            //         ],
-            //       )
-            //     ),
-            //   ),
-            // ),
-            // Positioned(
-            //   top: (height/896) * 488,
-            //   left: (width/414) *20,
-            //   right: (width/414) *20,
-            //   child:  GestureDetector(
-            //   child: Center(
-            //     child: Container(
-            //       alignment: Alignment.center,
-            //       decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.circular(15),
-            //         color: Color.fromRGBO(231, 223, 225, 0.81),
-            //       ),
-            //       height: (height/896) * 65,
-            //       width: width,
-            //       child: Text(
-            //         LocaleKeys.add_comment,
-            //         style: TextStyle(
-            //             fontSize: 22,
-            //             fontWeight: FontWeight.w400,
-            //             color: Palette.pinkBox
-            //         ),
-            //       ).tr(),
-            //     ),
-            //   ),
-            //     onTap: (){
-            //       showComment(context);
-            //     },
-            //   ),
-            // ),
-            // Positioned(
-            //   top: (height/896) * 562,
-            //   left: (width/414) *20,
-            //   right: (width/414) *20,
-            //   child:  Center(
-            //     child: Container(
-            //       padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 10 ),
-            //       decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.circular(20),
-            //         color: Color.fromRGBO(231, 223, 225, 0.81),
-            //       ),
-            //       height: (height/896) * 163,
-            //       width: width,
-            //       child: Column(
-            //         mainAxisSize: MainAxisSize.min,
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //          Text(
-            //             LocaleKeys.payment,
-            //             style: TextStyle(
-            //                 fontSize: 21,
-            //                 fontWeight: FontWeight.normal,
-            //                 color: Palette.pinkBox
-            //             ),
-            //           ).tr(),
-            //       Container(
-            //         margin: EdgeInsets.only(top: (height/896) * 10 ),
-            //         height: (height/896) * 110,
-            //         child: ListView.builder(
-            //             padding: EdgeInsets.zero,
-            //               scrollDirection: Axis.vertical,
-            //               itemCount: 2,
-            //               itemBuilder: (BuildContext context, int index) {
-            //                 return GestureDetector(
-            //                     child: listPayment(index),
-            //                     onTap:(){
-            //
-            //                     }
-            //                 );
-            //               }
-            //           ),
-            //       ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Positioned(
-            //   top: (height/896) * 790,
-            //   left: (width/414) *20,
-            //   right: (width/414) *20,
-            //   child:  GestureDetector(
-            //    child: Center(
-            //     child: Container(
-            //       alignment: Alignment.center,
-            //       decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.circular(12),
-            //         border: Border.all(color: Palette.pinkBox,
-            //         width: 1),
-            //         color: isAgree ? Palette.pinkBox: Colors.transparent,
-            //       ),
-            //       height: (height/896) * 50,
-            //       width: width,
-            //       child: Text(LocaleKeys.slied_to_checkout,
-            //           style: TextStyle(
-            //             fontSize: 19,
-            //             color: isAgree ? Palette.whiteText : Palette.pinkBox,
-            //           ),
-            //         ).tr(),
-            //     ),
-            //    ),
-            //     onTap: (){
-            //
-            //       Navigator.push(
-            //           context,
-            //           PageTransition(
-            //             type: PageTransitionType.fade,
-            //             child:  BottomNav(index: 0, subIndex:3),
-            //           ));
-            //     },
-            //   ),
-            // ),
-            // Positioned(
-            // top: (height/896) * 737,
-            // left: (width/414) *32,
-            // child: GestureDetector(
-            //  child: Container(
-            //   height: (height/896) * 25,
-            //   width: (height/896) * 25,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(8),
-            //     border: Border.all(color: Palette.pinkBox,
-            //         width: 6),
-            //     color: isAgree ? Colors.transparent :  Palette.pinkBox,
-            //   ),
-            //   ),
-            //   onTap: (){
-            //    setState(() {
-            //      isAgree = !isAgree;
-            //    });
-            //   },
-            // )
-            // ),
-            // Positioned(
-            //     top: (height/896) * 738,
-            //     left: (width/414) * 65,
-            //     right: (width/414) * 20,
-            //     child: GestureDetector(
-            //       child: Container(
-            //         alignment: Alignment.centerLeft,
-            //      child: Text(
-            //        LocaleKeys.i_agree,
-            //        style: TextStyle(
-            //          fontSize: 16,
-            //          letterSpacing: 2,
-            //          color:  Palette.pinkBox,
-            //        ),
-            //      ).tr(),
-            //       ),
-            //       onTap: (){
-            //         setState(() {
-            //           isAgree = !isAgree;
-            //         });
-            //       },
-            //     )
-            // ),
+
     ]
       ),
         ),
@@ -733,10 +489,12 @@ class _PaymentState extends State<Payment> {
   }
 
   double totalPriceSum() {
-    double total = 0.0;
-    for(int i = 0; i < selectedService.length ; i++){
-      total = total + double.parse(selectedService[i].price);
-      print("total $total");
+
+    if(selectedService.isNotEmpty) {
+      for (int i = 0; i < selectedService.length; i++) {
+        total = total + double.parse(selectedService[i].price);
+        print("total $total");
+      }
     }
     return total;
   }
@@ -823,21 +581,28 @@ class _PaymentState extends State<Payment> {
       child: Stack(
         children: [
           Positioned(
-            top: (height/896) * 0,
+            top: (height/896) * 5,
             left: (width/414) * 1,
             child: Container(
+              // padding: EdgeInsets.all(1.0),
               alignment: Alignment.topLeft,
-                height: (height/896) *55,
+                height: (height/896) *37,
                 width:(width/414) * 55,
                 decoration: BoxDecoration(
-                    // borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(15),
                     shape: BoxShape.rectangle,
-                    image: new DecorationImage(
-                      image: index == 0 ? new AssetImage("assets/master.png") :
-                      index == 1 ?  new AssetImage("assets/ipay.png")
-                          : new AssetImage("assets/cash.png"),
-                      ),
-                    )
+                    color: Palette.greyWhite
+                    // image: new DecorationImage(
+                    //   image: index == 0 ? new AssetImage("assets/master.png") :
+                    //   index == 1 ?  new AssetImage("assets/ipay.png")
+                    //       : new AssetImage("assets/cash.png"),
+                    //   ),
+                    ),
+                child: Center(
+                    child: index == 0 ?Image.asset("assets/master.png") :
+                index == 1 ? Image.asset("assets/ipay.png") :
+                Image.asset("assets/cash.png")
+                )
                 )
             ),
           Positioned(
@@ -862,7 +627,7 @@ class _PaymentState extends State<Payment> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
-                  color: isSelect ? Palette.pinkBox : Color.fromRGBO(168, 132, 153, 0.50),
+                  color: selectPayment == index ? Palette.pinkBox : Color.fromRGBO(168, 132, 153, 0.50),
                 ),
                 height: (height/896) * 25,
                 width: (height/896) * 30,
@@ -873,10 +638,11 @@ class _PaymentState extends State<Payment> {
                 ),
               ),
               onTap: (){
-                setState(() {
-                  isSelect = !isSelect;
-                });
-
+                 selectPayment = index;
+                  if(index == selectPayment)
+                    setState(() {
+                    isSelect = !isSelect;
+                  });
               },
             ),
           )

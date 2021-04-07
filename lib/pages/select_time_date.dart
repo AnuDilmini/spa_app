@@ -131,7 +131,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                       context,
                       PageTransition(
                         type: PageTransitionType.fade,
-                        child: BottomNav(index: 0, subIndex: 0),
+                        child: BottomNav(index: 0, subIndex: 1),
                       ));
                 },
               ),
@@ -149,7 +149,9 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     ),
                     height: (height/896) * 37,
                     width: (width/414) * 50,
-                    child: Image.asset("assets/cart.png"),
+                    child: Icon(Icons.shopping_cart_outlined,
+                        color: Palette.pinkBox
+                    ),
                   ),
                 ),
                 onTap: (){
@@ -1072,7 +1074,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                       //   right: BorderSide(width: 1, color: Palette.pinkBox ),
                                       // ),
                                     ),
-                                    child: Text(LocaleKeys.new_register_now.tr(),
+                                    child: Text(LocaleKeys.new_register_now,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 14,
@@ -1101,7 +1103,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                     //   left: BorderSide(width: 1, color: Palette.pinkBox ),
                                     // ),
                                   ),
-                                  child: Text(LocaleKeys.forget_password.tr(),
+                                  child: Text(LocaleKeys.forget_password,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 14,

@@ -43,6 +43,7 @@ class _InfoService extends State<InfoService> {
   List<dynamic> serviceList = new List<dynamic>();
   String lngCode = "en";
   List<CompanyServices> selectedService = new List();
+  double total = 0.0;
   // bool isCompleted = false;
 
 
@@ -160,10 +161,13 @@ class _InfoService extends State<InfoService> {
                     ),
                     height: (height/896) * 37,
                     width: (width/414) * 50,
-                    child: Image.asset("assets/cart.png"),
+                    child: Icon(Icons.shopping_cart_outlined,
+                      color: Palette.pinkBox,
+                    ),
                   ),
                 ),
                 onTap: (){
+                  totalPriceSum();
                   slideSheet();
                 },
               ),
@@ -480,8 +484,7 @@ class _InfoService extends State<InfoService> {
   }
 
   void slideSheet() {
-
-
+     double total_new = 200.0;
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -582,7 +585,7 @@ class _InfoService extends State<InfoService> {
                                                      color: Palette.pinkBox),
                                                ),
                                                Text(
-                                                 "'${selectedService[index].duration_min} min - ${selectedService[index].price} SR'",
+                                                 "${selectedService[index].duration_min} min - ${selectedService[index].price} SR",
                                                  style: TextStyle(
                                                      fontSize: 14,
                                                      color: Palette.labelColor),
@@ -607,29 +610,18 @@ class _InfoService extends State<InfoService> {
                                                    size: 23,)
                                              ),
                                            ),
-                                           onTap: (){
-
-                                             selectedService.removeAt(index);
-
-
-                                             setState(() {
-                                             });
-
-                                           },
                                          ),
                                        )
                                      ],
                                    ),
                                  ),
                                  onDismissed: (direction) {
-                                   // Remove the item from the data source.
-                                   setState(() {
+                                     total = total - double.parse(selectedService[index].price);
                                      selectedService.removeAt(index);
-                                   });
-
-                                   // Then show a snackbar.
-                                   // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$item dismissed")));
-                                 },
+                                     total_new = total_new -10;
+                                     setState(() {
+                                     });
+                                  },
                                  background: Container(color: Palette.pinkBox),
                                );
 
@@ -644,7 +636,6 @@ class _InfoService extends State<InfoService> {
                                      Expanded(
                                        flex:1,
                                          child:
-
                                      Align(
                                        alignment: Alignment.centerLeft,
                                        child: Padding(
@@ -665,7 +656,7 @@ class _InfoService extends State<InfoService> {
                                          alignment: Alignment.centerRight,
                                          child: Padding(
                                              padding:  EdgeInsets.only(right: (width/414) * 30 ),
-                                             child: Text('${totalPriceSum()} SAR',
+                                             child: Text('$total_new SAR',
                                                style: TextStyle(
                                                    color: Palette.pinkBox,
                                                    fontSize: 20.0,
@@ -684,7 +675,6 @@ class _InfoService extends State<InfoService> {
                          selectedService.isNotEmpty ? GestureDetector(
                            child:
                          Container(
-
                            decoration: BoxDecoration(
                              borderRadius: BorderRadius.all( Radius.circular(20)),
                              color:  Color.fromRGBO(248, 246, 246, 1),
@@ -743,12 +733,21 @@ class _InfoService extends State<InfoService> {
   }
 
   double totalPriceSum() {
-    double total = 0.0;
+
      for(int i = 0; i < selectedService.length ; i++){
        total = total + double.parse(selectedService[i].price);
            print("total $total");
      }
+
      return total;
+  }
+
+  double minusPriceSum(double amount) {
+
+    total = total - amount;
+    setState(() {
+
+    });
   }
 
   Widget _buildServiceWidget(CompanyServiceResponse data) {
@@ -986,60 +985,8 @@ class _InfoService extends State<InfoService> {
         ],
       ),
     );
-      
-
   }
 
-  // Future<String> getCompanyDetails() async {
-  //
-  //   companyId = await SharedPreferencesHelper.getCompanyId();
-  //   print("companyId $companyId");
-  //   if(companyId != "null") {
-  //     String url = Repository.companyDetails + "$companyId";
-  //     bool networkResults = await NetworkCheck.checkNetwork();
-  //
-  //     if (networkResults) {
-  //       final response = await http.get(
-  //         Uri.encodeFull(url),
-  //         headers: {
-  //           "Accept": "application/json",
-  //           // "Accept-Language": "${context.locale}",
-  //         },
-  //
-  //       );
-  //
-  //       int responseCode = response.statusCode;
-  //       print("response code $responseCode");
-  //
-  //       if (responseCode == 200) {
-  //         print("response code");
-  //         convertData = json.decode(response.body);
-  //         serviceList = convertData['data']['services'];
-  //
-  //         print("convertData ${convertData["data"]}");
-  //         print("serviceList ${serviceList.length}");
-  //         setState(() {
-  //           isApiCompleted = true;
-  //         });
-  //       } else if (responseCode == 404) {
-  //         showSnackbar(context, "Data Not Found !");
-  //       } else if (responseCode == 500) {
-  //         showSnackbar(context, "server Error");
-  //       } else {
-  //         setState(() {
-  //           showSnackbar(context, "Error while fetching data");
-  //         });
-  //       }
-  //       return "sucess";
-  //     } else {
-  //       // print("print ---> No Internet !!");
-  //       showSnackbar(context, "No Internet!");
-  //     }
-  //   }else{
-  //
-  //   }
-  //   return "success";
-  // }
 
   showSnackbar(BuildContext context, String msg) {
     final snackBar = SnackBar(

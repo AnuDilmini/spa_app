@@ -121,10 +121,10 @@ class _BottomNavState extends State<BottomNav> {
             // label: 'Violate',
           ),
           BottomNavigationBarItem(
-            icon: Image(
-              image:AssetImage('assets/orders.png'),
-              height: 30,
-              width: 30,
+            icon: Icon(
+              Icons.menu,
+              color: Colors.white,
+              size: 25,
             ),
             title: Padding(
               padding: const EdgeInsets.all(4.0),
@@ -139,10 +139,10 @@ class _BottomNavState extends State<BottomNav> {
             // label: 'Orders',
           ),
           BottomNavigationBarItem(
-            icon: Image(
-              image:AssetImage('assets/profile.png'),
-              height: 30,
-              width: 30,
+            icon: Icon(
+              Icons.account_circle,
+              color: Colors.white,
+              size: 25,
             ),
             title: Padding(
               padding: const EdgeInsets.all(4.0),

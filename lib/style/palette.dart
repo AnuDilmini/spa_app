@@ -22,6 +22,7 @@ class Palette {
   static const Color moreLightPink = const Color(0xFFE7DFE1);
   static const Color boxWhite = const Color(0xFFFAFAFA);
   static const Color rose = const Color.fromRGBO(247, 127, 151, 0.67);
+  static const Color greyWhite = const Color.fromRGBO(242, 242, 242, 1);
   static const Color blur = const Color.fromRGBO(137, 137, 137, 0.92);
   static const Color darkPink = const Color(0xFF725365);
   static const Color textGrey = const Color(0xFF868686);
