@@ -1,7 +1,10 @@
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:violet_app/network/repository.dart';
+import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/notifiers/dark_theme_provider.dart';
 import 'package:violet_app/pages/update_profile.dart';
 import 'package:violet_app/style/palette.dart';
@@ -9,6 +12,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
+import 'package:violet_app/utils/network_check.dart';
+import 'package:violet_app/bloc/get_companyDetails_bloc.dart';
 
 import 'bottom_nav.dart';
 
@@ -26,13 +31,35 @@ class _Orders extends State<Orders> {
   AlertDialog alert;
   final messageController = TextEditingController();
   bool isSearch = false;
+  bool isLoading = true;
   int selectOrder;
   bool clickOrder = false;
+  String lngCode = "en";
+  String customerId;
+  String token;
+  List responseList;
+  final Dio _dio = Dio();
 
 
   @override
   void initState() {
     super.initState();
+    checkDataSet();
+  }
+
+  checkDataSet() async {
+    lngCode = await SharedPreferencesHelper.getLanguage();
+    token = await SharedPreferencesHelper.getToken();
+    customerId = await SharedPreferencesHelper.getCustomerID();
+
+    if(customerId != null) {
+      getOrders();
+    }else{
+      setState(() {
+        isLoading = false;
+      });
+    }
+
   }
 
   @override
@@ -94,27 +121,49 @@ class _Orders extends State<Orders> {
                 ),
               ),
             ),
-            Positioned(
+          Positioned(
               top: (height/896) * 160,
               left: (width/414) * 25,
               right: (width/414) * 25,
               child:
-              Container(
+                Container(
                 padding: EdgeInsets.only(bottom: (height/896) * 225 ),
                 height: height,
                 width: width,
-                child:  ListView.builder(
+                child: isLoading ?Container(
+                  padding: EdgeInsets.only( top: (height/896) * 250,bottom: (height/896) * 250,left: (width/414) * 120, right:  (width/414) * 120  ),
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(Palette.pinkBox),
+                    strokeWidth: 4.0,
+                  ),
+                ):
+                responseList.isEmpty ?
+                (
+                Container(
+                  alignment: Alignment.center,
+                  height: height,
+                  width: width,
+                  child: Text("No order history",
+                  style: TextStyle(
+                    fontSize: 23,
+                    color: Palette.pinkBox,
+                    fontWeight: FontWeight.bold
+                  ),),
+                )
+                ):
+                ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
-                    itemCount:20,
+                    itemCount: responseList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                           child: listItem(index),
                           onTap:(){
-
                             setState(() {
                               clickOrder = true;
-                              slideSheet();
+                              slideSheet(index);
                               selectOrder = index;
                             });
 
@@ -133,109 +182,12 @@ class _Orders extends State<Orders> {
               ),
             ),
 
-            // Positioned(
-            //   top: (height/896) * 420,
-            //   left: (width/414) * 0,
-            //   width: width,
-            //   child:
-            //   clickOrder?
-            //
-            //  GestureDetector(
-            //      child: Container(
-            //       padding: EdgeInsets.only(top: (height/896)*25 ),
-            //       height: height,
-            //       width: width,
-            //       decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60)),
-            //         color:  Color(0xFFE9E2E3),
-            //       ),
-            //       child: ListView(
-            //         children: [
-            //           Column(
-            //         children: [
-            //           Text("FOUR SPA",
-            //             style: TextStyle(
-            //               color: Palette.darkPink,
-            //               fontSize: 25,
-            //               fontWeight: FontWeight.normal,
-            //               fontFamily: "Audrey-Normal",
-            //             ),),
-            //           SizedBox(
-            //             height: 35,
-            //           ),
-            //           Text("19 January. 1:12",
-            //             style: TextStyle(
-            //               color: Palette.darkPink,
-            //               fontSize: 20,
-            //               fontWeight: FontWeight.bold,
-            //               fontFamily: "Audrey-Normal",
-            //             ),),
-            //           SizedBox(
-            //             height: 15,
-            //           ),
-            //           Text("HAIR CUT",
-            //             style: TextStyle(
-            //               color: Palette.darkPink,
-            //               fontSize: 20,
-            //               fontWeight: FontWeight.bold,
-            //               fontFamily: "Audrey-Normal",
-            //             ),),
-            //           SizedBox(
-            //             height: 12,
-            //           ),
-            //           Text("100 SAR",
-            //             style: TextStyle(
-            //               color: Palette.darkPink,
-            //               fontSize: 20,
-            //               fontWeight: FontWeight.bold,
-            //               fontFamily: "Audrey-Normal",
-            //             ),),
-            //           SizedBox(
-            //             height: 12,
-            //           ),
-            //           Text("HAIR CUT",
-            //             style: TextStyle(
-            //               color: Palette.darkPink,
-            //               fontSize: 20,
-            //               fontWeight: FontWeight.bold,
-            //               fontFamily: "Audrey-Normal",
-            //             ),),
-            //           SizedBox(
-            //             height: 12,
-            //           ),
-            //           Text("500 SAR",
-            //             style: TextStyle(
-            //               color: Palette.darkPink,
-            //               fontSize: 20,
-            //               fontWeight: FontWeight.bold,
-            //               fontFamily: "Audrey-Normal",
-            //             ),),
-            //           SizedBox(
-            //             height: 15,
-            //           ),
-            //           Image.asset("assets/store.png")
-            //         ],
-            //       ),
-            //         ]
-            //   ),
-            //
-            // ),
-            //    onTap: (){
-            //        setState(() {
-            //          slideSheet();
-            //
-            //          clickOrder = !clickOrder;
-            //        });
-            //    },
-            //  ):
-            //    Container(),
-            // ),
           ]
       ),
     );
   }
 
-  void slideSheet() {
+  void slideSheet(int index) {
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
         context: context,
@@ -265,7 +217,7 @@ class _Orders extends State<Orders> {
                       SizedBox(
                         height: 35,
                       ),
-                      Text("19 January. 1:12",
+                      Text(timeFormatter(responseList[index]['start_time']),
                         style: TextStyle(
                           color: Palette.darkPink,
                           fontSize: 20,
@@ -327,6 +279,112 @@ class _Orders extends State<Orders> {
         });
   }
 
+  Future<bool> getOrders() async {
+    Options options = Options(headers: {"Accept-Language": lngCode});
+    bool networkResults = await NetworkCheck.checkNetwork();
+    String url = Repository.reservationByCustomerId+customerId;
+    if (networkResults) {
+      try {
+        Response response = await _dio.get(url,
+            options: options);
+        if (response.statusCode == 200) {
+          final item = response.data['data'];
+          responseList = item;
+
+
+          setState(() {
+            isLoading = false;
+          });
+          print("response.data ** $item");
+        } else {
+          responseList = [];
+          showAlert(context, "Something went wrong!");
+        }
+      } catch (e) {
+        responseList = [];
+        showAlert(context, "Something went wrong!");
+      }
+    }else{
+      responseList = [];
+      showAlert(context, "No Internet!");
+
+    }
+  }
+
+
+  showAlert(BuildContext context, String msg) {
+
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierColor: Color.fromRGBO(112, 112, 112, 0.67),
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(25)), //this right here
+            child: Container(
+
+              // alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(12),
+                color: Palette.whiteText,
+              ),
+              width: (width/414) * 347,
+              child: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: Container(
+                            margin: EdgeInsets.only( top: (height/896) *25,left: (width/414) * 18, right:  (width/414) * 18),
+                            child: Text(msg,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: Palette.pinkBox,
+                              ),).tr(),
+                          )
+                      ),
+                      GestureDetector(
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.only( top: (height/896) * 50, bottom: (height/896) * 35,left: (width/414) * 18,  right:  (width/414) * 40),
+                            child: Text(LocaleKeys.ok,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Palette.labelColor,
+                              ),).tr(),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              isLoading = false;
+                            });
+                            Navigator.pop(context);
+                          }
+                      )
+                    ],
+                  )
+              ),
+            ),
+          );
+        });
+  }
+
+  timeFormatter(String date) {
+
+    var inputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    var inputDate = inputFormat.parse(date);
+
+    String formattedDate = DateFormat('d MMM yyyy').format(inputDate);
+
+      return formattedDate;
+
+    }
+
+
   listItem(int index){
     return Container(
       height: (height/896) * 150,
@@ -335,7 +393,7 @@ class _Orders extends State<Orders> {
         children: [
           Container(
             padding: EdgeInsets.only(left: (width/414) * 25, right: (width/414) * 25),
-            child: Text("7 May 2020",
+            child: Text(timeFormatter(responseList[index]['start_time']),
               style: TextStyle(
                 color: Palette.darkPink,
                 fontSize: 15,
@@ -356,7 +414,9 @@ class _Orders extends State<Orders> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:[
-                          Image.asset("assets/ipay.png"),
+                          Image.asset("assets/background.png",
+                          height:  (height/896) * 30,
+                          width:(width/414) * 30,),
                           Text("FOUR\nSPA",
                             style: TextStyle(
                               fontSize: 12,
@@ -371,12 +431,12 @@ class _Orders extends State<Orders> {
                     child: Center(
                         child:  RichText(
                           text: TextSpan(
-                            text: 'Massage\n',
+                            text: "${responseList[index]['customer_comment']}\n",
                             style: TextStyle(
                                 fontSize: 14,
                                 color:  selectOrder == index ? Palette.whiteText :Palette.pinkBox),
                             children: <TextSpan>[
-                              TextSpan(text: '130 SAR',
+                              TextSpan(text: responseList[index]['net_total'] +' SR',
                                 style: TextStyle(
                                     fontSize: 17,
                                     color: selectOrder == index ? Palette.whiteText :Palette.pinkBox),),
@@ -408,6 +468,8 @@ class _Orders extends State<Orders> {
                                 size: 20,)
                           ),
                             onTap: (){
+
+
                               Navigator.push(
                                   context,
                                   PageTransition(

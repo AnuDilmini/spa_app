@@ -66,7 +66,7 @@ class SharedPreferencesHelper {
     await prefs.setString('token', token);
   }
 
-  static Future<String> gettoken() async {
+  static Future<String> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token');
     return token;

@@ -5,6 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pin_put/pin_put.dart';
+import 'package:provider/provider.dart';
+import 'package:violet_app/bloc/reservation_date_time_bloc.dart';
+import 'package:violet_app/model/companyService.dart';
+import 'package:violet_app/model/reservationDateTime_response.dart';
 import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/style/local.keys.dart';
@@ -13,6 +17,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:violet_app/utils/network_check.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
 import 'bottom_nav.dart';
 import 'home.dart';
@@ -33,20 +39,28 @@ class _SelectTimeDate extends State<SelectTimeDate> {
   final mobileController = TextEditingController();
   final mobileRegController = TextEditingController();
   final TextEditingController _pinPutController = TextEditingController();
+  List<dynamic> bookedList = new List<dynamic>();
+  List<CompanyServices> selectedService = new List();
   final FocusNode _pinPutFocusNode = FocusNode();
   bool isInfo = false;
   bool isClickConfirm = true;
+  bool isLoading = false;
   int currentPageIndex = 0;
   int weekPageIndex = 0;
+  int selectedServiceCount = 0;
   int month = 4;
   String pin ;
   bool pinCorrect = false;
   bool selectTime = false;
-  int selectedTime;
+  int selectedTime, selectedRealTime;
   DateTime _selectedDate;
+  String lngCode = "en";
+  String companyId;
+  String customerId;
+  String token;
   List<String> months = ["January", "February", "March", "April",
   "May", "June", "July", "August", "September", "October", "November", "December"];
-
+  final Dio _dio = Dio();
   List<String> time = ["1", "2", "3", "4",
     "5", "6", "7", "8", "9", "10", "11", "12",
     "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
@@ -62,6 +76,27 @@ class _SelectTimeDate extends State<SelectTimeDate> {
   @override
   void initState() {
     super.initState();
+    checkDataSet();
+
+  }
+
+  checkDataSet() async {
+    lngCode = await SharedPreferencesHelper.getLanguage();
+    companyId = await SharedPreferencesHelper.getCompanyId();
+    token = await SharedPreferencesHelper.getToken();
+    customerId = await SharedPreferencesHelper.getCustomerID();
+
+    String serviceListJson = await SharedPreferencesHelper.getSelectedService();
+    postReservationDateTime();
+    if (serviceListJson != "") {
+      selectedService = CompanyServices.decode(serviceListJson);
+      selectedServiceCount = selectedService.length;
+    }
+    _selectedDate = DateTime.now();
+
+    setState(() {
+    });
+
   }
 
   @override
@@ -75,9 +110,10 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         .size
         .height;
 
+
     SystemChrome.setEnabledSystemUIOverlays([]);
 
-    _selectedDate = DateTime.now();
+
 
     return Scaffold(
       key: _scaffoldKey,
@@ -160,6 +196,24 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
                 },
+              ),
+            ),
+            Positioned(
+              top: (height/896) * 109,
+              left: (width/414) * 50,
+              child: selectedService.isEmpty ? Container() : Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Palette.pinkBox,
+                  ),
+                  height: (width/414) * 20,
+                  width: (width/414) * 20,
+                  child: Text("${selectedService.length}",
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  )
               ),
             ),
             Positioned(
@@ -297,7 +351,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     firstDate: DateTime(DateTime.now().year -1, 1, 15),
                     lastDate: DateTime.now().add(Duration(days: 365)),
                     onDateSelected: (date) {
-                      print("date $date");
+                      print("date******************** $date");
                       _selectedDate = date;
                     },
                     leftMargin: 0,
@@ -419,35 +473,60 @@ class _SelectTimeDate extends State<SelectTimeDate> {
               color: Palette.pinkBox,
               borderRadius: BorderRadius.all(Radius.circular(30)),
             ),
-            child: Text(
-           LocaleKeys.confirm,
-           style: TextStyle(
-             fontSize: 26,
-             color: Palette.whiteText
-           ),
-         ).tr()
+             child: isLoading ? CircularProgressIndicator(
+               valueColor: new AlwaysStoppedAnimation<Color>(Palette.whiteText),
+               strokeWidth: 1.0,
+             ): Text(
+               LocaleKeys.confirm,
+               style: TextStyle(
+                 fontSize: 26,
+                 color: Palette.whiteText
+               ),
+             ).tr()
           ),
             onTap: () async{
 
-                String customerId = await SharedPreferencesHelper.getCustomerID();
-
-                if(customerId != null){
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child:  BottomNav(index: 0, subIndex:2),
-                      ));
-                }else{
-
-                  showLoginDialog(context);
-                }
+              if(selectedTime == null){
+                showSnackbar(context, "Please select time", Colors.red);
+              }else {
+                setState(() {
+                  isLoading = true;
+                });
+                timeFormatter();
+              }
             },
           ),
            ),
       ]
      ),
     );
+  }
+
+  timeFormatter() async{
+
+    if (customerId != null) {
+      String dateFormat = DateFormat('dd-MM-yyyy').format(_selectedDate);
+      selectedRealTime = selectedTime +1;
+      String dateTime = "$dateFormat $selectedRealTime:00:00";
+
+      var inputFormat = DateFormat('dd-MM-yyyy HH:mm:ss');
+      var inputDate = inputFormat.parse(dateTime);
+
+      String formattedDate = DateFormat('dd-MM-yyyy hh:mm:ss').format(inputDate);
+      await SharedPreferencesHelper.setDateTime(formattedDate);
+      Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.fade,
+            child: BottomNav(index: 0, subIndex: 2),
+          ));
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      showLoginDialog(context);
+    }
+
   }
 
   @override
@@ -476,6 +555,36 @@ class _SelectTimeDate extends State<SelectTimeDate> {
             return weekItem(index);
           }),
     );
+  }
+
+  Future<bool> postReservationDateTime() async {
+    ReservationDateTimeResponse result;
+    bool networkResults = await NetworkCheck.checkNetwork();
+    var params = {'company_id': "1829954f-2ebf-4754-83a5-e1e140e0526e"};
+    Options options = Options(headers: {"Accept-Language": lngCode});
+    if (networkResults) {
+      try {
+        Response response = await _dio.post(
+            Repository.reservationsDateTime, data: params,
+            options: options);
+        if (response.statusCode == 200) {
+          final item = response.data['data'];
+
+          if(item.isNotEmpty){
+            bookedList = item;
+          }
+          print("item ******** $item");
+
+        } else {
+          showAlert(context,"Something went wrong!");
+        }
+      } catch (e) {
+        showAlert(context, "Something went wrong!");
+      }
+      return true;
+    }else{
+      showAlert(context, "No Internet!");
+    }
   }
 
   weekItem(int index){
@@ -1465,7 +1574,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         if (responseCode == 201) {
           var convertData = json.decode(response.body);
           print("convertData $convertData");
-          var token = convertData['token'];
+          token = convertData['token'];
           String userId = convertData['user']['id'];
           print("token *** $token");
           _pinPutController.clear();
@@ -1507,7 +1616,11 @@ class _SelectTimeDate extends State<SelectTimeDate> {
 
   showSnackbar(BuildContext context, String msg, Color color) {
     final snackBar = SnackBar(
-      content: Text(msg),
+      content: Text(msg,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18
+      ),),
       backgroundColor: color,
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);

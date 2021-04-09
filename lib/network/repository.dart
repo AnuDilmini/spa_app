@@ -2,29 +2,35 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:violet_app/bloc/reservation_date_time_bloc.dart';
+import 'package:violet_app/model/ReservationTimeDate.dart';
 import 'package:violet_app/model/category.dart';
 import 'package:violet_app/model/category_response.dart';
 import 'package:violet_app/model/city_response.dart';
 import 'package:violet_app/model/companyDetails.dart';
-import 'package:http/http.dart' as http;
 import 'package:violet_app/model/companyService_response.dart';
 import 'package:violet_app/model/company_response.dart';
 import 'package:dio/dio.dart';
+import 'package:violet_app/model/reservationDateTime_response.dart';
 import 'api_exceptions.dart';
 
 class Repository {
 
   final Dio _dio = Dio();
+
+  String token;
   // static String  baseUrl = "https://spa.ammarahmad.net/api/v1/mobile";
   static String  baseUrl = "https://api.violetapp.net/api/v1/mobile";
   static String  iconUrl = "https://api.violetapp.net/storage/app/";
 
   //POST
   static String login = baseUrl+"/login";
+  static String newReservation = baseUrl+"/new_reservation";
   static String registerNewCustomer = baseUrl+"/register_new_customer";
   static String verifyOtpGetToken = baseUrl+"/verify_otp_get_token";
   static String serviceCategoryAdd = baseUrl+"/service_category";
   static String companiesByCategory = baseUrl+"/companies-by-category";
+  static String reservationsDateTime = baseUrl+"/reservations-date-time-by-company-employee-services";
 
   //GET
   static String serviceCategory = baseUrl+"/service_category";
@@ -33,6 +39,7 @@ class Repository {
   static String companyDetails = baseUrl+"/company/";
   static String category = baseUrl+"/category";
   static String city = baseUrl+"/city";
+  static String reservationByCustomerId = baseUrl+"/reservation_by_customer_id/";
 
 
   dynamic _returnResponse(Response response) {
@@ -53,12 +60,10 @@ class Repository {
     }
   }
 
-
   Future<CityResponse> getCity(String language) async {
     Options options = Options(headers: {"Accept-Language": language});
 
     String url = city;
-
 
       try {
         Response response = await _dio.get(url,
@@ -76,7 +81,6 @@ class Repository {
       }
 
     }
-
 
   Future<CompanyResponse> getCompany(String language, String apiCall, List<String> categoryId) async {
     Options options = Options(headers: {"Accept-Language": language});
@@ -156,6 +160,28 @@ class Repository {
     }
     return result;
   }
+
+
+  // Future<ReservationDateTimeResponse> postReservationDateTime(String language, String companyId) async {
+  //   ReservationDateTimeResponse result;
+  //
+  //   var params = {'company_id': companyId};
+  //   Options options = Options(headers: {"Accept-Language": language,
+  //   'Authorization' : "Bearer "+token});
+  //   try {
+  //       Response response = await _dio.post(reservationsDateTime, data: params,
+  //           options: options);
+  //       if (response.statusCode == 200) {
+  //         final item = response.data['data'];
+  //         result =  ReservationDateTime.fromJson(item);
+  //       } else {
+  //         throw  FetchDataException(response.data.toString());
+  //     }
+  //   } on SocketException {
+  //     FetchDataException('No Internet connection');
+  //   }
+  //   return result;
+  // }
 
   Future<CompanyServiceResponse> getCompanyServices(String language, String companyId) async {
 

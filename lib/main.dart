@@ -3,29 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:violet_app/pages/app_language.dart';
-import 'package:violet_app/pages/bottom_nav.dart';
-import 'package:violet_app/pages/change_language.dart';
 import 'package:violet_app/pages/home.dart';
-import 'package:violet_app/pages/info_service.dart';
-import 'package:violet_app/pages/location.dart';
-import 'package:violet_app/pages/order_complete.dart';
-import 'package:violet_app/pages/orders.dart';
-import 'package:violet_app/pages/payment.dart';
-import 'package:violet_app/pages/profile.dart';
-import 'package:violet_app/pages/select_time_date.dart';
-import 'package:violet_app/pages/service_find.dart';
-import 'package:violet_app/pages/setting.dart';
-import 'package:violet_app/pages/update_profile.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
-
 import 'bloc/get_companyDetails_bloc.dart';
+import 'bloc/reservation_date_time_bloc.dart';
 import 'enums/connectivity_status.dart';
 import 'notifiers/connectivity_service.dart';
 import 'notifiers/dark_theme_provider.dart';
-
 
 void main() async {
 
@@ -57,6 +43,7 @@ class MyApp extends StatefulWidget {
 }
 
 class  _MyAppState extends State<MyApp> {
+
   final AppLanguage appLanguage;
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
   CompanyDetailsDataProvider companyDetailsDataProvider = new CompanyDetailsDataProvider();
@@ -152,6 +139,7 @@ class  _MyAppState extends State<MyApp> {
         )
     );
   }
+
 }
 
 

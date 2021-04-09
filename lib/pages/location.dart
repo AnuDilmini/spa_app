@@ -11,6 +11,7 @@ import 'package:violet_app/style/palette.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:location/location.dart';
 
+import 'drop_location.dart';
 import 'home.dart';
 
 class LocationPage extends StatefulWidget {
@@ -256,6 +257,10 @@ class _LocationState extends State<LocationPage> {
                                      ),
                                    ),
                                       onTap: (){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => SelectLocation()),
+                                        );
 
                                       },
                                     ),

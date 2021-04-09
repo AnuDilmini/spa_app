@@ -1,7 +1,9 @@
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,7 +22,6 @@ import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
-
 
 import 'bottom_nav.dart';
 
@@ -44,14 +45,21 @@ class _PaymentState extends State<Payment> {
 
   final commentController = TextEditingController();
   bool isCompleteApi = false;
+  bool loading = false;
   int selectedServiceCount = 0;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
   List<CompanyServices> selectedService = new List();
+  List<dynamic> serviceList = new List();
+  List<dynamic> detailsList = new List();
   double total = 0.0;
   int selectPayment ;
+  String companyId, customerId, token;
+  String lngCode = "en";
+  String dateTime = "29-03-2021 12:00:00";
+  final Dio _dio = Dio();
 
   @override
   void initState() {
@@ -61,431 +69,458 @@ class _PaymentState extends State<Payment> {
 
   getData() async{
     String serviceListJson = await SharedPreferencesHelper.getSelectedService();
+    companyId = await SharedPreferencesHelper.getCompanyId();
+    customerId = await SharedPreferencesHelper.getCustomerID();
+    lngCode = await SharedPreferencesHelper.getLanguage();
+    token = await SharedPreferencesHelper.getToken();
+    dateTime = await SharedPreferencesHelper.getDateTime();
+
+    print("token***** $token");
 
     if (serviceListJson != "") {
       selectedService = CompanyServices.decode(serviceListJson);
       selectedServiceCount = selectedService.length;
       totalPriceSum();
     }
-    setState(() {
 
+    setState(() {
     });
 
-  }
+    }
 
-  @override
-  void dispose() {
-    super.dispose();
-    commentController.dispose();
+    @override
+    void dispose() {
+      super.dispose();
+      commentController.dispose();
+    }
 
-  }
+    @override
+    Widget build(BuildContext context) {
+      width = MediaQuery
+          .of(context)
+          .size
+          .width;
+      height = MediaQuery
+          .of(context)
+          .size
+          .height;
 
-  @override
-  Widget build(BuildContext context) {
-    width = MediaQuery
-        .of(context)
-        .size
-        .width;
-    height = MediaQuery
-        .of(context)
-        .size
-        .height;
-
-
-    SystemChrome.setEnabledSystemUIOverlays([]);
-    connectionStatus = Provider.of<ConnectivityStatus>(context);
-
-    return Scaffold(
-       key: _scaffoldKey,
+      SystemChrome.setEnabledSystemUIOverlays([]);
+      connectionStatus = Provider.of<ConnectivityStatus>(context);
+      return Scaffold(
+        key: _scaffoldKey,
         body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              height: height* 1.0,
-            ),
-            Positioned(
-              top: (height/896) * 2,
-              width: width,
-              child:Center(
-                child: Container(
-                  height: (height/896) * 61,
-                  child: Image.asset("assets/pink_art.png",
+          child: Stack(
+              children: [
+                Container(
+                  height: height* 1.0,
+                ),
+                Positioned(
+                  top: (height/896) * 2,
+                  width: width,
+                  child:Center(
+                    child: Container(
+                      height: (height/896) * 61,
+                      child: Image.asset("assets/pink_art.png",
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              top: (height/602) * 40,
-              left: (width/414) * 20,
-              child:GestureDetector(
-                 child: Center(
-                   child: Container(
-                       alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
-                       child:
-                       Icon(Icons.arrow_back_ios,
-                         color: Palette.pinkBox,
-                         size: 25,)
-                   ),
-                  // child: Container(
-                  //   child: Icon(Icons.arrow_back_ios,
-                  //   color: Palette.pinkBox,
-                  //   size: 20,),
-                  // ),
-              ),
-                onTap: (){
-
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child:  BottomNav(index: 0, subIndex: 1),
-                      ));
-
-                },
-              ),
-            ),
-            Positioned(
-              top: (height/896) * 104,
-              left: (width/414) *20,
-              right: (width/414) *20,
-              child: Column(
-                children: [
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Color.fromRGBO(247, 127, 151, 0.18),
-                      ),
-                      height: (height/896) * 110,
-                      width: width,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children:[
-                            // Image.asset("assets/cart.png",
-                            //   height: (height/896) * 45,
-                            //   width: (width/414) * 27,),
-                            Text("FOUR\n SPA",
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: Color.fromRGBO(247, 127, 151, 1),
-                              ),),
-                          ]
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 7,
-                  ),
-                  Center(
-                    child: Container(
-                        padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 15 , bottom: (height/896) * 15),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color.fromRGBO(231, 223, 225, 0.81),
-                        ),
-                        // height: (height/896) * 260,
-                        width: width,
-                        child:Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(bottom: (height/896) * 5 ),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(width: 2, color: Palette.pinkBox ),
-                                ),
-                              ),
-                              height: (height/896) * 130,
-                              child:selectedService.isNotEmpty ? ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: selectedService.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    final item = selectedService[index].id;
-                                    return Dismissible(
-                                        direction: DismissDirection.startToEnd,
-                                        key: Key(item),
-                                          child: listItem(index),
-                                      onDismissed: (direction) {
-                                        total = total - double.parse(selectedService[index].price);
-                                        selectedService.removeAt(index);
-
-                                        print("total*********** $total");
-                                        setState(() {
-                                        });
-                                        // minusPriceSum(double.parse(selectedService[index].price));
-
-                                        // Then show a snackbar.
-                                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$item dismissed")));
-                                      },
-                                      background: Container(color: Palette.pinkBox),
-                                    );
-                                  }
-                              ):  Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Column(
-                                      children: <Widget>[
-                                        Text(
-                                          "No Selected Services",
-                                          style: TextStyle(color: Palette.pinkBox),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 8),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        LocaleKeys.delivery_charge,
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w500,
-                                            color: Palette.pinkBox
-                                        ),
-                                      ).tr()
-                                  ),
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "1150 SAR",
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                            color: Palette.pinkBox
-                                        ),
-                                      )
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 2),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        LocaleKeys.total,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                            color: Palette.pinkBox
-                                        ),
-                                      ).tr()
-                                  ),
-                                  Expanded(
-                                      flex: 1,
-                                      child:  Text(
-                                        "$total SAR",
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w500,
-                                            color: Palette.pinkBox
-                                        ),
-                                      )
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                                alignment: Alignment.bottomLeft,
-                                padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 5),
-                                child:   Row(
-                                  children: [
-                                    Text(tr('* ( ${LocaleKeys.include_vat.tr()}'),
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: Palette.textGrey),
-                                    ),
-                                    Text("15.0 % )",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: Palette.textGrey),
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ],
-                        )
-                    ),
-                  ),
-                  SizedBox(
-                    height: 7,
-                  ),
-                  GestureDetector(
+                Positioned(
+                  top: (height/602) * 40,
+                  left: (width/414) * 20,
+                  child:GestureDetector(
                     child: Center(
                       child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color.fromRGBO(231, 223, 225, 0.81),
-                        ),
-                        height: (height/896) * 65,
-                        width: width,
-                        child: Text(
-                          LocaleKeys.add_comment,
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w400,
-                              color: Palette.pinkBox
-                          ),
-                        ).tr(),
+                          alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+                          child:
+                          Icon(Icons.arrow_back_ios,
+                            color: Palette.pinkBox,
+                            size: 25,)
                       ),
+                      // child: Container(
+                      //   child: Icon(Icons.arrow_back_ios,
+                      //   color: Palette.pinkBox,
+                      //   size: 20,),
+                      // ),
                     ),
-                    onTap: (){
-                      showComment(context);
-                    },
-                  ),
-                  SizedBox(
-                    height: 7,
-                  ),
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 8 ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromRGBO(231, 223, 225, 0.81),
-                      ),
-                      height: (height/896) * 180,
-                      width: width,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            LocaleKeys.payment,
-                            style: TextStyle(
-                                fontSize: 21,
-                                fontWeight: FontWeight.normal,
-                                color: Palette.pinkBox
-                            ),
-                          ).tr(),
-                          Container(
-                            padding: EdgeInsets.only(top: (height/896) * 3 ),
-                            height: (height/896) * 124,
-                            child: ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                padding: EdgeInsets.zero,
-                                scrollDirection: Axis.vertical,
-                                itemCount: 3,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                      child: listPayment(index),
-                                      onTap:(){
-
-
-                                      }
-                                  );
-                                }
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        child: Container(
-                          height: (height/896) * 25,
-                          width: (height/896) * 25,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Palette.pinkBox,
-                                width: 6),
-                            color: isAgree ? Colors.transparent :  Palette.pinkBox,
-                          ),
-                        ),
-                        onTap: (){
-                          setState(() {
-                            isAgree = !isAgree;
-                          });
-                        },
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      GestureDetector(
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            LocaleKeys.i_agree,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 16,
-                              letterSpacing: 2,
-                              color:  Palette.pinkBox,
-                            ),
-                          ).tr(),
-                        ),
-                        onTap: (){
-                          setState(() {
-                            isAgree = !isAgree;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  GestureDetector(
-                    child: Center(
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Palette.pinkBox,
-                              width: 1),
-                          color: isAgree ? Palette.pinkBox: Colors.transparent,
-                        ),
-                        height: (height/896) * 50,
-                        width: width,
-                        child: Text(LocaleKeys.slied_to_checkout,
-                          style: TextStyle(
-                            fontSize: 19,
-                            color: isAgree ? Palette.whiteText : Palette.pinkBox,
-                          ),
-                        ).tr(),
-                      ),
-                    ),
-                    onTap: (){
-
+                    onTap: () async{
+                      String serviceList = CompanyServices.encode(selectedService);
+                      await SharedPreferencesHelper.setSelectedService(serviceList);
+                      FocusScope.of(context).requestFocus(new FocusNode());
                       Navigator.push(
                           context,
                           PageTransition(
                             type: PageTransitionType.fade,
-                            child:  BottomNav(index: 0, subIndex:3),
+                            child:  BottomNav(index: 0, subIndex: 2),
                           ));
+
                     },
                   ),
-                ],
-              ),
+                ),
+                Positioned(
+                  top: (height/896) * 104,
+                  left: (width/414) *20,
+                  right: (width/414) *20,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Color.fromRGBO(247, 127, 151, 0.18),
+                          ),
+                          height: (height/896) * 110,
+                          width: width,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:[
+                                // Image.asset("assets/cart.png",
+                                //   height: (height/896) * 45,
+                                //   width: (width/414) * 27,),
+                                Text("FOUR\n SPA",
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: Color.fromRGBO(247, 127, 151, 1),
+                                  ),),
+                              ]
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Center(
+                        child: Container(
+                            padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 15 , bottom: (height/896) * 15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromRGBO(231, 223, 225, 0.81),
+                            ),
+                            // height: (height/896) * 260,
+                            width: width,
+                            child:Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(bottom: (height/896) * 5 ),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(width: 2, color: Palette.pinkBox ),
+                                    ),
+                                  ),
+                                  height: (height/896) * 130,
+                                  child:selectedService.isNotEmpty ? ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: selectedService.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        final item = selectedService[index].id;
+                                        return Dismissible(
+                                          direction: DismissDirection.startToEnd,
+                                          key: Key(item),
+                                          child: listItem(index),
+                                          onDismissed: (direction) {
+                                            total = total - double.parse(selectedService[index].price);
+                                            selectedService.removeAt(index);
 
-            ),
+                                            print("total*********** $total");
+                                            setState(() {
+                                            });
+                                            // minusPriceSum(double.parse(selectedService[index].price));
 
-    ]
-      ),
+                                            // Then show a snackbar.
+                                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$item dismissed")));
+                                          },
+                                          background: Container(color: Palette.pinkBox),
+                                        );
+                                      }
+                                  ):  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Column(
+                                          children: <Widget>[
+                                            Text(
+                                              "No Selected Services",
+                                              style: TextStyle(color: Palette.pinkBox),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 8),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          flex: 3,
+                                          child: Text(
+                                            LocaleKeys.delivery_charge,
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w500,
+                                                color: Palette.pinkBox
+                                            ),
+                                          ).tr()
+                                      ),
+                                      Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            "1150 SAR",
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color: Palette.pinkBox
+                                            ),
+                                          )
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 2),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          flex: 3,
+                                          child: Text(
+                                            LocaleKeys.total,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color: Palette.pinkBox
+                                            ),
+                                          ).tr()
+                                      ),
+                                      Expanded(
+                                          flex: 1,
+                                          child:  Text(
+                                            "$total SAR",
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w500,
+                                                color: Palette.pinkBox
+                                            ),
+                                          )
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 5),
+                                    child:   Row(
+                                      children: [
+                                        Text(tr('* ( ${LocaleKeys.include_vat.tr()}'),
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: Palette.textGrey),
+                                        ),
+                                        Text("15.0 % )",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: Palette.textGrey),
+                                        ),
+                                      ],
+                                    )
+                                ),
+                              ],
+                            )
+                        ),
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      GestureDetector(
+                        child: Center(
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color.fromRGBO(231, 223, 225, 0.81),
+                            ),
+                            height: (height/896) * 65,
+                            width: width,
+                            child: Text(
+                              LocaleKeys.add_comment,
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w400,
+                                  color: Palette.pinkBox
+                              ),
+                            ).tr(),
+                          ),
+                        ),
+                        onTap: (){
+                          showComment(context);
+                        },
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Center(
+                        child: Container(
+                          padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 8 ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color.fromRGBO(231, 223, 225, 0.81),
+                          ),
+                          height: (height/896) * 180,
+                          width: width,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                LocaleKeys.payment,
+                                style: TextStyle(
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.normal,
+                                    color: Palette.pinkBox
+                                ),
+                              ).tr(),
+                              Container(
+                                padding: EdgeInsets.only(top: (height/896) * 3 ),
+                                height: (height/896) * 124,
+                                child: ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.zero,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: 3,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return GestureDetector(
+                                          child: listPayment(index),
+                                          onTap:(){
+
+
+                                          }
+                                      );
+                                    }
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          GestureDetector(
+                            child: Container(
+                              height: (height/896) * 25,
+                              width: (height/896) * 25,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Palette.pinkBox,
+                                    width: 6),
+                                color: isAgree ? Colors.transparent :  Palette.pinkBox,
+                              ),
+                            ),
+                            onTap: (){
+                              setState(() {
+                                isAgree = !isAgree;
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          GestureDetector(
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                LocaleKeys.i_agree,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  letterSpacing: 2,
+                                  color:  Palette.pinkBox,
+                                ),
+                              ).tr(),
+                            ),
+                            onTap: (){
+                              setState(() {
+                                isAgree = !isAgree;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      GestureDetector(
+                        child: Center(
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Palette.pinkBox,
+                                  width: 1),
+                              color: isAgree ? Palette.pinkBox: Colors.transparent,
+                            ),
+                            height: (height/896) * 50,
+                            width: width,
+                            child: loading ?  CircularProgressIndicator(
+                              strokeWidth: 4.0,
+                              valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                            ) :Text(LocaleKeys.slied_to_checkout,
+                              style: TextStyle(
+                                fontSize: 19,
+                                color: isAgree ? Palette.whiteText : Palette.pinkBox,
+                              ),
+                            ).tr(),
+                          ),
+                        ),
+                        onTap: (){
+                          if(isAgree) {
+                            setState(() {
+                              loading = true;
+                            });
+                            getServiceList();
+                          }else{
+                            showSnackbar(context, "Please hit agree option", Colors.red);
+                          }
+
+                        },
+                      ),
+                    ],
+                  ),
+
+                ),
+
+              ]
+          ),
         ),
-    );
+      );
+    }
+
+
+  getServiceList(){
+    if(selectedService.isNotEmpty) {
+      for (int i = 0; i < selectedService.length; i++) {
+        Map<String, dynamic> services = {
+          "service_id": selectedService[i].id,
+          "employee_id": ""
+        };
+        detailsList.add(services);
+      }
+      newReservation();
+    }else{
+      showAlert(context, "Your order list empty");
+    }
+
   }
 
   double totalPriceSum() {
@@ -497,6 +532,119 @@ class _PaymentState extends State<Payment> {
       }
     }
     return total;
+  }
+
+  Future<bool> newReservation() async {
+
+    if(commentController.text == null){
+      commentController.text = "NO COMMENT";
+    }
+
+    bool networkResults = await NetworkCheck.checkNetwork();
+    var params = {"start_time":dateTime, "customer_comment":commentController.text, "customer_id": customerId, "type_reservation": "HOME_RESERVATION",  "company_id": companyId ,
+      "details": detailsList
+    };
+
+    Options options = Options(headers: {"Accept-Language": lngCode,
+      "Authorization": "Bearer " +token});
+    if (networkResults) {
+      try {
+        Response response = await _dio.post(
+            Repository.newReservation, data: params,
+            options: options);
+
+        print("response.statusCod ${response.statusCode}");
+        if (response.statusCode == 200) {
+          final item = response.data['data'];
+          showSnackbar(context, "New Reservation added", Colors.blue);
+          new Timer.periodic(
+            Duration(microseconds: 500),
+                (Timer timer) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child:  BottomNav(index: 0, subIndex:3),
+                      ));
+            },
+          );
+
+          // if(item.isNotEmpty){
+          //   bookedList = item;
+          // }
+          // print("item ******** $item");
+
+        } else {
+          showAlert(context,"Something went wrong!");
+        }
+      } catch (e) {
+        showAlert(context, "Something went wrong!");
+      }
+      return true;
+    }else{
+      showAlert(context, "No Internet!");
+    }
+  }
+
+  showAlert(BuildContext context, String msg) {
+
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierColor: Color.fromRGBO(112, 112, 112, 0.67),
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(25)), //this right here
+            child: Container(
+
+              // alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(12),
+                color: Palette.whiteText,
+              ),
+              width: (width/414) * 347,
+              child: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: Container(
+                            margin: EdgeInsets.only( top: (height/896) *25,left: (width/414) * 18, right:  (width/414) * 18),
+                            child: Text(msg,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: Palette.pinkBox,
+                              ),).tr(),
+                          )
+                      ),
+                      GestureDetector(
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.only( top: (height/896) * 50, bottom: (height/896) * 35,left: (width/414) * 18,  right:  (width/414) * 40),
+                            child: Text(LocaleKeys.ok,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Palette.labelColor,
+                              ),).tr(),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              loading = false;
+                            });
+                            Navigator.pop(context);
+                          }
+                      )
+                    ],
+                  )
+              ),
+            ),
+          );
+        });
   }
 
   listItem(int index){
@@ -627,7 +775,7 @@ class _PaymentState extends State<Payment> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
-                  color: selectPayment == index ? Palette.pinkBox : Color.fromRGBO(168, 132, 153, 0.50),
+                  color: selectPayment == index ? Palette.pinkBox : Color.fromRGBO(168, 132, 153, 0.20),
                 ),
                 height: (height/896) * 25,
                 width: (height/896) * 30,
@@ -706,7 +854,6 @@ class _PaymentState extends State<Payment> {
                               ),).tr(),
                           )
                       ),
-
                       Center(
                           child: Container(
                               padding: EdgeInsets.only( left: (width/414) * 10, right: (width/414) * 20, top:  (height/896) * 20),
@@ -748,9 +895,15 @@ class _PaymentState extends State<Payment> {
         });
   }
 
-
-
-
-
-
+  showSnackbar(BuildContext context, String msg, Color color) {
+    final snackBar = SnackBar(
+      content: Text(msg,
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 18
+        ),),
+      backgroundColor: color,
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 }

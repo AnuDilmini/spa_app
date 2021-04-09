@@ -63,11 +63,21 @@ class _InfoService extends State<InfoService> {
     final companyDetailsData = Provider.of<CompanyDetailsDataProvider>(context, listen: false);
     companyDetailsData..getCompanyDetails(lngCode, companyId);
     companyServiceBloc..getCompanyService(lngCode, companyId);
-    // Future.delayed(const Duration(milliseconds: 600), () {
-    //   setState(() {
-    //     isCompleted = true;
-    //   });
-    // });
+
+
+  }
+
+  getData() async{
+    String serviceListJson = await SharedPreferencesHelper.getSelectedService();
+
+    if (serviceListJson != "") {
+      selectedService = CompanyServices.decode(serviceListJson);
+      // selectedServiceCount = selectedService.length;
+      // totalPriceSum();
+    }
+    setState(() {
+
+    });
 
   }
 
@@ -167,7 +177,6 @@ class _InfoService extends State<InfoService> {
                   ),
                 ),
                 onTap: (){
-                  totalPriceSum();
                   slideSheet();
                 },
               ),
@@ -484,7 +493,6 @@ class _InfoService extends State<InfoService> {
   }
 
   void slideSheet() {
-     double total_new = 200.0;
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -618,7 +626,6 @@ class _InfoService extends State<InfoService> {
                                  onDismissed: (direction) {
                                      total = total - double.parse(selectedService[index].price);
                                      selectedService.removeAt(index);
-                                     total_new = total_new -10;
                                      setState(() {
                                      });
                                   },
@@ -656,7 +663,7 @@ class _InfoService extends State<InfoService> {
                                          alignment: Alignment.centerRight,
                                          child: Padding(
                                              padding:  EdgeInsets.only(right: (width/414) * 30 ),
-                                             child: Text('$total_new SAR',
+                                             child: Text('${totalPriceSum()} SAR',
                                                style: TextStyle(
                                                    color: Palette.pinkBox,
                                                    fontSize: 20.0,
@@ -665,7 +672,6 @@ class _InfoService extends State<InfoService> {
                                          )
                                      ),
                                    ),
-
                                   ]
                                  )
                                )
