@@ -139,7 +139,7 @@ class _Orders extends State<Orders> {
                     strokeWidth: 4.0,
                   ),
                 ):
-                responseList.isEmpty ?
+                responseList== null ?
                 (
                 Container(
                   alignment: Alignment.center,
