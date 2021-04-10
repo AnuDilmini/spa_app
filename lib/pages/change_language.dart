@@ -128,7 +128,7 @@ class _ChangeLang extends State<ChangeLang> {
                       child:
                       Icon(Icons.arrow_back_ios,
                       color: Colors.white,
-                      size: 25,)
+                      size: (height/896) * 25,)
                   ),
                   onTap: (){
 
@@ -152,7 +152,7 @@ class _ChangeLang extends State<ChangeLang> {
                       child:
                       Text(LocaleKeys.change_language,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: (height/896) *20,
                           color: Palette.pinkBox,
                         ),).tr()
                     ),
@@ -175,7 +175,7 @@ class _ChangeLang extends State<ChangeLang> {
                             groupValue: selectedRadio,
                             title: Text(LocaleKeys.english,
                               style: TextStyle(
-                              fontSize: 18,
+                              fontSize: (height/896) *18,
                               color: Palette.pinkBox,
                             ),).tr(),
                             activeColor: Palette.pinkBox,
@@ -193,7 +193,7 @@ class _ChangeLang extends State<ChangeLang> {
                           value: 2,
                             title: Text(LocaleKeys.arabic,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           groupValue: selectedRadio,
@@ -235,7 +235,7 @@ class _ChangeLang extends State<ChangeLang> {
                         Center(
                           child: Text(LocaleKeys.update,
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: (height/896) *20,
                               color: Palette.whiteText,
                             ),).tr(),
                         ),

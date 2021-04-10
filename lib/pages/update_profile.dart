@@ -125,7 +125,7 @@ class _UpdateState extends State<UpdateProfile> {
                     child:
                     Icon(Icons.arrow_back_ios,
                       color: Colors.white,
-                      size: 25,)
+                      size: (height/896) * 25,)
                   ),
                 ),
                 onTap: (){

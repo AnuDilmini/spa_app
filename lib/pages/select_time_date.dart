@@ -159,7 +159,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     child:
                     Icon(Icons.arrow_back_ios,
                       color: Colors.white,
-                      size: 25,)
+                      size: (height/896) *25,)
                 ),
                 onTap: (){
                   FocusScope.of(context).requestFocus(new FocusNode());
@@ -186,7 +186,8 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     height: (height/896) * 37,
                     width: (width/414) * 50,
                     child: Icon(Icons.shopping_cart_outlined,
-                        color: Palette.pinkBox
+                        color: Palette.pinkBox,
+                      size: (height/896) * 25,
                     ),
                   ),
                 ),
@@ -211,7 +212,8 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                   width: (width/414) * 20,
                   child: Text("${selectedService.length}",
                     style: TextStyle(
-                        color: Colors.white
+                        color: Colors.white,
+                      fontSize: (height/896) * 12
                     ),
                   )
               ),
@@ -230,12 +232,12 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                   style: TextStyle(
                     fontFamily: "Audrey-Medium",
                     color: Palette.darkPink,
-                    fontSize: 25,
+                    fontSize: (height/896) *25,
                     fontWeight: FontWeight.w500,
                   ),).tr()
                  ),
                   SizedBox(
-                    height: 15,
+                    height: (height/896) *15,
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -252,7 +254,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                               child: Text("Amli ",
                               style: TextStyle(
                                 color: Palette.darkPink,
-                                fontSize: 23,
+                                fontSize: (height/896) *23,
                                 // fontFamily: "Audrey-Normal",
                                 fontWeight: FontWeight.w400,
                               ),
@@ -276,7 +278,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                       style: TextStyle(
                         fontFamily: "Audrey-Medium",
                         color: Palette.darkPink,
-                        fontSize: 25,
+                        fontSize: (height/896) *25,
                         fontWeight: FontWeight.w500,
                       ),).tr()
                 ),
@@ -365,29 +367,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                   )
               ),
             ),
-            // Positioned(
-            //   top: (height/896) * 390,
-            //   left: (width/414) * 30,
-            //   right: (width/414) * 30,
-            //   child:  Container(
-            //     height: (height/896) * 375,
-            //   child: PageView.builder(
-            //      onPageChanged: (value) {
-            //       setState(() {
-            //       currentPageIndex = value;
-            //       month = currentPageIndex;
-            //       });
-            //       },
-            //     pageSnapping: true,
-            //     allowImplicitScrolling: true,
-            //     scrollDirection: Axis.horizontal,
-            //     itemCount: 12,
-            //     // ignore: missing_return
-            //     itemBuilder: (BuildContext context, int index) {
-            //      return monthItem(index);
-            //     }),
-            //  ),
-            // ),
             Positioned(
               top: (height/896) * 522,
               left: (width/414) * 50,
@@ -400,7 +379,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     style: TextStyle(
                       fontFamily: "Audrey-Medium",
                       color: Palette.darkPink,
-                      fontSize: 25,
+                      fontSize: (height/896) *25,
                       fontWeight: FontWeight.w500,
                     ),).tr()
               ),
@@ -442,7 +421,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                            child: Text(time[index],
                            style: TextStyle(
                              color: index == selectedTime ? Colors.white : Palette.darkPink,
-                             fontSize: index == selectedTime ? 26 : 24,
+                             fontSize: index == selectedTime ? (height/896) *26 : (height/896) *24,
                              fontWeight:  index == selectedTime ? FontWeight.bold : FontWeight.w500
                            ),),
                          ),
@@ -479,7 +458,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
              ): Text(
                LocaleKeys.confirm,
                style: TextStyle(
-                 fontSize: 26,
+                 fontSize: (height/896) *26,
                  color: Palette.whiteText
                ),
              ).tr()
@@ -536,26 +515,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
     mobileRegController.dispose();
   }
 
-  monthItem(int index){
-    return Container(
-      height: (height/896) * 375,
-      child: PageView.builder(
-          onPageChanged: (value) {
-            setState(() {
-              weekPageIndex = value;
-              // month = currentPageIndex;
-            });
-          },
-          pageSnapping: true,
-          allowImplicitScrolling: true,
-          scrollDirection: Axis.horizontal,
-          itemCount: 4,
-          // ignore: missing_return
-          itemBuilder: (BuildContext context, int index) {
-            return weekItem(index);
-          }),
-    );
-  }
 
   Future<bool> postReservationDateTime() async {
     ReservationDateTimeResponse result;
@@ -711,7 +670,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25),
                             child: Text(LocaleKeys.register_to_violet,
                               style: TextStyle(
-                                fontSize: 26,
+                                fontSize: (height/896) *26,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -721,7 +680,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
                         child: Text(LocaleKeys.we_just_need,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: (height/896) *18,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
@@ -730,7 +689,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
                         child: Text(LocaleKeys.phone_number,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: (height/896) * 20,
                             color: Palette.pinkBox,
                           ),).tr(),
                       ),
@@ -752,7 +711,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             maxLines: 3,
                             style: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.mainColor
                             ),
                             autofocus: false,
@@ -761,7 +720,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 hintText: LocaleKeys.enter_your_number.tr() ,
                                 hintStyle: TextStyle(
                                     decoration: TextDecoration.none,
-                                    fontSize: 15,
+                                    fontSize: (height/896) *15,
                                     fontWeight: FontWeight.normal,
                                   color: Color.fromRGBO(149, 152, 154, 0.38),
                                 )
@@ -783,7 +742,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             textAlign : TextAlign.center,
                             maxLines: 3,
                             style: TextStyle(
-                                fontSize: 15,
+                                fontSize: (height/896) *15,
                                 color: Palette.mainColor
                             ),
                             autofocus: false,
@@ -791,7 +750,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                               border: InputBorder.none,
                               hintText: LocaleKeys.your_name.tr(),
                               hintStyle: TextStyle(
-                                fontSize: 15,
+                                fontSize: (height/896) *15,
                                 color: Color.fromRGBO(149, 152, 154, 0.38),
                               ),
                             ),
@@ -802,7 +761,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) * 20, left: (width/414) * 18),
                         child: Text(LocaleKeys.a_digit,
                           style: TextStyle(
-                            fontSize: 17,
+                            fontSize: (height/896) *17,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
@@ -819,7 +778,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           width: (width/414) * 156,
                           child: Text(LocaleKeys.register,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: (height/896) *18,
                               color: Palette.whiteText,
                             ),).tr(),
                         ),
@@ -844,7 +803,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                         child: Text("${LocaleKeys.or_you_can_login}",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            fontSize: 14,
+                                            fontSize: (height/896) * 14,
                                             color: Palette.pinkBox,
                                           ),).tr()
                                     ),
@@ -854,7 +813,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                       showLoginDialog(context);
                                     }
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: (width/414) * 10),
                                 GestureDetector(
                                  child: Container(
                                   decoration: BoxDecoration(
@@ -865,7 +824,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                   child: Text(LocaleKeys.login,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: (height/896) *14,
                                       fontWeight: FontWeight.bold,
                                       color: Palette.pinkBox,
                                     ),).tr(),
@@ -886,7 +845,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                               margin: EdgeInsets.only( top: (height/896) * 20,bottom: (height/896) * 20),
                               child: Icon(Icons.close,
                                 color: Palette.pinkBox,
-                                size: 20,)
+                                size: (height/896) *20,)
                           ),
                           onTap: () {
                             FocusScope.of(context).requestFocus(new FocusNode());
@@ -930,7 +889,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25),
                             child: Text(LocaleKeys.register_to_violet,
                               style: TextStyle(
-                                fontSize: 26,
+                                fontSize:  (height/896) *26,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -940,7 +899,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) * 50, left: (width/414) * 18),
                         child: Text(LocaleKeys.enter_the,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: (height/896) *16,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
@@ -949,7 +908,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         padding: EdgeInsets.only( top: (height/896) *30, left: (width/414) * 18),
                         child: Text("$mobile",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: (height/896) *16,
                             color: Palette.pinkBox,
                           ),),
                       ),
@@ -967,7 +926,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 eachFieldWidth:(width/414) * 50,
                                 fieldsCount: 4,
                                 textStyle: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: (height/896) *24,
                                   color: Palette.pinkBox,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -1019,7 +978,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
                           child: Text(LocaleKeys.resend_otp,
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: (height/896) *20,
                               color: Palette.pinkBox,
                             ),).tr(),
                         ),
@@ -1035,7 +994,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
                         child: Text("OTP $otpReg",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: (height/896) *20,
                             color: Palette.pinkBox,
                           ),).tr(),
                       ),
@@ -1076,7 +1035,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25),
                             child: Text(LocaleKeys.login_to_violet,
                               style: TextStyle(
-                                fontSize: 26,
+                                fontSize: (height/896) *25,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -1086,7 +1045,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
                         child: Text(LocaleKeys.we_just_need,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: (height/896) *18,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
@@ -1095,7 +1054,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
                         child: Text(LocaleKeys.phone_number,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: (height/896) *20,
                             color: Palette.pinkBox,
                           ),).tr(),
                       ),
@@ -1106,8 +1065,8 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             color: Palette.textField,
                           ),
                           alignment: Alignment.centerLeft,
-                          margin: EdgeInsets.only(top: (height/896) *10),
-                          padding: EdgeInsets.only( left:10,right: 10),
+                          // margin: EdgeInsets.only(top: (height/896) *10),
+                          padding: EdgeInsets.only( left:(width/414) *10,right:(width/414) * 10),
                           height: (height/896) * 57,
                           width: (width/414) * 312,
                           child: Center(
@@ -1117,7 +1076,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             maxLines: 3,
                             style: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.mainColor
                             ),
                             autofocus: false,
@@ -1126,7 +1085,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 hintText: LocaleKeys.enter_your_number.tr() ,
                                 hintStyle: TextStyle(
                                     decoration: TextDecoration.none,
-                                    fontSize: 15,
+                                    fontSize: (height/896) *15,
                                     fontWeight: FontWeight.normal,
                                   color: Color.fromRGBO(149, 152, 154, 0.38),
                                 )
@@ -1139,7 +1098,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) *20, left: (width/414) * 18, right: (width/414) * 18 ),
                         child: Text(LocaleKeys.a_digit,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: (height/896) *14,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
@@ -1156,7 +1115,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           width: (width/414) * 156,
                           child: Text(LocaleKeys.login,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: (height/896) *18,
                               color: Palette.whiteText,
                             ),).tr(),
                         ),
@@ -1186,7 +1145,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                     child: Text(LocaleKeys.new_register_now,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: (height/896) *14,
                                         color: Palette.labelColor,
                                       ),).tr(),),
                                   onTap: (){
@@ -1215,7 +1174,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                   child: Text(LocaleKeys.forget_password,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: (height/896) *14,
                                       color: Palette.labelColor,
                                     ),).tr(),
                                 ),
@@ -1230,7 +1189,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             padding: EdgeInsets.only( top: (height/896) * 20, bottom: (height/896) * 20),
                             child: Icon(Icons.close,
                               color: Palette.pinkBox,
-                              size: 24,)
+                              size: (height/896) *24,)
                         ),
                         onTap: (){
                           FocusScope.of(context).requestFocus(new FocusNode());
@@ -1290,7 +1249,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25),
                             child: Text(LocaleKeys.login_to_violet,
                               style: TextStyle(
-                                fontSize: 26,
+                                fontSize: (height/896) *26,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -1300,7 +1259,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) * 50, left: (width/414) * 18),
                         child: Text(LocaleKeys.enter_the,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: (height/896) *16,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
@@ -1309,7 +1268,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         padding: EdgeInsets.only( top: (height/896) *30, left: (width/414) * 18),
                         child: Text("$mobile",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: (height/896) *16,
                             color: Palette.pinkBox,
                           ),),
                       ),
@@ -1327,7 +1286,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 eachFieldWidth:(width/414) * 50,
                                 fieldsCount: 4,
                                 textStyle: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: (height/896) *24,
                                   color: Palette.pinkBox,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -1377,7 +1336,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
                           child: Text(LocaleKeys.resend_otp,
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: (height/896) *20,
                               color: Palette.pinkBox,
                             ),).tr(),
                         ),
@@ -1392,7 +1351,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
                         child: Text("$otpLogin",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: (height/896) *20,
                             color: Palette.pinkBox,
                           ),).tr(),
                       ),
@@ -1480,7 +1439,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25,left: (width/414) * 18, right:  (width/414) * 18),
                             child: Text(msg,
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize: (height/896) *22,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -1491,7 +1450,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) * 50, bottom: (height/896) * 35,left: (width/414) * 18,  right:  (width/414) * 40),
                             child: Text(LocaleKeys.ok,
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: (height/896) *16,
                                 color: Palette.labelColor,
                               ),).tr(),
                           ),
@@ -1619,7 +1578,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
       content: Text(msg,
       style: TextStyle(
         color: Colors.white,
-        fontSize: 18
+        fontSize: (height/896) *18
       ),),
       backgroundColor: color,
     );

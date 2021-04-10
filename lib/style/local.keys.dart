@@ -109,5 +109,8 @@ abstract class  LocaleKeys {
   static const or_you_can_login = "or_you_can_login";
   static const submit = "submit";
   static const what_you_are_looking = "what_you_are_looking";
+  static const there_no_reservation = "there_no_reservation";
+  static const enjoying_your_Time = "enjoying_your_Time";
+  static const reserve_now = "reserve_now";
 
 }

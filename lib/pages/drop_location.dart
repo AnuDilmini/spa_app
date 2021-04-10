@@ -9,6 +9,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:violet_app/model/place_model.dart';
 import 'package:violet_app/style/palette.dart';
 
+import 'bottom_nav.dart';
+
 
 class SelectLocation extends StatefulWidget {
   SelectLocation(
@@ -56,6 +58,7 @@ class _SelectLocation extends State<SelectLocation> {
   var data;
   var position;
   bool isLocationLoaded = false;
+  double height, width;
 
   @override
   void initState() {
@@ -112,6 +115,7 @@ class _SelectLocation extends State<SelectLocation> {
       if (_placesList != null) {
         _placesList.clear();
       }
+      print("_displayResults *********$_displayResults");
       _placesList = _displayResults;
     });
   }
@@ -160,11 +164,10 @@ class _SelectLocation extends State<SelectLocation> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-
         backgroundColor: Colors.white,
         body: Container(
           width: width,
@@ -197,7 +200,10 @@ class _SelectLocation extends State<SelectLocation> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BottomNav(index: 0,subIndex: 5,)),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -227,7 +233,7 @@ class _SelectLocation extends State<SelectLocation> {
                   child: Container(
                     child: SpinKitRipple(
                       color: Palette.darkPink,
-                      size: 40,
+                      size: (height/896) *40,
                     ),
                   ),
                 ),
@@ -408,7 +414,7 @@ class _SelectLocation extends State<SelectLocation> {
                               },
                             ),
                             SizedBox(
-                              height: 5,
+                              height: (height/896) *5,
                             )
                           ],
                         );
@@ -493,7 +499,7 @@ class _SelectLocation extends State<SelectLocation> {
               },
             ),
             SizedBox(
-              height: 20,
+              height: (height/896) *20,
             )
           ],
         ),
@@ -552,7 +558,7 @@ class _SelectLocation extends State<SelectLocation> {
               },
             ),
             SizedBox(
-              height: 20,
+              height: (height/896) *20,
             )
           ],
         ),

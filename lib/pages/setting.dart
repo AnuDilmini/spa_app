@@ -98,7 +98,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.change_language,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
                         ),
@@ -142,7 +142,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.change_pass,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: (height/896) *18,
                             color: Palette.pinkBox,
                           ),).tr(),
                       ),
@@ -184,7 +184,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.privacy_policy,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
                         ),
@@ -217,7 +217,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.about,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
                         ),
@@ -250,7 +250,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                           child: Text(LocaleKeys.terms_conditions,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
                         ),
@@ -283,7 +283,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.join_us,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
                         ),
@@ -316,7 +316,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.legal,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
                         ),
@@ -342,7 +342,7 @@ class _SettingState extends State<Setting> {
                     child:
                     Icon(Icons.arrow_back_ios,
                     color: Palette.whiteText,
-                    size: 25,)
+                    size: (height/896) *25,)
                   ),
 
                 onTap: (){

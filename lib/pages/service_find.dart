@@ -134,7 +134,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                       width: width,
                       child:
                         Icon(Icons.arrow_back_ios,
-                          size: 25,
+                          size:  (height/896) *25,
                           color: Palette.whiteText,
                         )
                   ),
@@ -153,7 +153,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                   LocaleKeys.welcome,
                   style: TextStyle(
                       letterSpacing: 1,
-                      fontSize: 24,
+                      fontSize: (height/896) * 24,
                       color:  Palette.whiteText,
                       fontFamily: "Audrey-Medium"),
                 ).tr(),
@@ -184,7 +184,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 border: InputBorder.none,
                                 hintText: tr(LocaleKeys.what_you_are_looking),
                                 hintStyle: TextStyle(
-                                  color: Palette.textGrey
+                                  color: Palette.textGrey,
+                                  fontSize: (height/896) * 21
                                 )
                               ),
                               onChanged: (content) {
@@ -249,7 +250,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                   LocaleKeys.find_service,
                   style: TextStyle(
                       letterSpacing: 1,
-                      fontSize: 30,
+                      fontSize: (height/896) *30,
                       color:  Palette.whiteText,
                       fontFamily: "Audrey-Medium"),
                 ).tr(),
@@ -366,7 +367,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 25.0,
+              height: (height/896) *25.0,
               width: 25.0,
               child: CircularProgressIndicator(
                 valueColor: new AlwaysStoppedAnimation<Color>(Palette.pinkBox),
@@ -434,17 +435,22 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                             children: [
                               Container(
                                 width:  (width/208) * 57,
-                                child: company[index].image != null ? Image.network(Repository.iconUrl+company[index].image, width: 92, height: 72) : null,
-                                decoration: company[index].image == null ? BoxDecoration(
-                                    color: Palette.pinkBox,
-                                    borderRadius: BorderRadius.all(Radius.circular(18)),
-                                    image: new DecorationImage(
-                                      image: new AssetImage("assets/background.png"),
-                                      fit: BoxFit.fill,
-                                    )
-                                ) :BoxDecoration(
+                                decoration:
+                                // company[index].image == null ? BoxDecoration(
+                                //     color: Palette.pinkBox,
+                                //     borderRadius: BorderRadius.all(Radius.circular(18)),
+                                //     image: new DecorationImage(
+                                //       image: new AssetImage("assets/background.png"),
+                                //       fit: BoxFit.fill,
+                                //     )
+                                // ) :
+                                BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(18)),
                                 ),
+                                child: company[index].image != null ? Image.network(Repository.iconUrl+company[index].image, width: 92, height: 72,
+                                  fit: BoxFit.contain,) :new Image.asset("assets/background.png",
+                                  fit: BoxFit.fill,),
+
                               ),
                               Container(
                                   padding: EdgeInsets.only(left:  (width/208) * 5, top:  (height/449) * 5 , right: (height/449) * 5),
@@ -457,7 +463,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                           overflow: TextOverflow.clip,
                                           maxLines: 1,
                                           style: TextStyle(
-                                              fontSize: 17,
+                                              fontSize: (height/896) * 18,
                                               color:  Palette.pinkText,
                                               fontWeight: FontWeight.w900,
                                               fontFamily: "Audrey-Normal"
@@ -468,7 +474,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                         child:Text("- Salon",
                                           overflow: TextOverflow.clip,
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: (height/896) *15,
                                               color:  Palette.pinkText,
                                               fontWeight: FontWeight.w600,
                                               fontFamily: "Audrey-Normal"
@@ -484,7 +490,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                                 maxLines: 1,
                                                 overflow: TextOverflow.clip,
                                                 style: TextStyle(
-                                                    fontSize: 18,
+                                                    fontSize: (height/896) *17,
                                                     color:  Palette.pinkText,
                                                     fontWeight: FontWeight.w600,
                                                     fontFamily: "Audrey-Normal"
@@ -497,7 +503,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                               child:
                                               Text("${company[index].rating} ",
                                                 style: TextStyle(
-                                                    fontSize: 18,
+                                                    fontSize: (height/896) *18,
                                                     color:  Palette.pinkText,
                                                     fontWeight: FontWeight.w600,
                                                     fontFamily: "Audrey-Normal"
@@ -612,7 +618,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                     overflow: TextOverflow.clip,
                                     maxLines: 2,
                                     style: TextStyle(
-                                      fontSize: 13,
+                                      fontSize: (height/896) *15,
                                       color: Palette.whiteText,
                                     ),),
                                 ),

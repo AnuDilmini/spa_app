@@ -172,7 +172,7 @@ class _LocationState extends State<LocationPage> {
                     child:
                     Icon(Icons.arrow_back_ios,
                       color: Colors.white,
-                      size: 25,)
+                      size: (height/896) *25,)
                 ),
                 onTap: (){
 
@@ -217,7 +217,7 @@ class _LocationState extends State<LocationPage> {
                               padding: EdgeInsets.only(left:(width/414) * 10),
                               child: Icon(Icons.location_on_outlined,
                               color: Palette.pinkBox,
-                              size: 25,)
+                              size: (height/896) *25,)
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -232,7 +232,7 @@ class _LocationState extends State<LocationPage> {
                                         Text(LocaleKeys.delivered_to,
                                         style: TextStyle(
                                           color: Palette.pinkBox,
-                                          fontSize: 15,
+                                          fontSize: (height/896) *15,
                                           fontWeight: FontWeight.normal
                                         ),).tr(),
                                         ),
@@ -247,12 +247,12 @@ class _LocationState extends State<LocationPage> {
                                          Text(LocaleKeys.pick_the_location,
                                            style: TextStyle(
                                              color: Palette.pinkBox,
-                                             fontSize: 15,
+                                             fontSize: (height/896) *15,
                                                fontWeight: FontWeight.normal
                                            ),).tr(),
                                          Icon(Icons.arrow_forward_ios,
                                            color: Palette.pinkBox,
-                                           size: 15,)
+                                           size: (height/896) * 15,)
                                      ]
                                      ),
                                    ),
@@ -273,7 +273,7 @@ class _LocationState extends State<LocationPage> {
                                     style: TextStyle(
                                       color: Palette.pinkBox,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                      fontSize: (height/896) *18,
                                     ),).tr(),
                                 )
 

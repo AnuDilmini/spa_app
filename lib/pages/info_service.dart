@@ -145,7 +145,7 @@ class _InfoService extends State<InfoService> {
 
                     child:
                     Icon(Icons.arrow_back_ios,
-                      size: 25,
+                      size: (height/896) *25,
                       color: Palette.whiteText,
                     )
                   ),
@@ -173,6 +173,7 @@ class _InfoService extends State<InfoService> {
                     width: (width/414) * 50,
                     child: Icon(Icons.shopping_cart_outlined,
                       color: Palette.pinkBox,
+                      size: (height/896) *25,
                     ),
                   ),
                 ),
@@ -194,7 +195,8 @@ class _InfoService extends State<InfoService> {
                     width: (width/414) * 20,
                     child: Text("${selectedService.length}",
                       style: TextStyle(
-                        color: Colors.white
+                        color: Colors.white,
+                        fontSize: (height/896) * 12
                       ),
                     )
                   ),
@@ -258,7 +260,7 @@ class _InfoService extends State<InfoService> {
                   ),
                   child: Text(LocaleKeys.info,
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: (height/896) *27,
                       color: Palette.pinkBox,
                     ),
                   ).tr(),
@@ -286,7 +288,7 @@ class _InfoService extends State<InfoService> {
                     ),
                     child: Text(LocaleKeys.service,
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: (height/896) *27,
                         color: Palette.pinkBox,
                           ),
                     ).tr(),
@@ -329,7 +331,7 @@ class _InfoService extends State<InfoService> {
                               child:Text("${companyDetailsData.companyDetails.name}",
                               style: TextStyle(
                                 color: Palette.pinkBox,
-                                fontSize: 18
+                                fontSize: (height/896) *18
                                   ),
                                 ),
                              ),
@@ -340,7 +342,7 @@ class _InfoService extends State<InfoService> {
                               child:
                               Text("${companyDetailsData.companyDetails.rating}",
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: (height/896) *18,
                                     color:  Palette.pinkText,
                                     fontWeight: FontWeight.w600,
                                     fontFamily: "Audrey-Normal"
@@ -371,7 +373,7 @@ class _InfoService extends State<InfoService> {
                            ]
                           ),
                           SizedBox(
-                            height: 25,
+                            height: (height/896) *25,
                           ),
                           Row(
                               children: [
@@ -380,12 +382,12 @@ class _InfoService extends State<InfoService> {
                                   child:Text(LocaleKeys.address,
                                     style: TextStyle(
                                         color: Palette.pinkBox,
-                                        fontSize: 17
+                                        fontSize: (height/896) *17
                                     ),
                                   ).tr(),
                                 ),
                                 SizedBox(
-                                  width: 12,
+                                  width: (height/896) *12,
                                 ),
                                 Container(
                                   alignment: Alignment.topRight,
@@ -394,7 +396,7 @@ class _InfoService extends State<InfoService> {
                                   Text(companyDetailsData.companyDetails.name,
                                     maxLines: 3,
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: (height/896) *18,
                                         color:  Palette.balckColor,
                                         // fontFamily: "Audrey-Normal"
                                     ),
@@ -403,7 +405,7 @@ class _InfoService extends State<InfoService> {
                               ]
                           ),
                           SizedBox(
-                            height: 25,
+                            height:(height/896) * 25,
                           ),
                           Row(
                               children: [
@@ -412,12 +414,12 @@ class _InfoService extends State<InfoService> {
                                   child:Text(LocaleKeys.phone,
                                     style: TextStyle(
                                         color: Palette.pinkBox,
-                                        fontSize: 17
+                                        fontSize: (height/896) *17
                                     ),
                                   ).tr(),
                                 ),
                                 SizedBox(
-                                  width: 12,
+                                  width: (height/896) * 12,
                                 ),
                                 Container(
                                   alignment: Alignment.centerRight,
@@ -425,7 +427,7 @@ class _InfoService extends State<InfoService> {
                                   child:
                                   Text(companyDetailsData.companyDetails.phone,
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: (height/896) *18,
                                       color:  Palette.balckColor,
                                       // fontFamily: "Audrey-Normal"
                                     ),
@@ -434,7 +436,7 @@ class _InfoService extends State<InfoService> {
                               ]
                           ),
                           SizedBox(
-                            height: 35,
+                            height: (height/896) *35,
                           ),
                           Row(
                               children: [
@@ -443,12 +445,12 @@ class _InfoService extends State<InfoService> {
                                   child:Text(LocaleKeys.hours,
                                     style: TextStyle(
                                         color: Palette.pinkBox,
-                                        fontSize: 17
+                                        fontSize: (height/896) *17
                                     ),
                                   ).tr(),
                                 ),
                                 SizedBox(
-                                  width: 12,
+                                  width: (height/896) *12,
                                 ),
                                 Container(
                                   alignment: Alignment.centerRight,
@@ -456,7 +458,7 @@ class _InfoService extends State<InfoService> {
                                   child:
                                   Text("",
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: (height/896) *18,
                                       color:  Palette.balckColor,
                                       // fontFamily: "Audrey-Normal"
                                     ),
@@ -589,13 +591,13 @@ class _InfoService extends State<InfoService> {
                                                  maxLines: 1,
                                                  overflow: TextOverflow.clip,
                                                  style: TextStyle(
-                                                     fontSize: 18,
+                                                     fontSize: (height/896) *18,
                                                      color: Palette.pinkBox),
                                                ),
                                                Text(
                                                  "${selectedService[index].duration_min} min - ${selectedService[index].price} SR",
                                                  style: TextStyle(
-                                                     fontSize: 14,
+                                                     fontSize: (height/896) *14,
                                                      color: Palette.labelColor),
                                                )
                                              ],
@@ -615,7 +617,7 @@ class _InfoService extends State<InfoService> {
                                              child: Center(
                                                  child: Icon(Icons.close,
                                                    color: Palette.boxWhite,
-                                                   size: 23,)
+                                                   size: (height/896) *23,)
                                              ),
                                            ),
                                          ),
@@ -650,7 +652,7 @@ class _InfoService extends State<InfoService> {
                                            child: Text("Total",
                                        style: TextStyle(
                                          color: Palette.pinkBox,
-                                         fontSize: 20.0,
+                                         fontSize:(height/896) * 20.0,
                                          fontWeight: FontWeight.bold
                                        ),)
                                      )
@@ -663,10 +665,10 @@ class _InfoService extends State<InfoService> {
                                          alignment: Alignment.centerRight,
                                          child: Padding(
                                              padding:  EdgeInsets.only(right: (width/414) * 30 ),
-                                             child: Text('${totalPriceSum()} SAR',
+                                             child: Text('${totalPriceSum()} SR',
                                                style: TextStyle(
                                                    color: Palette.pinkBox,
-                                                   fontSize: 20.0,
+                                                   fontSize: (height/896) *19,
                                                    fontWeight: FontWeight.w400
                                                ),)
                                          )
@@ -692,7 +694,7 @@ class _InfoService extends State<InfoService> {
                                child: Text(LocaleKeys.checkout,
                            style: TextStyle(
                              fontFamily: "Audrey-Medium",
-                             fontSize: 23,
+                             fontSize: (height/896) *23,
                              fontWeight: FontWeight.w600,
                              color: Palette.pinkBox
                            ),).tr()
@@ -823,7 +825,7 @@ class _InfoService extends State<InfoService> {
                               text: TextSpan(
                                 text: '${companyServices[index].name}\n',
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: (height/896) *18,
                                     color: Palette.pinkBox),
                                 children: <TextSpan>[
                                   TextSpan(text: '${companyServices[index].duration_min} min - ${companyServices[index].price} SR',
@@ -848,7 +850,7 @@ class _InfoService extends State<InfoService> {
                               child: Center(
                                   child: Icon(selectedService.contains(companyServices[index]) ?  Icons.check : Icons.add,
                                     color: Palette.boxWhite,
-                                    size: 23,)
+                                    size: (height/896) *23,)
                               ),
                             ),
                             onTap: (){
@@ -893,8 +895,8 @@ class _InfoService extends State<InfoService> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 25.0,
-              width: 25.0,
+              height: (height/896) * 25.0,
+              width:  (width/414) *25.0,
               child: CircularProgressIndicator(
                 valueColor: new AlwaysStoppedAnimation<Color>(Palette.pinkBox),
                 strokeWidth: 4.0,
@@ -954,7 +956,7 @@ class _InfoService extends State<InfoService> {
               children: <TextSpan>[
                 TextSpan(text: '${serviceList[index]["duration_min"]} min - ${serviceList[index]["price"]} SR',
                     style: TextStyle(
-                        fontSize: 14,
+                        fontSize: (height/896) *14,
                         color: Palette.labelColor),),
               ],
             ),
@@ -974,7 +976,7 @@ class _InfoService extends State<InfoService> {
           child: Center(
               child: Icon(Icons.add,
               color: Palette.boxWhite,
-              size: 23,)
+              size: (height/896) *23,)
           ),
         ),
           onTap: (){

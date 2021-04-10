@@ -107,6 +107,10 @@
   "or_you_can_login" : "Or you can",
   "wait" : "Wait...",
   "submit" : "submit",
-  "what_you_are_looking" : "What you are looking for..."
+  "what_you_are_looking" : "What you are looking for...",
+  "there_no_reservation" : "There is no reservation",
+  "enjoying_your_Time" : "You can add new reservation and enjoying your Time",
+  "reserve_now" : "Reserve now"
+
 
 }

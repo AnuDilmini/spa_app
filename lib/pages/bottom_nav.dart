@@ -31,6 +31,7 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
 
   int _currentIndex = 0, subIndex , page;
+  double height, width;
 
   final List<Widget> _children = [
     ServiceFindPage(), //0
@@ -94,6 +95,14 @@ class _BottomNavState extends State<BottomNav> {
   
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    height = MediaQuery
+        .of(context)
+        .size
+        .height;
 
     return Scaffold(
       body: SizedBox.expand(
@@ -104,16 +113,16 @@ class _BottomNavState extends State<BottomNav> {
         items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image(
-              image:AssetImage('assets/artboard.png'),
-              height: 30,
-              width: 30,
+              image:AssetImage('assets/white_art.png'),
+              height:(height/896) * 30,
+              width: (height/896) * 30,
             ),
             title: Padding(
-              padding: const EdgeInsets.all(0.0),
+              padding: const EdgeInsets.all(2),
               child: Text(LocaleKeys.violet ,
                 style: TextStyle(
                     color: Palette.whiteText,
-                    fontSize: 15,
+                    fontSize: (height/896) * 15,
                     fontFamily: "Poppins-Medium"
                 ),
               ).tr(),
@@ -124,14 +133,14 @@ class _BottomNavState extends State<BottomNav> {
             icon: Icon(
               Icons.menu,
               color: Colors.white,
-              size: 25,
+              size: (height/896) *25,
             ),
             title: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Text(LocaleKeys.orders,
                 style: TextStyle(
                     color: Palette.whiteText,
-                    fontSize: 15,
+                    fontSize: (height/896) *15,
                     fontFamily: "Poppins-Medium"
                 ),
               ).tr(),
@@ -142,14 +151,14 @@ class _BottomNavState extends State<BottomNav> {
             icon: Icon(
               Icons.account_circle,
               color: Colors.white,
-              size: 25,
+              size: (height/896) *25,
             ),
             title: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Text(LocaleKeys.profile,
                 style: TextStyle(
                     color: Palette.whiteText,
-                    fontSize: 15,
+                    fontSize: (height/896) *15,
                     fontFamily: "Poppins-Medium"
                 ),
               ).tr(),
@@ -158,8 +167,8 @@ class _BottomNavState extends State<BottomNav> {
           ),
         ],
         currentIndex: _currentIndex,
-        unselectedFontSize: 18,
-        selectedFontSize: 18,
+        unselectedFontSize:  (height/896) *18,
+        selectedFontSize: (height/896) * 18,
           selectedItemColor: Palette.blurColor,
         // selectedLabelStyle: TextStyle(fontFamily: "Audrey-Normal"),
         // unselectedLabelStyle: TextStyle(fontFamily: "Audrey-Normal"),

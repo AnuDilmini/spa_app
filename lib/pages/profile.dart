@@ -127,7 +127,7 @@ class _ProfileState extends State<Profile> {
                   height: (height/896) * 75,
                   child: Text("Atheer",
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize:  (height/896) *28,
                     color: Palette.pinkBox,
                   ),)
                 ),
@@ -156,12 +156,13 @@ class _ProfileState extends State<Profile> {
                                 width: (width/414) *25,
                                 margin: EdgeInsets.only(left: (width/414) * 20, right: (width/414) * 10 ),
                                 child: Icon(Icons.phone,
-                                    color: Palette.pinkBox
+                                    color: Palette.pinkBox,
+                                  size:  (height/896) * 25,
                                 ),
                               ),
                               Text(LocaleKeys.contact_us,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize:  (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
                             ],
@@ -197,12 +198,13 @@ class _ProfileState extends State<Profile> {
                           width: (width/414) *25,
                           margin: EdgeInsets.only(left: (width/414) * 20, right: (width/414) * 10 ),
                           child:  Icon(Icons.settings,
-                              color: Palette.pinkBox
+                              color: Palette.pinkBox,
+                            size:  (height/896) * 25,
                           ),
                         ),
                         Text(LocaleKeys.Settings,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize:  (height/896) *18,
                             color: Palette.pinkBox,
                           ),).tr(),
                       ],
@@ -243,12 +245,13 @@ class _ProfileState extends State<Profile> {
                           width: (width/414) *25,
                           margin: EdgeInsets.only(left: (width/414) * 20, right: (width/414) * 10 ),
                           child: Icon(Icons.share_outlined,
-                              color: Palette.pinkBox
+                              color: Palette.pinkBox,
+                            size:  (height/896) * 25,
                           ),
                         ),
                         Text(LocaleKeys.share_app,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize:  (height/896) *18,
                             color: Palette.pinkBox,
                           ),).tr(),
                       ],
@@ -289,6 +292,7 @@ class _ProfileState extends State<Profile> {
             Positioned(
               top: (height/602) * 80,
               left: (width/414) * 350,
+              right: (width/414) * 50,
               child:GestureDetector(
                 child: Center(
                   child: Container(
@@ -336,7 +340,7 @@ class _ProfileState extends State<Profile> {
                 child:   Center(
               child: Text(LocaleKeys.edit_profile,
               style: TextStyle(
-                fontSize: 20,
+                fontSize:  (height/896) *20,
                 color: Palette.whiteText,
               ),).tr(),
             ),

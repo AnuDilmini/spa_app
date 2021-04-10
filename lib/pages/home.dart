@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                   'VIOLET',
                   style: TextStyle(
                     letterSpacing: 1,
-                      fontSize: 40,
+                      fontSize: (height/896) *40,
                       color:  Palette.whiteText,
                       fontFamily: "Audrey-Medium"),
                 ),
@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                     height: 0.4,
                     letterSpacing: 1,
-                    fontSize: 40,
+                    fontSize: (height/896) *40,
                     color: Palette.whiteText,
                     fontFamily: "Ah-moharram-bold"
                 )),
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                     LocaleKeys.choose_your_selection,
                   style: TextStyle(
-                      fontSize: 25,
+                      fontSize: (height/896) *27,
                       color: Palette.whiteText,
                       fontFamily: "Audrey-Medium"
                   )).tr(),
@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                               textAlign : TextAlign.center,
                             maxLines: 1,
                             style: TextStyle(
-                                fontSize: 22,
+                                fontSize: (height/896) *23,
                                 // letterSpacing: 0.01,
                                 color: Palette.whiteText,
                                 fontFamily: "Audrey-Medium"
@@ -206,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                                   maxLines: 1,
                                   textAlign : TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: (height/896) *22,
                                       // letterSpacing: 0.01,
                                       color: Palette.whiteText,
                                       fontFamily: "Audrey-Medium"

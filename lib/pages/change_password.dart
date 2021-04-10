@@ -129,7 +129,7 @@ class _ChangePassword extends State<ChangePassword> {
                       child:
                       Icon(Icons.arrow_back_ios,
                         color: Colors.white,
-                        size: 25,)
+                        size: (height/896) *25,)
                   ),
                   onTap: (){
                     Navigator.push(
@@ -152,7 +152,7 @@ class _ChangePassword extends State<ChangePassword> {
                       child:
                       Text(LocaleKeys.change_pass,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: (height/896) *18,
                           color: Palette.pinkBox,
                         ),).tr()
                   ),
@@ -176,7 +176,7 @@ class _ChangePassword extends State<ChangePassword> {
                         maxLines: 1,
                         style: TextStyle(
                             decoration: TextDecoration.none,
-                            fontSize: 16,
+                            fontSize: (height/896) *16,
                             color: Palette.pinkText
                         ),
                         autofocus: false,
@@ -185,7 +185,7 @@ class _ChangePassword extends State<ChangePassword> {
                             hintText: tr(LocaleKeys.enter_pass.tr()),
                             hintStyle: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontSize: 16,
+                                fontSize: (height/896) *16,
                                 fontWeight: FontWeight.normal,
                                 color: Palette.greyText
                             )
@@ -205,7 +205,7 @@ class _ChangePassword extends State<ChangePassword> {
                       child:
                       Text(LocaleKeys.renter_pass,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: (height/896) *18,
                           color: Palette.pinkBox,
                         ),).tr()
                   ),
@@ -229,7 +229,7 @@ class _ChangePassword extends State<ChangePassword> {
                         maxLines: 1,
                         style: TextStyle(
                             decoration: TextDecoration.none,
-                            fontSize: 16,
+                            fontSize: (height/896) *16,
                             color: Palette.pinkText
                         ),
                         autofocus: false,
@@ -238,7 +238,7 @@ class _ChangePassword extends State<ChangePassword> {
                             hintText: tr(LocaleKeys.renter_your),
                             hintStyle: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontSize: 16,
+                                fontSize: (height/896) *16,
                                 fontWeight: FontWeight.normal,
                                 color: Palette.greyText
                             )
@@ -268,7 +268,7 @@ class _ChangePassword extends State<ChangePassword> {
                         Center(
                           child: Text(LocaleKeys.update,
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: (height/896) *20,
                               color: Palette.whiteText,
                             ),).tr(),
                         ),

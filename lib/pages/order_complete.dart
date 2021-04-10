@@ -137,7 +137,7 @@ class _OrderComplete extends State<OrderComplete> {
                       children: [
                         Text(LocaleKeys.your_order_is_completed,
                         style: TextStyle(
-                          fontSize: 28,
+                          fontSize: (height/896) *28,
                           color: Palette.pinkBox,
                         ),).tr(),
                         Container(
@@ -157,40 +157,40 @@ class _OrderComplete extends State<OrderComplete> {
                             text: TextSpan(
                               text: 'Order number:\n',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: (height/896) *20,
                                   height: (height/896) * 1.5,
                                   color: Palette.textGrey),
                               children: <TextSpan>[
                                 TextSpan(text: ' #2133\n',
                                   style: TextStyle(
-                                      fontSize: 17,
+                                      fontSize: (height/896) *17,
                                       height: (height/896) *1.2,
                                       color: Palette.pinkBox),),
                                 TextSpan(text: 'Date and Time\n',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: (height/896) *20,
                                       height: (height/896) *3,
                                       color: Palette.textGrey),),
                                 TextSpan(text: ' 19 January, 1:12\n',
                                 style: TextStyle(
-                                    fontSize: 17,
+                                    fontSize: (height/896) *17,
                                     height: (height/896) *1,
                                     color: Palette.pinkBox),
                               ),
                                 TextSpan(text: 'Order\n',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: (height/896) *20,
                                       height: (height/896) *3,
                                       color: Palette.textGrey),),
                                 TextSpan(text: ' HAIR COLOR           100SAR\n',
                                   style: TextStyle(
-                                      fontSize: 17,
+                                      fontSize: (height/896) *17,
                                       height: (height/896) *1.3,
                                       color: Palette.pinkBox),
                                 ),
                                 TextSpan(text: ' HAIR CUT                500SAR\n',
                                   style: TextStyle(
-                                      fontSize: 17,
+                                      fontSize: (height/896) *17,
                                       height: (height/896) *1.3,
                                       color: Palette.pinkBox),
                                 ),
@@ -290,15 +290,18 @@ class _OrderComplete extends State<OrderComplete> {
                       Container(
                         alignment: Alignment.topRight,
                         margin: EdgeInsets.only( top: (height/896) *0,  ),
-                        child: Image.asset("assets/close.png"),
+                        child: Icon(Icons.close,
+                        color: Palette.pinkBox,
+                        size:  (height/896) * 25,)
                       ),
                        onTap: (){
-                         Navigator.push(
-                             context,
-                             PageTransition(
-                               type: PageTransitionType.fade,
-                               child:  BottomNav(index: 0, subIndex: 0),
-                             ));
+                         Navigator.pop(context);
+                         // Navigator.push(
+                         //     context,
+                         //     PageTransition(
+                         //       type: PageTransitionType.fade,
+                         //       child:  BottomNav(index: 0, subIndex: 0),
+                         //     ));
                        },
                      ),Container(
                         margin: EdgeInsets.only( top: (height/896) *1),
@@ -312,7 +315,7 @@ class _OrderComplete extends State<OrderComplete> {
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 letterSpacing: 0.01,
-                                fontSize: 16,
+                                fontSize: (height/896) *16,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -340,13 +343,13 @@ class _OrderComplete extends State<OrderComplete> {
                       Center(
                           child: Container(
                             alignment: Alignment.center,
-                            margin: EdgeInsets.only( left: 15, right: 15, top:  (height/896) *30),
+                            margin: EdgeInsets.only( left: (width/414) * 15, right:(width/414) * 15, top:  (height/896) *30),
                             child: Text(LocaleKeys.tell_us,
                               maxLines: 1,
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 letterSpacing: 0.01,
-                                fontSize: 18,
+                                fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -360,12 +363,12 @@ class _OrderComplete extends State<OrderComplete> {
                                 borderRadius: BorderRadius.circular(20),
                                 color: Palette.whiteText,
                               ),
-                              margin: EdgeInsets.only( left: 15, right: 15, top:  (height/896) *30),
+                              margin: EdgeInsets.only( left:(width/414) * 15, right: (width/414) * 15, top:  (height/896) *30),
                               child: TextFormField(
                                 maxLines: 3,
                                 style: TextStyle(
                                     decoration: TextDecoration.none,
-                                    fontSize: 14,
+                                    fontSize: (height/896) *14,
                                     color: Palette.mainColor
                                 ),
                                 autofocus: false,
@@ -374,7 +377,7 @@ class _OrderComplete extends State<OrderComplete> {
                                     hintText: LocaleKeys.write_your_message_here.tr(),
                                     hintStyle: TextStyle(
                                         decoration: TextDecoration.none,
-                                        fontSize: 14,
+                                        fontSize: (height/896) *14,
                                         color: Palette.greyText
                                     )
                                 ),
@@ -383,7 +386,7 @@ class _OrderComplete extends State<OrderComplete> {
                           )
                       ),
                       SizedBox(
-                        height: 15,
+                        height: (width/414) * 15,
                       ),
                       Center(
                         child :
@@ -398,7 +401,7 @@ class _OrderComplete extends State<OrderComplete> {
                           child: Center(
                             child: Text(LocaleKeys.submit,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: (height/896) *18,
                               fontWeight: FontWeight.w400,
                               fontFamily:"Audrey-Medium.otf",
                               color: Palette.whiteText

@@ -40,7 +40,6 @@ class _Orders extends State<Orders> {
   List responseList;
   final Dio _dio = Dio();
 
-
   @override
   void initState() {
     super.initState();
@@ -59,7 +58,6 @@ class _Orders extends State<Orders> {
         isLoading = false;
       });
     }
-
   }
 
   @override
@@ -115,7 +113,7 @@ class _Orders extends State<Orders> {
                     height: (height/896) * 75,
                     child: Text(LocaleKeys.order_history,
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: (height/896) *28,
                         color: Palette.pinkBox,
                       ),).tr()
                 ),
@@ -130,7 +128,7 @@ class _Orders extends State<Orders> {
                 padding: EdgeInsets.only(bottom: (height/896) * 225 ),
                 height: height,
                 width: width,
-                child: isLoading ?Container(
+                child: isLoading ? Container(
                   padding: EdgeInsets.only( top: (height/896) * 250,bottom: (height/896) * 250,left: (width/414) * 120, right:  (width/414) * 120  ),
                   height: 25,
                   width: 25,
@@ -139,19 +137,65 @@ class _Orders extends State<Orders> {
                     strokeWidth: 4.0,
                   ),
                 ):
-                responseList== null ?
-                (
+                ( responseList== null || responseList.length == 0?
                 Container(
                   alignment: Alignment.center,
                   height: height,
                   width: width,
-                  child: Text("No order history",
-                  style: TextStyle(
-                    fontSize: 23,
-                    color: Palette.pinkBox,
-                    fontWeight: FontWeight.bold
-                  ),),
-                )
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                       child: Image.asset("assets/empty_box.png",
+                         height: (height/896) * 300,
+                       ),
+                      ),
+                      Text(LocaleKeys.there_no_reservation,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Palette.pinkBox,
+                        height: 2,
+                        fontSize: (height/896) *16,
+                      ),).tr(),
+                      Text(LocaleKeys.enjoying_your_Time,
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          color: Palette.darkPink,
+                          height: 2,
+                          fontSize: (height/896) *14,
+                        ),).tr(),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.fade,
+                                child:  BottomNav(index: 0, subIndex: 0),
+                              ));
+                        },
+                        child: Container(
+                        margin:  EdgeInsets.only(top:  (height/896) * 15),
+                        alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Palette.pinkBox,
+                          ),
+                        height: (height/896) * 45,
+                        width: (width/414) * 156,
+                        child: Center(
+                          child: Text(LocaleKeys.reserve_now,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Palette.whiteText,
+                            fontSize: (height/896) *16,
+                          ),).tr(),
+                        ),
+                      ),
+                      ),
+
+                    ],
+                  )
                 ):
                 ListView.builder(
                     padding: EdgeInsets.zero,
@@ -166,12 +210,12 @@ class _Orders extends State<Orders> {
                               slideSheet(index);
                               selectOrder = index;
                             });
-
                           }
                       );
                     }
+                )
                 ),
-              ),
+                ),
             ),
             Positioned(
               top: (height/896) * 695,
@@ -181,7 +225,6 @@ class _Orders extends State<Orders> {
                     fit:  BoxFit. fill),
               ),
             ),
-
           ]
       ),
     );
@@ -210,62 +253,62 @@ class _Orders extends State<Orders> {
                       Text("FOUR SPA",
                         style: TextStyle(
                           color: Palette.darkPink,
-                          fontSize: 25,
+                          fontSize: (height/896) *25,
                           fontWeight: FontWeight.normal,
                           fontFamily: "Audrey-Normal",
                         ),),
                       SizedBox(
-                        height: 35,
+                        height: (height/896) *35,
                       ),
                       Text(timeFormatter(responseList[index]['start_time']),
                         style: TextStyle(
                           color: Palette.darkPink,
-                          fontSize: 20,
+                          fontSize: (height/896) *20,
                           fontWeight: FontWeight.bold,
                           fontFamily: "Audrey-Normal",
                         ),),
                       SizedBox(
-                        height: 15,
+                        height: (height/896) *15,
                       ),
                       Text("HAIR CUT",
                         style: TextStyle(
                           color: Palette.darkPink,
-                          fontSize: 20,
+                          fontSize: (height/896) *20,
                           fontWeight: FontWeight.bold,
                           fontFamily: "Audrey-Normal",
                         ),),
                       SizedBox(
-                        height: 12,
+                        height: (height/896) * 12,
                       ),
                       Text("100 SAR",
                         style: TextStyle(
                           color: Palette.darkPink,
-                          fontSize: 20,
+                          fontSize:(height/896) * 20,
                           fontWeight: FontWeight.bold,
                           fontFamily: "Audrey-Normal",
                         ),),
                       SizedBox(
-                        height: 12,
+                        height: (height/896) *12,
                       ),
                       Text("HAIR CUT",
                         style: TextStyle(
                           color: Palette.darkPink,
-                          fontSize: 20,
+                          fontSize: (height/896) *20,
                           fontWeight: FontWeight.bold,
                           fontFamily: "Audrey-Normal",
                         ),),
                       SizedBox(
-                        height: 12,
+                        height: (height/896) *12,
                       ),
                       Text("500 SAR",
                         style: TextStyle(
                           color: Palette.darkPink,
-                          fontSize: 20,
+                          fontSize: (height/896) *20,
                           fontWeight: FontWeight.bold,
                           fontFamily: "Audrey-Normal",
                         ),),
                       SizedBox(
-                        height: 15,
+                        height: (height/896) *15,
                       ),
                       Image.asset("assets/store.png")
                     ],
@@ -290,7 +333,7 @@ class _Orders extends State<Orders> {
         if (response.statusCode == 200) {
           final item = response.data['data'];
           responseList = item;
-
+          print("responseList $responseList");
 
           setState(() {
             isLoading = false;
@@ -343,7 +386,7 @@ class _Orders extends State<Orders> {
                             margin: EdgeInsets.only( top: (height/896) *25,left: (width/414) * 18, right:  (width/414) * 18),
                             child: Text(msg,
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize: (height/896) *22,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -354,7 +397,7 @@ class _Orders extends State<Orders> {
                             margin: EdgeInsets.only( top: (height/896) * 50, bottom: (height/896) * 35,left: (width/414) * 18,  right:  (width/414) * 40),
                             child: Text(LocaleKeys.ok,
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: (height/896) *16,
                                 color: Palette.labelColor,
                               ),).tr(),
                           ),
@@ -396,7 +439,7 @@ class _Orders extends State<Orders> {
             child: Text(timeFormatter(responseList[index]['start_time']),
               style: TextStyle(
                 color: Palette.darkPink,
-                fontSize: 15,
+                fontSize: (height/896) *15,
               ),),
           ),
           Container(
@@ -419,7 +462,7 @@ class _Orders extends State<Orders> {
                           width:(width/414) * 30,),
                           Text("FOUR\nSPA",
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: (height/896) *12,
                               color: selectOrder == index ? Palette.whiteText :Palette.pinkBox,
                             ),)
                         ]
@@ -433,12 +476,12 @@ class _Orders extends State<Orders> {
                           text: TextSpan(
                             text: "${responseList[index]['customer_comment']}\n",
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: (height/896) *14,
                                 color:  selectOrder == index ? Palette.whiteText :Palette.pinkBox),
                             children: <TextSpan>[
                               TextSpan(text: responseList[index]['net_total'] +' SR',
                                 style: TextStyle(
-                                    fontSize: 17,
+                                    fontSize: (height/896) *17,
                                     color: selectOrder == index ? Palette.whiteText :Palette.pinkBox),),
                             ],
                           ),
@@ -455,7 +498,7 @@ class _Orders extends State<Orders> {
                             height: (height/896) * 30,
                             child:Text("#2133",
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: (height/896) * 13,
                                 color:  selectOrder == index ? Palette.whiteText :Palette.pinkBox,
                               ),),
                           ),
@@ -465,7 +508,7 @@ class _Orders extends State<Orders> {
                               height: (height/896) * 60,
                               child: Icon(Icons.refresh,
                                 color:  selectOrder == index ? Palette.whiteText :Palette.pinkBox,
-                                size: 20,)
+                                size: (height/896) *20,)
                           ),
                             onTap: (){
 

@@ -104,6 +104,9 @@
   "skin_care": "عناية بالجلد",
   "wait" : "انتظر",
   "submit" : "أرسال",
-  "what_you_are_looking" : "ما الذي تبحث عنه"
+  "what_you_are_looking" : "ما الذي تبحث عنه",
+  "there_no_reservation" : "لايوجد لديك حجز",
+  "enjoying_your_Time" : "يمكنك اضافة حجز جديد والاستمتاع بوقتك",
+  "reserve_now" : "احجز الآن"
 
 }

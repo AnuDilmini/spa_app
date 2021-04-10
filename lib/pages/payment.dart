@@ -136,7 +136,7 @@ class _PaymentState extends State<Payment> {
                           child:
                           Icon(Icons.arrow_back_ios,
                             color: Palette.pinkBox,
-                            size: 25,)
+                            size:  (height/896) * 25,)
                       ),
                       // child: Container(
                       //   child: Icon(Icons.arrow_back_ios,
@@ -180,7 +180,7 @@ class _PaymentState extends State<Payment> {
                                 //   width: (width/414) * 27,),
                                 Text("FOUR\n SPA",
                                   style: TextStyle(
-                                    fontSize: 11,
+                                    fontSize: (height/896) *11,
                                     color: Color.fromRGBO(247, 127, 151, 1),
                                   ),),
                               ]
@@ -188,7 +188,7 @@ class _PaymentState extends State<Payment> {
                         ),
                       ),
                       SizedBox(
-                        height: 7,
+                        height: (height/896) *7,
                       ),
                       Center(
                         child: Container(
@@ -261,7 +261,7 @@ class _PaymentState extends State<Payment> {
                                           child: Text(
                                             LocaleKeys.delivery_charge,
                                             style: TextStyle(
-                                                fontSize: 17,
+                                                fontSize: (height/896) *17,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
                                             ),
@@ -273,7 +273,7 @@ class _PaymentState extends State<Payment> {
                                             "1150 SAR",
                                             maxLines: 1,
                                             style: TextStyle(
-                                                fontSize: 16,
+                                                fontSize: (height/896) *16,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
                                             ),
@@ -292,7 +292,7 @@ class _PaymentState extends State<Payment> {
                                           child: Text(
                                             LocaleKeys.total,
                                             style: TextStyle(
-                                                fontSize: 16,
+                                                fontSize: (height/896) *16,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
                                             ),
@@ -303,7 +303,7 @@ class _PaymentState extends State<Payment> {
                                           child:  Text(
                                             "$total SAR",
                                             style: TextStyle(
-                                                fontSize: 17,
+                                                fontSize: (height/896) *17,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
                                             ),
@@ -319,13 +319,13 @@ class _PaymentState extends State<Payment> {
                                       children: [
                                         Text(tr('* ( ${LocaleKeys.include_vat.tr()}'),
                                           style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: (height/896) *12,
                                               fontWeight: FontWeight.w500,
                                               color: Palette.textGrey),
                                         ),
                                         Text("15.0 % )",
                                           style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: (height/896) *12,
                                               fontWeight: FontWeight.w500,
                                               color: Palette.textGrey),
                                         ),
@@ -337,7 +337,7 @@ class _PaymentState extends State<Payment> {
                         ),
                       ),
                       SizedBox(
-                        height: 7,
+                        height: (height/896) * 7,
                       ),
                       GestureDetector(
                         child: Center(
@@ -352,7 +352,7 @@ class _PaymentState extends State<Payment> {
                             child: Text(
                               LocaleKeys.add_comment,
                               style: TextStyle(
-                                  fontSize: 22,
+                                  fontSize: (height/896) *22,
                                   fontWeight: FontWeight.w400,
                                   color: Palette.pinkBox
                               ),
@@ -364,7 +364,7 @@ class _PaymentState extends State<Payment> {
                         },
                       ),
                       SizedBox(
-                        height: 7,
+                        height: (height/896) *7,
                       ),
                       Center(
                         child: Container(
@@ -382,7 +382,7 @@ class _PaymentState extends State<Payment> {
                               Text(
                                 LocaleKeys.payment,
                                 style: TextStyle(
-                                    fontSize: 21,
+                                    fontSize: (height/896) *21,
                                     fontWeight: FontWeight.normal,
                                     color: Palette.pinkBox
                                 ),
@@ -411,7 +411,7 @@ class _PaymentState extends State<Payment> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: (height/896) *10,
                       ),
                       Row(
                         children: [
@@ -433,7 +433,7 @@ class _PaymentState extends State<Payment> {
                             },
                           ),
                           SizedBox(
-                            width: 5,
+                            width: (height/896) *5,
                           ),
                           GestureDetector(
                             child: Container(
@@ -443,8 +443,8 @@ class _PaymentState extends State<Payment> {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 16,
-                                  letterSpacing: 2,
+                                  fontSize:  (height/896) *16,
+                                  letterSpacing: 1,
                                   color:  Palette.pinkBox,
                                 ),
                               ).tr(),
@@ -458,7 +458,7 @@ class _PaymentState extends State<Payment> {
                         ],
                       ),
                       SizedBox(
-                        height: 10,
+                        height: (height/896) *10,
                       ),
                       GestureDetector(
                         child: Center(
@@ -473,11 +473,11 @@ class _PaymentState extends State<Payment> {
                             height: (height/896) * 50,
                             width: width,
                             child: loading ?  CircularProgressIndicator(
-                              strokeWidth: 4.0,
+                              strokeWidth:  (height/896) * 2,
                               valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
                             ) :Text(LocaleKeys.slied_to_checkout,
                               style: TextStyle(
-                                fontSize: 19,
+                                fontSize:  (height/896) *18,
                                 color: isAgree ? Palette.whiteText : Palette.pinkBox,
                               ),
                             ).tr(),
@@ -557,22 +557,14 @@ class _PaymentState extends State<Payment> {
         if (response.statusCode == 200) {
           final item = response.data['data'];
           showSnackbar(context, "New Reservation added", Colors.blue);
-          new Timer.periodic(
-            Duration(microseconds: 500),
-                (Timer timer) {
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child:  BottomNav(index: 0, subIndex:3),
-                      ));
-            },
-          );
 
-          // if(item.isNotEmpty){
-          //   bookedList = item;
-          // }
-          // print("item ******** $item");
+          Future.delayed(const Duration(seconds: 1), () =>
+              Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.fade,
+                    child:  BottomNav(index: 0, subIndex:3),
+                  )));
 
         } else {
           showAlert(context,"Something went wrong!");
@@ -617,7 +609,7 @@ class _PaymentState extends State<Payment> {
                             margin: EdgeInsets.only( top: (height/896) *25,left: (width/414) * 18, right:  (width/414) * 18),
                             child: Text(msg,
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize:  (height/896) *22,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -628,7 +620,7 @@ class _PaymentState extends State<Payment> {
                             margin: EdgeInsets.only( top: (height/896) * 50, bottom: (height/896) * 35,left: (width/414) * 18,  right:  (width/414) * 40),
                             child: Text(LocaleKeys.ok,
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize:  (height/896) *16,
                                 color: Palette.labelColor,
                               ),).tr(),
                           ),
@@ -682,13 +674,13 @@ class _PaymentState extends State<Payment> {
                  '${selectedService[index].name}',
                   maxLines: 1,
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize:  (height/896) *16,
                       color: Palette.pinkBox),
                  ),
                   Text(
                       '${selectedService[index].duration_min} min - ${selectedService[index].price} SAR',
                         style: TextStyle(
-                        fontSize: 11,
+                        fontSize:  (height/896) *11,
                         color: Palette.labelColor),
                  ),
                 ]
@@ -708,7 +700,7 @@ class _PaymentState extends State<Payment> {
                 child: Center(
                     child: Icon(Icons.close,
                       color: Palette.boxWhite,
-                      size: 17,)
+                      size:  (height/896) *17,)
                 ),
               ),
               onTap: (){
@@ -763,7 +755,7 @@ class _PaymentState extends State<Payment> {
                 "Cash",
                   style: TextStyle(
                       letterSpacing: 2,
-                      fontSize: 16,
+                      fontSize:  (height/896) *16,
                       color: Palette.balckColor),
                 ),
               ),
@@ -782,7 +774,7 @@ class _PaymentState extends State<Payment> {
                 child: Center(
                     child: Icon(Icons.check,
                       color: Palette.boxWhite,
-                      size: 20,)
+                      size:  (height/896) *20,)
                 ),
               ),
               onTap: (){
@@ -816,10 +808,10 @@ class _PaymentState extends State<Payment> {
                 borderRadius: BorderRadius.circular(12),
                 color: Color.fromRGBO(247, 243, 240, 1),
               ),
-              height: (height/896) * 310,
               child: Padding(
                   padding: const EdgeInsets.all(0),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(
                   child: Container(
@@ -834,7 +826,7 @@ class _PaymentState extends State<Payment> {
                         child: Center(
                             child: Icon(Icons.close,
                               color: Palette.boxWhite,
-                              size: 20,)
+                              size:  (height/896) *20,)
                         ),
                       ),
                         onTap: (){
@@ -849,7 +841,7 @@ class _PaymentState extends State<Payment> {
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 letterSpacing: 0.01,
-                                fontSize: 23,
+                                fontSize:  (height/896) *23,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -869,7 +861,7 @@ class _PaymentState extends State<Payment> {
                                 maxLines: 3,
                                 style: TextStyle(
                                     decoration: TextDecoration.none,
-                                    fontSize: 18,
+                                    fontSize:  (height/896) *18,
                                     color: Palette.mainColor
                                 ),
                                 autofocus: false,
@@ -878,7 +870,7 @@ class _PaymentState extends State<Payment> {
                                     hintText: "${LocaleKeys.write_your_message_here}..".tr(),
                                     hintStyle: TextStyle(
                                         decoration: TextDecoration.none,
-                                        fontSize: 15,
+                                        fontSize:  (height/896) * 15,
                                         fontWeight: FontWeight.normal,
                                         color: Palette.greyText
                                     )
@@ -887,6 +879,30 @@ class _PaymentState extends State<Payment> {
                             // child: TextField()
                           )
                       ),
+                      GestureDetector(
+                        child: Container(
+                          margin:  EdgeInsets.only(top:  (height/896) * 15, bottom: (height/896) * 15),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Palette.pinkBox,
+                          ),
+                          height: (height/896) * 45,
+                          width: (width/414) * 156,
+                          child: Center(
+                            child: Text(LocaleKeys.submit,
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Palette.whiteText,
+                                fontSize:  (height/896) *16,
+                              ),).tr(),
+                          ),
+                        ),
+                        onTap: (){
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          Navigator.pop(context);
+                        },
+                      )
                     ],
                   )
               ),
@@ -900,7 +916,7 @@ class _PaymentState extends State<Payment> {
       content: Text(msg,
         style: TextStyle(
             color: Colors.white,
-            fontSize: 18
+            fontSize: (height/896) * 18
         ),),
       backgroundColor: color,
     );
