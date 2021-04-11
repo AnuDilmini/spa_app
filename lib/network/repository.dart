@@ -69,8 +69,7 @@ class Repository {
         Response response = await _dio.get(url,
             options: options);
         if (response.statusCode == 200) {
-          // final item = response.data['data'];
-          print("response.data ** ${response.data}");
+
           return CityResponse.fromJson(response.data);
         } else {
           throw  FetchDataException(response.data.toString());
@@ -85,7 +84,6 @@ class Repository {
   Future<CompanyResponse> getCompany(String language, String apiCall, List<String> categoryId) async {
     Options options = Options(headers: {"Accept-Language": language});
 
-    print("categoryId ************* $categoryId");
 
     String url = company;
 
@@ -104,7 +102,7 @@ class Repository {
         throw CompanyResponse.withError('No Internet connection');
       }
     }else if(apiCall == "companies_by_category"){
-      print("categoryId ************* companies_by_category ");
+
       url = companiesByCategory;
 
       var params =  {'category_ids': categoryId};

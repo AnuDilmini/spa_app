@@ -113,7 +113,6 @@ class _SettingState extends State<Setting> {
                 ),
               ),
                 onTap: () {
-                  // print("Anuuuuu*********");
                   Navigator.push(
                       context,
                       PageTransition(

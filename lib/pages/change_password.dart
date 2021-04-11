@@ -39,7 +39,7 @@ class _ChangePassword extends State<ChangePassword> {
 
   getLang() async{
     lanCode = await SharedPreferencesHelper.getLanguage();
-    print("lanCode ***$lanCode");
+
     if(lanCode == "en"){
       setState(() {
         selectedRadio = 1;

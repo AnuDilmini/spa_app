@@ -39,7 +39,7 @@ class _ChangeLang extends State<ChangeLang> {
 
   getLang() async{
     lanCode = await SharedPreferencesHelper.getLanguage();
-    print("lanCode ***$lanCode");
+
     if(lanCode == "en"){
       setState(() {
         selectedRadio = 1;
@@ -180,11 +180,11 @@ class _ChangeLang extends State<ChangeLang> {
                             ),).tr(),
                             activeColor: Palette.pinkBox,
                             onChanged: (val) async{
-                              print("Radio $val");
+
                               setSelectedRadio(val);
 
                               context.locale = Locale('en', 'US');
-                              print("en  ${context.locale.languageCode}  context.locale.languageCode");
+
                               await  SharedPreferencesHelper.setLanguage("en");
                             },
                           ),
@@ -199,11 +199,9 @@ class _ChangeLang extends State<ChangeLang> {
                           groupValue: selectedRadio,
                           activeColor: Palette.pinkBox,
                           onChanged: (val) async {
-                            print("Radio $val");
                             setSelectedRadio(val);
                             context.locale = Locale('ar', '');
 
-                            print("ara    ${context.locale.languageCode}  context.locale.languageCode");
                             await  SharedPreferencesHelper.setLanguage("ar");
 
                           },

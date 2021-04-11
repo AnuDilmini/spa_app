@@ -112,5 +112,13 @@ abstract class  LocaleKeys {
   static const there_no_reservation = "there_no_reservation";
   static const enjoying_your_Time = "enjoying_your_Time";
   static const reserve_now = "reserve_now";
+  static const card_number = "card_number";
+  static const card_name = "card_name";
+  static const enter_card_no = "enter_card_no";
+  static const enter_card_name = "enter_card_name";
+  static const ex_date = "ex_date";
+  static const pay_now = "pay_now";
+  static const cvv = "cvv";
+  static const no_internet = "no_internet";
 
 }

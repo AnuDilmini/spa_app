@@ -83,14 +83,12 @@ class _LocationState extends State<LocationPage> {
       //   markers:  Set<Marker>.of(
       //       <Marker>[ Marker(
       //           onTap: () {
-      //             print('Tapped');
       //           },
       //           draggable: true,
       //           markerId: MarkerId('Marker'),
       //           // position: LatLng(value.latitude, value.longitude),
       //           onDragEnd: ((newPosition) {
-      //             print(newPosition.latitude);
-      //             print(newPosition.longitude);
+
       //           })),
       //       ]
       //   ),
@@ -116,7 +114,7 @@ class _LocationState extends State<LocationPage> {
                     markers:  Set<Marker>.of(
                     <Marker>[ Marker(
                         onTap: () {
-                          print('Tapped');
+
                         },
                         draggable: true,
                         markerId: MarkerId('Marker'),

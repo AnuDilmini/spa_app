@@ -12,11 +12,11 @@ class NetworkCheck {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        ////print(' Network changes connected');
+
         networkResults = true;
       }
     } catch (e) {
-      ////print(' Network changes not connected');
+
       networkResults = false;
     }
     return networkResults;

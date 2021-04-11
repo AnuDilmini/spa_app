@@ -16,7 +16,6 @@
 //     var connectionStatus = Provider.of<ConnectivityStatus>(context);
 //
 //     if (connectionStatus == ConnectivityStatus.WiFi) {
-//       print("wifi");
 //       return true;
 //     }
 //

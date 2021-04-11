@@ -55,6 +55,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
   SharedPreferences prefs;
   int curTime, jsonTime, difference;
   int clickCategoryIndex ;
+  bool isNoInternet = false;
 
   @override
   void initState() {
@@ -63,9 +64,21 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
   }
 
   checkDataSet() async {
+
     lngCode = await SharedPreferencesHelper.getLanguage();
-    companyListBloc..getCompany(lngCode, "company", [] );
-    categoryListBloc..getCategory(lngCode);
+    bool networkResults = await NetworkCheck.checkNetwork();
+
+    if (networkResults) {
+      setState(() {
+        isNoInternet =false;
+      });
+      companyListBloc..getCompany(lngCode, "company", []);
+      categoryListBloc..getCategory(lngCode);
+    }else{
+      setState(() {
+        isNoInternet =true;
+      });
+    }
 
   }
 
@@ -190,7 +203,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               ),
                               onChanged: (content) {
                                 if(searchController.text.length > 3){
-                                  print("searchController.text12 ${searchController.text}");
+
                                   searchCategory();
 
                                 }else if(searchController.text.length == 0){
@@ -258,7 +271,23 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
               Positioned(
                   top: (height/449) * 120,
                   left:  0,
-                  child: Container(
+                  child: isNoInternet ?
+                      Center(
+                          child: Container(
+                            width: width,
+                            height:  (width/208) *50,
+                            alignment: Alignment.center,
+                            child: Text("",
+                            style: TextStyle(
+                              fontSize:   (height/896) * 18,
+                                color:  Palette.whiteText,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Audrey-Normal"
+
+                            ),).tr(),
+                          )
+                      ):
+                       Container(
                       width: width,
                       height:  (width/208) *50,
                       child: StreamBuilder<CategoryResponse>(
@@ -276,13 +305,28 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               return _buildLoadingWidget();
                             }
                           })
-                  )
+                  ),
               ),
               Positioned(
                 top: (height/449) * 185,
                 width: width,
                 child:Center(
-                    child:
+                    child:  isNoInternet ?
+                    Center(
+                        child: Container(
+                          width: width,
+                          height:  (width/208) *50,
+                          alignment: Alignment.center,
+                          child: Text(LocaleKeys.no_internet,
+                            style: TextStyle(
+                                fontSize:   (height/896) * 18,
+                                color:  Palette.pinkBox,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Audrey-Normal"
+
+                            ),).tr(),
+                        )
+                    ):
                     StreamBuilder<CompanyResponse>(
                         stream: companyListBloc.subject.stream,
                         builder: (context, AsyncSnapshot<CompanyResponse> snapshot) {
@@ -307,18 +351,14 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
   }
 
   void searchCategory(){
-    print("Anu123");
+
     if(category.isNotEmpty){
-      print("category fdgd");
+
       for(int i = 0; i< category.length; i++){
-        print("${category[i].name}searchController.text ${searchController.text} ");
         if(category[i].name.toLowerCase().contains(searchController.text.toLowerCase())){
-          print("true***********");
-          print("category[i].id ${category[i].id}");
           selectedCatList.clear();
           selectedCatList.add(category[i].id.toString());
 
-          print("selectedCatList$selectedCatList");
           companyListBloc
             ..getCompany(
                 lngCode, "companies_by_category",
@@ -338,9 +378,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
 
             if (company[j].name.toLowerCase().contains(
                 searchController.text.toLowerCase())) {
-              print("true***********");
 
-             print("company[j].name ${company[j].name}  searchController.text${searchController.text}");
               Company selectedCom = company[j];
               company.clear();
               company.add(selectedCom);
@@ -356,7 +394,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
 
         }
       } else{
-      print("anuuuuuuuuuu");
+
     }
 
   }
@@ -392,7 +430,6 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
 
     company  =  data.company;
 
-    print("company ${company.length}");
     if (company.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
@@ -435,26 +472,24 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                             children: [
                               Container(
                                 width:  (width/208) * 57,
-                                decoration:
-                                // company[index].image == null ? BoxDecoration(
-                                //     color: Palette.pinkBox,
-                                //     borderRadius: BorderRadius.all(Radius.circular(18)),
-                                //     image: new DecorationImage(
-                                //       image: new AssetImage("assets/background.png"),
-                                //       fit: BoxFit.fill,
-                                //     )
-                                // ) :
-                                BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(18)),
-                                ),
-                                child: company[index].image != null ? Image.network(Repository.iconUrl+company[index].image, width: 92, height: 72,
-                                  fit: BoxFit.contain,
+                                child: company[index].image != null ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  child: Image.network(Repository.iconUrl+company[index].image,
+                                  fit: BoxFit.fill,
                                   errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                                    return Image.asset("assets/background.png",
-                                      fit: BoxFit.fill,);
-                                  },) :new Image.asset("assets/background.png",
+                                    return ClipRRect(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                    child:Image.asset("assets/background.png",
+                                      fit: BoxFit.fill,)
+                                    );
+                                  },)
+                                )
+                                    :
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  child: new Image.asset("assets/background.png",
                                   fit: BoxFit.fill,),
-
+                                ),
                               ),
                               Container(
                                   padding: EdgeInsets.only(left:  (width/208) * 5, top:  (height/449) * 5 , right: (height/449) * 5),
@@ -644,7 +679,6 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                         if(selectedCatList.contains(category[index].id.toString())){
                           selectedCatList.remove(category[index].id.toString());
 
-                          print("Anu");
                           searchController.clear();
 
                         }else{

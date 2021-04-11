@@ -5,15 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/network/shared.dart';
-import 'package:violet_app/notifiers/dark_theme_provider.dart';
-import 'package:violet_app/pages/update_profile.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:provider/provider.dart';
 import 'package:violet_app/utils/network_check.dart';
-import 'package:violet_app/bloc/get_companyDetails_bloc.dart';
 
 import 'bottom_nav.dart';
 
@@ -128,15 +124,20 @@ class _Orders extends State<Orders> {
                 padding: EdgeInsets.only(bottom: (height/896) * 225 ),
                 height: height,
                 width: width,
-                child: isLoading ? Container(
-                  padding: EdgeInsets.only( top: (height/896) * 250,bottom: (height/896) * 250,left: (width/414) * 120, right:  (width/414) * 120  ),
-                  height: 25,
-                  width: 25,
-                  child: CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(Palette.pinkBox),
-                    strokeWidth: 4.0,
-                  ),
-                ):
+                child: isLoading ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: (height/896) *25.0,
+                          width: (height/896) *25.0,
+                          child: CircularProgressIndicator(
+                            valueColor: new AlwaysStoppedAnimation<Color>(Palette.pinkBox),
+                            strokeWidth: 4.0,
+                          ),
+                        )
+                      ],
+                    )):
                 ( responseList== null || responseList.length == 0?
                 Container(
                   alignment: Alignment.center,
@@ -333,12 +334,11 @@ class _Orders extends State<Orders> {
         if (response.statusCode == 200) {
           final item = response.data['data'];
           responseList = item;
-          print("responseList $responseList");
 
           setState(() {
             isLoading = false;
           });
-          print("response.data ** $item");
+
         } else {
           responseList = [];
           showAlert(context, "Something went wrong!");
@@ -352,6 +352,9 @@ class _Orders extends State<Orders> {
       showAlert(context, "No Internet!");
 
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
 
@@ -474,7 +477,7 @@ class _Orders extends State<Orders> {
                     child: Center(
                         child:  RichText(
                           text: TextSpan(
-                            text: "${responseList[index]['customer_comment']}\n",
+                            text: responseList[index]['customer_comment'] != null ? "${responseList[index]['customer_comment']}\n":"",
                             style: TextStyle(
                                 fontSize: (height/896) *14,
                                 color:  selectOrder == index ? Palette.whiteText :Palette.pinkBox),

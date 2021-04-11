@@ -170,10 +170,8 @@ class _BottomNavState extends State<BottomNav> {
         unselectedFontSize:  (height/896) *18,
         selectedFontSize: (height/896) * 18,
           selectedItemColor: Palette.blurColor,
-        // selectedLabelStyle: TextStyle(fontFamily: "Audrey-Normal"),
-        // unselectedLabelStyle: TextStyle(fontFamily: "Audrey-Normal"),
         onTap: (index){
-            // print("Anu $index");
+
          setState(() {
            _currentIndex = index;
            page = index;

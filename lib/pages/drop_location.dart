@@ -72,7 +72,6 @@ class _SelectLocation extends State<SelectLocation> {
 
     _controller.setMapStyle(mapStyle);
 
-    print("latSearch *****$latSearch, lngSearch ******$lngSearch");
     _controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(target: LatLng(latSearch, lngSearch), zoom: 15.0),
@@ -200,7 +199,7 @@ class _SelectLocation extends State<SelectLocation> {
           markers:  Set<Marker>.of(
               <Marker>[ Marker(
                   onTap: () {
-                    print('Tapped');
+
                   },
                   draggable: true,
                   markerId: MarkerId('Marker'),
@@ -226,7 +225,7 @@ class _SelectLocation extends State<SelectLocation> {
                 markers:  Set<Marker>.of(
                     <Marker>[ Marker(
                         onTap: () {
-                          print('Tapped');
+
                         },
                         draggable: true,
                         markerId: MarkerId('Marker'),

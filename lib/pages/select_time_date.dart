@@ -353,7 +353,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     firstDate: DateTime(DateTime.now().year -1, 1, 15),
                     lastDate: DateTime.now().add(Duration(days: 365)),
                     onDateSelected: (date) {
-                      print("date******************** $date");
+
                       _selectedDate = date;
                     },
                     leftMargin: 0,
@@ -427,10 +427,8 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                          ),
                         ),
                         onTap:(){
-                          print("index ****$index");
 
                             selectedTime = index;
-                            print("selectedTime ****$selectedTime");
                           setState(() {
                           });
                         }
@@ -532,7 +530,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
           if(item.isNotEmpty){
             bookedList = item;
           }
-          print("item ******** $item");
+
 
         } else {
           showAlert(context,"Something went wrong!");
@@ -934,7 +932,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 onSubmit: (String str){
                                   // setState((){
                                   if(str == otpReg){
-                                    print("correct *****");
                                     pinCorrect = true;
                                     pin = str;
                                     verifyOtp(context, mobile, str);
@@ -1367,9 +1364,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
   Future<String> _login() async {
 
     var response;
-    // print("_register ");
     bool networkResults = await NetworkCheck.checkNetwork();
-    // print("_register  networkResults  $networkResults");
     if (networkResults ) {
       try {
         response = await http.post(
@@ -1381,12 +1376,10 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         );
 
         int responseCode = response.statusCode;
-        // print("responseCode $responseCode");
         if (responseCode == 201) {
           var parsedJson = json.decode(response.body);
           String mobile = parsedJson['user']['mobile'];
           int otp = parsedJson['user']['otp_password'];
-          print("otp $otp");
           mobileController.clear();
           Navigator.pop(context);
           showOTPLogin(context, mobile, otp.toString());
@@ -1470,7 +1463,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
     String url = Repository.registerNewCustomer;
     var response;
 
-    print("mobileRegController.text ${mobileRegController.text}");
     bool networkResults = await NetworkCheck.checkNetwork();
 
     if (networkResults) {
@@ -1483,14 +1475,11 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         );
 
         int responseCode = response.statusCode;
-        // print("responseCode regirtuyr $responseCode");
         if (responseCode == 200) {
           var convertData = json.decode(response.body);
-          // print("convertData $convertData");
           var mobile = convertData['data']['user']['mobile'];
           var otpReg = convertData['data']['user']['otp_password'];
           var userId = convertData['data']['user_id'];
-          // print("otp $otpReg");
           await SharedPreferencesHelper.setCustomerID(userId);
           mobileRegController.clear();
           Navigator.pop(context);
@@ -1515,7 +1504,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
     String url = Repository.verifyOtpGetToken;
     var response;
 
-    print("otp api  ${otp}");
     bool networkResults = await NetworkCheck.checkNetwork();
 
     if (networkResults) {
@@ -1529,13 +1517,12 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         );
 
         int responseCode = response.statusCode;
-        print("responseCode verify  $responseCode");
         if (responseCode == 201) {
           var convertData = json.decode(response.body);
-          print("convertData $convertData");
+
           token = convertData['token'];
           String userId = convertData['user']['id'];
-          print("token *** $token");
+
           _pinPutController.clear();
 
           await SharedPreferencesHelper.setToken(token);

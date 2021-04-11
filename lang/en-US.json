@@ -110,7 +110,15 @@
   "what_you_are_looking" : "What you are looking for...",
   "there_no_reservation" : "There is no reservation",
   "enjoying_your_Time" : "You can add new reservation and enjoying your Time",
-  "reserve_now" : "Reserve now"
+  "reserve_now" : "Reserve now",
+  "card_number" : "Card Number",
+  "card_name" : "Card Name",
+  "enter_card_no" : "Enter your card number",
+  "enter_card_name" : "Enter your card name",
+  "ex_date" : "EX Date",
+  "cvv" : "CVV",
+  "pay_now" : "Pay Now",
+  "no_internet" : "No Internet"
 
 
 }

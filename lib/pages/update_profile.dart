@@ -451,7 +451,7 @@ class _UpdateState extends State<UpdateProfile> {
 
     for(int i = 0 ; i < cities.length; i ++ ){
       cityList.add(cities[i].name);
-      print("cities[i].name*************  ${cities[i].name}");
+
       }
 
     return Container();
@@ -488,14 +488,12 @@ class _MyAppState extends State<UpdateProfile> {
   Future<String> getSWData() async {
     var res = await http
         .get(Uri.parse(url), headers: {"Accept": "application/json"});
-    print("res.body ********${res.body}");
     var resBody = json.decode(res.body);
     data = resBody["data"];
     setState(() {
 
     });
 
-    print(resBody);
 
     return "Sucess";
   }

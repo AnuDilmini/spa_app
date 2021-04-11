@@ -1,7 +1,5 @@
 
 import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,14 +11,11 @@ import 'package:violet_app/enums/connectivity_status.dart';
 import 'package:violet_app/model/companyService.dart';
 import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/network/shared.dart';
-import 'package:violet_app/pages/update_profile.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:violet_app/utils/network_check.dart';
-import 'package:violet_app/utils/validator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
 
 import 'bottom_nav.dart';
@@ -44,6 +39,10 @@ class _PaymentState extends State<Payment> {
   var connectionStatus;
 
   final commentController = TextEditingController();
+  final cardNoController = TextEditingController();
+  final cardNameController = TextEditingController();
+  final exDateController = TextEditingController();
+  final cvvController = TextEditingController();
   bool isCompleteApi = false;
   bool loading = false;
   int selectedServiceCount = 0;
@@ -60,6 +59,7 @@ class _PaymentState extends State<Payment> {
   String lngCode = "en";
   String dateTime = "29-03-2021 12:00:00";
   final Dio _dio = Dio();
+  bool isMaster = false, isModa = false, isVisa = false, isStc = false, isIpay = false;
 
   @override
   void initState() {
@@ -75,7 +75,6 @@ class _PaymentState extends State<Payment> {
     token = await SharedPreferencesHelper.getToken();
     dateTime = await SharedPreferencesHelper.getDateTime();
 
-    print("token***** $token");
 
     if (serviceListJson != "") {
       selectedService = CompanyServices.decode(serviceListJson);
@@ -113,7 +112,7 @@ class _PaymentState extends State<Payment> {
           child: Stack(
               children: [
                 Container(
-                  height: height* 1.0,
+                  height: height* 1.2,
                 ),
                 Positioned(
                   top: (height/896) * 2,
@@ -223,7 +222,6 @@ class _PaymentState extends State<Payment> {
                                             total = total - double.parse(selectedService[index].price);
                                             selectedService.removeAt(index);
 
-                                            print("total*********** $total");
                                             setState(() {
                                             });
                                             // minusPriceSum(double.parse(selectedService[index].price));
@@ -368,12 +366,12 @@ class _PaymentState extends State<Payment> {
                       ),
                       Center(
                         child: Container(
-                          padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 8 ),
+                          padding: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15,top: (height/896) * 15, bottom: (height/896) * 25 ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: Color.fromRGBO(231, 223, 225, 0.81),
                           ),
-                          height: (height/896) * 180,
+                          // height: (height/896) * 170,
                           width: width,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -387,23 +385,328 @@ class _PaymentState extends State<Payment> {
                                     color: Palette.pinkBox
                                 ),
                               ).tr(),
+                              (isMaster  || isModa  || isVisa || isStc )?
                               Container(
-                                padding: EdgeInsets.only(top: (height/896) * 3 ),
-                                height: (height/896) * 124,
-                                child: ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    padding: EdgeInsets.zero,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: 3,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return GestureDetector(
-                                          child: listPayment(index),
-                                          onTap:(){
+                                  margin: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15, top: (height/896) * 10),
+                                  child:
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                  Text(LocaleKeys.card_number,
+                                    style: TextStyle(
+                                        fontSize: (height/896) *14,
+                                        fontWeight: FontWeight.normal,
+                                        color: Palette.pinkBox
+                                    ),
+                                  ).tr(),
+                                 SizedBox(
+                                   height: (height/896) *7,
+                                 ),
+                                 Container(
+                                    padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
+                                    decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    shape: BoxShape.rectangle,
+                                    color: Palette.greyWhite
+                                    ),
+                                   child: TextField(
+                                   controller: cardNoController,
+                                    decoration: InputDecoration(
+                                      hintText: tr(LocaleKeys.enter_card_no).tr(),
+                                      hintStyle: TextStyle(
+                                      color: Palette.labelColor,
+                                      fontSize: (height/896) *14,
+                                      fontFamily: 'Barlow-Regular',
+                                      ),
+                                      border: InputBorder.none,
+                                    ),
+                                      style: TextStyle(
+                                      color: Palette.pinkBox,
+                                      fontSize: 14,
+                                      fontFamily: 'Barlow-Regular'),
+                                    ),
+                                     ),
+                                   SizedBox(
+                                     height: (height/896) *7,
+                                   ),
+                                   Text(LocaleKeys.card_name,
+                                     style: TextStyle(
+                                         fontSize: (height/896) *14,
+                                         fontWeight: FontWeight.normal,
+                                         color: Palette.pinkBox
+                                     ),
+                                   ).tr(),
+                                   SizedBox(
+                                     height: (height/896) *7,
+                                   ),
+                                   Container(
+                                     padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
+                                     decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(15),
+                                         shape: BoxShape.rectangle,
+                                         color: Palette.greyWhite
+                                     ),
+                                     child: TextField(
+                                       controller: cardNameController,
+                                       decoration: InputDecoration(
+                                         hintText: tr(LocaleKeys.enter_card_name).tr(),
+                                         hintStyle: TextStyle(
+                                           color: Palette.labelColor,
+                                           fontSize: (height/896) *14,
+                                           fontFamily: 'Barlow-Regular',
+                                         ),
+                                         border: InputBorder.none,
+                                       ),
+                                       style: TextStyle(
+                                           color: Palette.pinkBox,
+                                           fontSize: 14,
+                                           fontFamily: 'Barlow-Regular'),
+                                     ),
+                                   ),
+                                   SizedBox(
+                                     height: (height/896) *7,
+                                   ),
+                                   Row(
+                                     mainAxisAlignment: MainAxisAlignment.center,
+                                     children: [
+                                       Expanded(
+                                         flex: 1,
+                                         child:
+                                       Column(
+                                         crossAxisAlignment: CrossAxisAlignment.start,
+                                         children: [
+                                           Text(LocaleKeys.ex_date,
+                                             style: TextStyle(
+                                                 fontSize: (height/896) *14,
+                                                 fontWeight: FontWeight.normal,
+                                                 color: Palette.pinkBox
+                                             ),
+                                           ).tr(),
 
+                                           Container(
+                                             padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
+                                             decoration: BoxDecoration(
+                                                 borderRadius: BorderRadius.circular(15),
+                                                 shape: BoxShape.rectangle,
+                                                 color: Palette.greyWhite
+                                             ),
+                                             child: TextField(
+                                               controller: exDateController,
+                                               decoration: InputDecoration(
+                                                 border: InputBorder.none,
+                                               ),
+                                               style: TextStyle(
+                                                   color: Palette.pinkBox,
+                                                   fontSize: 14,
+                                                   fontFamily: 'Barlow-Regular'),
+                                             ),
+                                           ),
+                                         ],
+                                       ),
+                                       ),
+                                       SizedBox(
+                                         width: (width/414) * 10,
+                                       ),
+                                       Expanded(
+                                         flex: 1,
+                                         child:
+                                         Column(
+                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                           children: [
+                                             Text(LocaleKeys.cvv,
+                                               style: TextStyle(
+                                                   fontSize: (height/896) *14,
+                                                   fontWeight: FontWeight.normal,
+                                                   color: Palette.pinkBox
+                                               ),
+                                             ).tr(),
+                                             Container(
+                                               padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
+                                               decoration: BoxDecoration(
+                                                   borderRadius: BorderRadius.circular(15),
+                                                   shape: BoxShape.rectangle,
+                                                   color: Palette.greyWhite
+                                               ),
+                                               child: TextField(
+                                                 controller: cvvController,
+                                                 decoration: InputDecoration(
+                                                   border: InputBorder.none,
+                                                 ),
+                                                 style: TextStyle(
+                                                     color: Palette.pinkBox,
+                                                     fontSize: 14,
+                                                     fontFamily: 'Barlow-Regular'),
+                                               ),
+                                             ),
+                                           ],
+                                         ),
+                                       ),
+                                     ],
+                                   ),
+                                   SizedBox(
+                                     height: (height/896) *10,
+                                   ),
+                                   Container(
+                                     margin: EdgeInsets.only( left: (width/414) *95, right: (width/414) * 95),
+                                     padding: EdgeInsets.only( top: (height/896) * 10, bottom: (height/896) * 10),
+                                     alignment: Alignment.center,
+                                     decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(10),
+                                         shape: BoxShape.rectangle,
+                                         color: Palette.pinkBox
+                                     ),
+                                     child: Text(LocaleKeys.pay_now,
+                                       style: TextStyle(
+                                           fontSize: (height/896) *15,
+                                           fontWeight: FontWeight.normal,
+                                           color: Palette.whiteText
+                                       ),
+                                     ).tr(),
+                                   )
 
-                                          }
-                                      );
-                                    }
+                                 ]
+                                )
+                              ):
+                              Container(
+                                padding: EdgeInsets.only(top: (height/896) *20),
+                                alignment: Alignment.center,
+                                child: Center(
+                                    child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                      children:[
+                                        GestureDetector(
+                                          onTap: (){
+                                            setState(() {
+                                              isMaster = true;
+                                            });
+                                          },
+                                            child: Container(
+                                        alignment: Alignment.topLeft,
+                                        height: (height/896) *37,
+                                        width:(width/414) * 55,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(8),
+                                            shape: BoxShape.rectangle,
+                                            color: Palette.greyWhite
+                                        ),
+                                        child: Center(
+                                            child: Image.asset("assets/master.png")
+                                        )
+                                     ),
+                                        ),
+                                        SizedBox(
+                                          width: (width/414) * 15,
+                                        ),
+                                        GestureDetector(
+                                            onTap: (){
+                                              setState(() {
+                                                isModa = true;
+                                              });
+                                            },
+                                            child:Container(
+                                      alignment: Alignment.topLeft,
+                                      height: (height/896) *37,
+                                      width:(width/414) * 55,
+                                      decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      shape: BoxShape.rectangle,
+                                      color: Palette.greyWhite
+                                      ),
+                                      child: Center(
+                                      child: Image.asset("assets/mada.png")
+                                      )
+                                    ),
+                                        ),
+                                        SizedBox(
+                                          width: (width/414) * 15,
+                                        ),
+                                        GestureDetector(
+                                            onTap: (){
+                                              setState(() {
+                                                isVisa = true;
+                                              });
+                                            },
+                                            child:
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      height: (height/896) *37,
+                                      width:(width/414) * 55,
+                                      decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      shape: BoxShape.rectangle,
+                                      color: Palette.greyWhite
+                                     ),
+                                    child: Center(
+                                      child: Image.asset("assets/visa.png")
+                                      )
+                                     ),
+                                        ),
+                                        SizedBox(
+                                          width: (width/414) * 15,
+                                        ),
+                                    ]
+                                      ),
+                                    SizedBox(
+                                      height: (height/896) * 12,
+                                    ),
+                                    Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                      children:[
+                                        GestureDetector(
+                                            onTap: (){
+                                              setState(() {
+                                                isIpay = true;
+                                              });
+                                            },
+                                            child: Container(
+                                          alignment: Alignment.topLeft,
+                                          height: (height/896) *37,
+                                          width:(width/414) * 55,
+                                          decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8),
+                                          shape: BoxShape.rectangle,
+                                          color: Palette.greyWhite
+                                          ),
+                                          child: Center(
+                                            child:
+                                            Image.asset("assets/ipay.png")
+                                          )
+                                        ),
+                                        ),
+                                        SizedBox(
+                                          width: (width/414) * 15,
+                                        ),
+                                        GestureDetector(
+                                            onTap: (){
+                                              setState(() {
+                                                isStc = true;
+                                              });
+                                            },
+                                            child:Container(
+                                          alignment: Alignment.topLeft,
+                                          height: (height/896) *37,
+                                          width:(width/414) * 55,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(8),
+                                            shape: BoxShape.rectangle,
+                                            color: Palette.greyWhite
+                                          ),
+                                          child: Center(
+                                            child:
+                                            Image.asset("assets/stc.png")
+                                          )
+                                        ),
+                                        ),
+                                      ]
+                                    ),
+                                  ],
+                                ),
                                 ),
                               ),
                             ],
@@ -528,7 +831,7 @@ class _PaymentState extends State<Payment> {
     if(selectedService.isNotEmpty) {
       for (int i = 0; i < selectedService.length; i++) {
         total = total + double.parse(selectedService[i].price);
-        print("total $total");
+
       }
     }
     return total;
@@ -553,7 +856,6 @@ class _PaymentState extends State<Payment> {
             Repository.newReservation, data: params,
             options: options);
 
-        print("response.statusCod ${response.statusCode}");
         if (response.statusCode == 200) {
           final item = response.data['data'];
           showSnackbar(context, "New Reservation added", Colors.blue);

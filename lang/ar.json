@@ -107,6 +107,13 @@
   "what_you_are_looking" : "ما الذي تبحث عنه",
   "there_no_reservation" : "لايوجد لديك حجز",
   "enjoying_your_Time" : "يمكنك اضافة حجز جديد والاستمتاع بوقتك",
-  "reserve_now" : "احجز الآن"
-
+  "reserve_now" : "احجز الآن",
+  "card_number" : "رقم البطاقه",
+  "card_name" : "اسم البطاقه",
+  "enter_card_no" : "ادخل رقم بطاقتك",
+  "enter_card_name" : "ادحل اسمك الموجود بالبطاقه",
+  "ex_date" : "انتهاء البطاقة",
+  "pay_now" : "ادفع الان",
+  "cvv" : "الرقم المكون من ثلاث ارقام",
+  "no_internet" : "لا انترنت"
 }

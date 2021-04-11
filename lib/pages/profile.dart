@@ -43,7 +43,7 @@ class _ProfileState extends State<Profile> {
 
   getTheme() async{
     bool getTheme =await SharedPreferencesHelper.getTheme();
-    print("getTheme $getTheme");
+
     setState(() {
      if(getTheme){
         _switchValue = true;

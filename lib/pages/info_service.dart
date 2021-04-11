@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +17,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:violet_app/utils/network_check.dart';
 import 'bottom_nav.dart';
 import 'home.dart';
 
@@ -38,7 +38,7 @@ class _InfoService extends State<InfoService> {
   bool isInfo = false;
   String companyId;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool isApiCompleted = false;
+  bool isApiCompleted = false, isNoInternet = false;
   var convertData;
   List<dynamic> serviceList = new List<dynamic>();
   String lngCode = "en";
@@ -53,18 +53,25 @@ class _InfoService extends State<InfoService> {
 
     checkDataSet();
 
-
   }
 
   checkDataSet() async {
+    bool networkResults = await NetworkCheck.checkNetwork();
     lngCode = await SharedPreferencesHelper.getLanguage();
     companyId = await SharedPreferencesHelper.getCompanyId();
 
-    final companyDetailsData = Provider.of<CompanyDetailsDataProvider>(context, listen: false);
-    companyDetailsData..getCompanyDetails(lngCode, companyId);
-    companyServiceBloc..getCompanyService(lngCode, companyId);
-
-
+    if (networkResults) {
+      setState(() {
+        isNoInternet =false;
+      });
+      final companyDetailsData = Provider.of<CompanyDetailsDataProvider>(context, listen: false);
+      companyDetailsData..getCompanyDetails(lngCode, companyId);
+      companyServiceBloc..getCompanyService(lngCode, companyId);
+    }else{
+      setState(() {
+        isNoInternet =true;
+      });
+    }
   }
 
   getData() async{
@@ -99,7 +106,6 @@ class _InfoService extends State<InfoService> {
 
     final companyDetailsData = Provider.of<CompanyDetailsDataProvider>(context);
 
-    // print("[companyDetailsData.companyDetails.image ${companyDetailsData.companyDetails.logo}");
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
@@ -202,55 +208,30 @@ class _InfoService extends State<InfoService> {
                   ),
             ),
             Positioned(
-              top: (height/896) * 150,
-              left: (width/414) *90,
-              right: (width/414) *100,
+              top: (height/896) * 140,
+              left: (width/414) *130,
+              right: (width/414) *140,
               child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(8),
-                  ),
-                width:  (height/896)* 75,
-                height: (height/896) * 75,
+                width:  (height/896)* 85,
+                height: (height/896) * 100,
                 child: companyDetailsData.companyDetails.logo  != null ?
-                Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo, width: 92, height: 72,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo,
+                    fit: BoxFit.fill,
                   errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                    return Image.asset("assets/background.png",
-                      fit: BoxFit.fill,);
-                  },) : null,
+                    return ClipRRect(
+                        borderRadius: BorderRadius.circular(12.0),
+                    child:Image.asset("assets/background.png",
+                      fit: BoxFit.fill,)
+                    );
+                  },)
+                ): ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0),
+                child: new Image.asset("assets/background.png",
+                  fit: BoxFit.fill,),
               ),
-              // GestureDetector(
-              //   child: Center(
-              //     child: Container(
-              //       decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(8),
-              //         color: Color.fromRGBO(247, 127, 151, 0.18),
-              //       ),
-              //       height: (height/896) * 180,
-              //       width: width,
-              //       child: Column(
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         children:[
-              //           Container(
-              //             padding: EdgeInsets.only(bottom: 10),
-              //             width:  (height/896)* 100,
-              //             height: (height/896) * 100,
-              //             child: companyDetailsData.companyDetails.logo  != null ? Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo, width: 92, height: 72) : null,
-              //           ),
-              //           // Text(companyDetailsData.companyDetails.name == null? "": companyDetailsData.companyDetails.name,
-              //           // maxLines: 2,
-              //           // overflow: TextOverflow.clip,
-              //           // style: TextStyle(
-              //           //   fontSize: 22,
-              //           //   color: Color.fromRGBO(247, 127, 151, 1),
-              //           // ),),
-              //         ]
-              //       ),
-              //     ) ,
-              //   ),
-              //   onTap: (){
-              //   },
-              // ),
+              ),
             ),
             Positioned(
               top: (height/896) * 310,
@@ -321,8 +302,22 @@ class _InfoService extends State<InfoService> {
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                        color: Color.fromRGBO(214, 202, 209, 0.31),
                     ),
-                    child:  isInfo?
-                    Container(
+                    child:  isInfo?(
+                    isNoInternet ?
+                    Center(
+                        child: Container(
+                          width: width,
+                          alignment: Alignment.center,
+                          child: Text("",
+                            style: TextStyle(
+                                fontSize:   (height/896) * 18,
+                                color:  Palette.whiteText,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Audrey-Normal"
+
+                            ),).tr(),
+                        )
+                    ): Container(
                       child: companyDetailsData.loading
                           ? Container(
                         child: _buildLoadingWidget(),
@@ -371,7 +366,7 @@ class _InfoService extends State<InfoService> {
                                         color: Colors.yellow,
                                       ),
                                       onRatingUpdate: (rating) {
-                                        print(rating);
+
                                       },
                                     ),
                                   ),
@@ -473,8 +468,23 @@ class _InfoService extends State<InfoService> {
                           ),
                         ],
                       )
-                    ) :
+                    )
+                    ):
+                    (isNoInternet ?
+                    Center(
+                        child: Container(
+                          width: width,
+                          alignment: Alignment.center,
+                          child: Text("",
+                            style: TextStyle(
+                                fontSize:   (height/896) * 18,
+                                color:  Palette.whiteText,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Audrey-Normal"
 
+                            ),).tr(),
+                        )
+                    ):
                     StreamBuilder<CompanyServiceResponse>(
                         stream: companyServiceBloc.subject.stream,
                         builder: (context, AsyncSnapshot<CompanyServiceResponse> snapshot) {
@@ -490,6 +500,7 @@ class _InfoService extends State<InfoService> {
                             return _buildLoadingWidget();
                           }
                         }
+                    )
                     ),
                   )
                 ),
@@ -753,7 +764,7 @@ class _InfoService extends State<InfoService> {
 
      for(int i = 0; i < selectedService.length ; i++){
        total = total + double.parse(selectedService[i].price);
-           print("total $total");
+
      }
 
      return total;
@@ -770,7 +781,7 @@ class _InfoService extends State<InfoService> {
   Widget _buildServiceWidget(CompanyServiceResponse data) {
     List<CompanyServices> companyServices = data.companyServices;
 
-    print("companyServices **${companyServices.length}");
+
     if (companyServices ==  null) {
       return Container(
         width: MediaQuery.of(context).size.width,
@@ -812,42 +823,49 @@ class _InfoService extends State<InfoService> {
                           child: Container(
                               height: (height/896) * 49,
                               width:(width/414) * 60,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                shape: BoxShape.rectangle,
-                              ),//serviceList[index]["image"]
                               child: companyServices[index].image != null ?
-                              Image.network(Repository.iconUrl+companyServices[index].image,
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child:Image.network(Repository.iconUrl+companyServices[index].image,
+                                      fit: BoxFit.fill,
                                 errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                                  return Image.asset("assets/background.png",
-                                    fit: BoxFit.fill,);
-                                },):
-                              // CachedNetworkImage(
-                              //   imageUrl: companyServices[index].image,
-                              //   placeholder: (context, url) => CircularProgressIndicator(),
-                              //   errorWidget: (context, url, error) => Icon(Icons.error),
-                              // ):
-                              Image.asset("assets/background.png")
+                                  return ClipRRect(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                  child:Image.asset("assets/background.png",
+                                    fit: BoxFit.fill,)
+                                  );
+                                },)
+                              ):
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child:Image.asset("assets/background.png",
+                                      fit: BoxFit.fill)
+                              ),
                           ),
                         ),
                         Positioned(
                             top: (height/896) * 10,
                             left: (width/414) * 75,
                             width: (width/414) * 230,
-                            child: RichText(
-                              text: TextSpan(
-                                text: '${companyServices[index].name}\n',
-                                style: TextStyle(
-                                    fontSize: (height/896) *18,
-                                    color: Palette.pinkBox),
-                                children: <TextSpan>[
-                                  TextSpan(text: '${companyServices[index].duration_min} min - ${companyServices[index].price} SR',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: Palette.labelColor),),
-                                ],
-                              ),
-                            )
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children:[
+                                Text(
+                                  '${companyServices[index].name}',
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      fontSize:  (height/896) *17,
+                                      color: Palette.pinkBox),
+                                ),
+                                Text(
+                                  '${companyServices[index].duration_min} min - ${companyServices[index].price} SAR',
+                                  style: TextStyle(
+                                      fontSize:  (height/896) *12,
+                                      color: Palette.labelColor),
+                                ),
+                              ]
+                          ),
+
                         ),
                         Positioned(
                           top: (height/896) * 20,
@@ -928,86 +946,6 @@ class _InfoService extends State<InfoService> {
           ],
         ));
   }
-
-  listItem(int index){
-    return Container(
-      height: (height/896) * 57,
-      width: width,
-      margin: EdgeInsets.only(bottom: (height/896) * 6),
-      child: Stack(
-        children: [
-          Positioned(
-          top: (height/896) * 4,
-          left: (width/414) * 1,
-          child: Container(
-              height: (height/896) * 49,
-              width:(width/414) * 60,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  shape: BoxShape.rectangle,
-              ),
-                child:  serviceList[index]["image"] != null ?
-                Image.asset(serviceList[index]["image"]):
-            //     CachedNetworkImage(
-            //     imageUrl: serviceList[index]["image"],
-            //     placeholder: (context, url) => CircularProgressIndicator(),
-            //     errorWidget: (context, url, error) => Icon(Icons.error),
-            // ):
-                    Image.asset("assets/ipay.png")
-          ),
-          ),
-          Positioned(
-          top: (height/896) * 10,
-          left: (width/414) * 75,
-          width: (width/414) * 230,
-          child: RichText(
-            text: TextSpan(
-              text: '${serviceList[index]["name"]}\n',
-              style: TextStyle(
-                  fontSize: 18,
-              color: Palette.pinkBox),
-              children: <TextSpan>[
-                TextSpan(text: '${serviceList[index]["duration_min"]} min - ${serviceList[index]["price"]} SR',
-                    style: TextStyle(
-                        fontSize: (height/896) *14,
-                        color: Palette.labelColor),),
-              ],
-            ),
-           )
-          ),
-         Positioned(
-        top: (height/896) * 20,
-        left: (width/414) *  340,
-        child: GestureDetector(
-          child: Container(
-          decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-            color: Palette.pinkBox,
-          ),
-          height: (height/896) * 26,
-          width: (height/896) * 26,
-          child: Center(
-              child: Icon(Icons.add,
-              color: Palette.boxWhite,
-              size: (height/896) *23,)
-          ),
-        ),
-          onTap: (){
-            selectedService.add(serviceList[index]);
-            // Navigator.push(
-            //     context,
-            //     PageTransition(
-            //       type: PageTransitionType.fade,
-            //       child:  BottomNav(index: 0, subIndex: 4),
-            //     ));
-          },
-        ),
-        )
-        ],
-      ),
-    );
-  }
-
 
   showSnackbar(BuildContext context, String msg) {
     final snackBar = SnackBar(
