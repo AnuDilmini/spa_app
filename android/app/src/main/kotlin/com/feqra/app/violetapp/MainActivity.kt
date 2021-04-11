@@ -1,4 +1,4 @@
-package com.feqra.app.violet
+package com.feqra.app.violetapp
 
 import io.flutter.embedding.android.FlutterActivity
 
