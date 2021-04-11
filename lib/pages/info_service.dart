@@ -212,7 +212,12 @@ class _InfoService extends State<InfoService> {
                   ),
                 width:  (height/896)* 75,
                 height: (height/896) * 75,
-                child: companyDetailsData.companyDetails.logo  != null ? Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo, width: 92, height: 72) : null,
+                child: companyDetailsData.companyDetails.logo  != null ?
+                Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo, width: 92, height: 72,
+                  errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                    return Image.asset("assets/background.png",
+                      fit: BoxFit.fill,);
+                  },) : null,
               ),
               // GestureDetector(
               //   child: Center(
@@ -570,7 +575,11 @@ class _InfoService extends State<InfoService> {
                                                shape: BoxShape.rectangle,
                                              ),//serviceList[index]["image"]
                                              child:  selectedService[index].image != null ?
-                                             Image.network(Repository.iconUrl+selectedService[index].image):
+                                             Image.network(Repository.iconUrl+selectedService[index].image,
+                                               errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                                                 return Image.asset("assets/background.png",
+                                                   fit: BoxFit.fill,);
+                                               },):
                                              // CachedNetworkImage(
                                              //   imageUrl: selectedService[index].image,
                                              //   placeholder: (context, url) => CircularProgressIndicator(),
@@ -808,7 +817,11 @@ class _InfoService extends State<InfoService> {
                                 shape: BoxShape.rectangle,
                               ),//serviceList[index]["image"]
                               child: companyServices[index].image != null ?
-                              Image.network(Repository.iconUrl+companyServices[index].image):
+                              Image.network(Repository.iconUrl+companyServices[index].image,
+                                errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                                  return Image.asset("assets/background.png",
+                                    fit: BoxFit.fill,);
+                                },):
                               // CachedNetworkImage(
                               //   imageUrl: companyServices[index].image,
                               //   placeholder: (context, url) => CircularProgressIndicator(),

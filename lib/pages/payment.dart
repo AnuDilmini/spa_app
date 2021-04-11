@@ -658,7 +658,11 @@ class _PaymentState extends State<Payment> {
                     shape: BoxShape.rectangle,
                 ),
                 child: selectedService[index].image != null ?
-                Image.network(Repository.iconUrl+selectedService[index].image):
+                Image.network(Repository.iconUrl+selectedService[index].image,
+                  errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                    return Image.asset("assets/background.png",
+                      fit: BoxFit.fill,);
+                  },):
                 Image.asset("assets/background.png")
             ),
           ),

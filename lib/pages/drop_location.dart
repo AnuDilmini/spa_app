@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:violet_app/model/place_model.dart';
 import 'package:violet_app/style/palette.dart';
 
@@ -14,17 +15,17 @@ import 'bottom_nav.dart';
 
 class SelectLocation extends StatefulWidget {
   SelectLocation(
-      {Key key,
-        })
+      {Key key,})
       : super(key: key);
-
+  bool selected = false;
 
   @override
   _SelectLocation createState() => _SelectLocation();
 }
 
 class _SelectLocation extends State<SelectLocation> {
-  GoogleMapController mapController;
+  // GoogleMapController mapController;
+  // Location location = Location();
 
   final String mapStyle =
       "[\r\n  {\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#f5f5f5\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"elementType\": \"labels.icon\",\r\n    \"stylers\": [\r\n      {\r\n        \"visibility\": \"off\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#616161\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"elementType\": \"labels.text.stroke\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#f5f5f5\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"administrative.land_parcel\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#bdbdbd\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"poi\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#eeeeee\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"poi\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#757575\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"poi.park\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#e5e5e5\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"poi.park\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#9e9e9e\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#ffffff\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road.arterial\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#757575\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road.highway\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#dadada\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road.highway\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#616161\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road.local\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#9e9e9e\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"transit.line\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#e5e5e5\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"transit.station\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#eeeeee\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"water\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#c9c9c9\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"water\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#9e9e9e\"\r\n      }\r\n    ]\r\n  }\r\n]";
@@ -47,18 +48,17 @@ class _SelectLocation extends State<SelectLocation> {
   TextEditingController _searchController = new TextEditingController();
   List<Place> _placesList;
 
-
   int selectedPosition;
   bool isSameLocation = false;
   Place placeDetails;
   var newTitle;
   static String kGoogleApiKey = 'AIzaSyBrc_EnMrVTtH0ShPx62V9lpdul7vVwMe8';
-  // static String kGoogleApiKey = 'AIzaSyABAX6oCiA6r3tgkbP44BNYFuhBKTJQUtM';
   var _markers;
   var data;
   var position;
   bool isLocationLoaded = false;
-  double height, width;
+  final LatLng _center = const LatLng(24.774265, 46.738586);
+  GoogleMapController _controller;
 
   @override
   void initState() {
@@ -68,31 +68,47 @@ class _SelectLocation extends State<SelectLocation> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+    _controller = controller;
 
-    mapController.setMapStyle(mapStyle);
+    _controller.setMapStyle(mapStyle);
 
-    // if (widget.lat != null) {
-    //   var latitude = double.parse(widget.lat);
-    //   var longitude = double.parse(widget.lng);
-    //   mapController.animateCamera(
+    print("latSearch *****$latSearch, lngSearch ******$lngSearch");
+    _controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(latSearch, lngSearch), zoom: 15.0),
+      ),
+    );
+
+    // if( latSearch != null) {
+    //   _controller.animateCamera(
     //     CameraUpdate.newCameraPosition(
-    //       CameraPosition(target: LatLng(latitude, longitude), zoom: 14.0),
+    //       CameraPosition(target: LatLng(latSearch, lngSearch), zoom: 15.0),
     //     ),
     //   );
-    // } else {
-      mapController.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(target: LatLng(latSearch, lngSearch), zoom: 14.0),
-        ),
-      );
+    // }else {
+    //   location.onLocationChanged.listen((l) {
+    //     _controller.animateCamera(
+    //       CameraUpdate.newCameraPosition(
+    //         CameraPosition(target: LatLng(l.latitude, l.longitude),zoom: 15),
+    //       ),
+    //     );
+    //   });
+    //
     // }
   }
 
+  void _onMapCreatedNew(GoogleMapController _cntlr)
+  {
+    _controller = _cntlr;
+    _controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(24.774265, 46.738586), zoom: 15.0),
+        )
+    );
+  }
+
   void getLocationResults(String input) async {
-    print("input *****$input");
     if (input.isEmpty) {
-      print("empry***************");
       return;
     }
     String request =
@@ -101,7 +117,6 @@ class _SelectLocation extends State<SelectLocation> {
     var response = await Dio().get(request);
 
     final predictions = response.data['predictions'];
-    print("input **predictions***$predictions");
     List<Place> _displayResults = [];
 
     for (var i = 0; i < predictions.length; i++) {
@@ -115,7 +130,6 @@ class _SelectLocation extends State<SelectLocation> {
       if (_placesList != null) {
         _placesList.clear();
       }
-      print("_displayResults *********$_displayResults");
       _placesList = _displayResults;
     });
   }
@@ -138,7 +152,7 @@ class _SelectLocation extends State<SelectLocation> {
     lngSearch = first.coordinates.longitude;
     setState(() {
       Timer(const Duration(milliseconds: 1200), () {
-        mapController.animateCamera(CameraUpdate.newCameraPosition(
+        _controller.animateCamera(CameraUpdate.newCameraPosition(
             CameraPosition(target: LatLng(latSearch, lngSearch), zoom: 14.0)));
       });
       _placesList.clear();
@@ -164,39 +178,70 @@ class _SelectLocation extends State<SelectLocation> {
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-
-    return Scaffold(
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return
+      Scaffold(
         backgroundColor: Colors.white,
         body: Container(
           width: width,
           height: height,
           child: Stack(
             children: <Widget>[
-              latSearch != null
-                  ? GoogleMap(
+              latSearch != null ?  GoogleMap(
                 initialCameraPosition: CameraPosition(
-                    target:LatLng(0, 0),
-                    zoom: 14.0),
+                  target: _center,
+                  zoom: 14.0,
+                ),
                 myLocationEnabled: false,
                 myLocationButtonEnabled: false,
                 tiltGesturesEnabled: true,
                 compassEnabled: true,
-                markers: _markers,
+          markers:  Set<Marker>.of(
+              <Marker>[ Marker(
+                  onTap: () {
+                    print('Tapped');
+                  },
+                  draggable: true,
+                  markerId: MarkerId('Marker'),
+                  // position: LatLng(value.latitude, value.longitude),
+                  onDragEnd: ((newPosition) {
+                    print(newPosition.latitude);
+                    print(newPosition.longitude);
+                  })),
+              ]
+               ),
                 scrollGesturesEnabled: false,
                 zoomGesturesEnabled: false,
-                onMapCreated: _onMapCreated,
+                onMapCreated:
+                      _onMapCreated,
               )
-                  : Container(
-                width: width,
-                height: height,
-
+                  :     GoogleMap(
+                onMapCreated: _onMapCreatedNew,
+                myLocationEnabled: false,
+                initialCameraPosition: CameraPosition(
+                  target: _center,
+                  zoom: 11.0,
+                ),
+                markers:  Set<Marker>.of(
+                    <Marker>[ Marker(
+                        onTap: () {
+                          print('Tapped');
+                        },
+                        draggable: true,
+                        markerId: MarkerId('Marker'),
+                        // position: LatLng(value.latitude, value.longitude),
+                        onDragEnd: ((newPosition) {
+                          print(newPosition.latitude);
+                          print(newPosition.longitude);
+                        })),
+                    ]
+                ),
               ),
               Container(
                 height: height / 5.4,
                 width: width,
-                color: Palette.textField,
+                color: Palette.lightPink,
               ),
               GestureDetector(
                 onTap: () {
@@ -215,12 +260,12 @@ class _SelectLocation extends State<SelectLocation> {
                       height: 40,
                       alignment: Alignment.centerRight,
                       decoration: BoxDecoration(
-                          color:  Palette.darkPink,
+                          color: Palette.pinkBox,
                           shape: BoxShape.circle),
                       child: Center(
                         child: Icon(
                           Icons.close,
-                          color:  Palette.whiteText,
+                          color: Palette.whiteText,
                           size: height / 35,
                         ),
                       ),
@@ -232,8 +277,8 @@ class _SelectLocation extends State<SelectLocation> {
                 child: Center(
                   child: Container(
                     child: SpinKitRipple(
-                      color: Palette.darkPink,
-                      size: (height/896) *40,
+                      color: Colors.purple,
+                      size: 40,
                     ),
                   ),
                 ),
@@ -241,13 +286,13 @@ class _SelectLocation extends State<SelectLocation> {
               Positioned(
                 top: height / 11,
                 left: 20,
-                child:  Text(
-                  "Enter location",
+                child: Text(
+                  "Enter City",
                   style: TextStyle(
                       color: Palette.pinkBox,
                       fontSize: 19,
                       fontFamily: 'Rubik-Medium'),
-                ),
+                )
               ),
               Center(
                 child: Container(
@@ -260,7 +305,14 @@ class _SelectLocation extends State<SelectLocation> {
                             blurRadius: 5.0,
                             spreadRadius: 0.01),
                       ],
-
+                      gradient: new LinearGradient(
+                        colors: [
+                          const Color(0xFF3F2063),
+                          const Color(0xFF6E2A73),
+                        ],
+                        begin: const FractionalOffset(0.0, 0.0),
+                        end: const FractionalOffset(0.5, 1.0),
+                      ),
                       color: Palette.pinkBox,
                       shape: BoxShape.circle),
                 ),
@@ -285,7 +337,7 @@ class _SelectLocation extends State<SelectLocation> {
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           border: Border.all(
-                              color:Palette.whiteText, width: 0.5),
+                              color: Palette.whiteText, width: 0.5),
                         ),
                         child: Row(
                           children: <Widget>[
@@ -300,7 +352,7 @@ class _SelectLocation extends State<SelectLocation> {
                                       _onSearchChanged();
                                     } else {}
                                     setState(() {
-                                      // widget.selected = true;
+                                      widget.selected = true;
                                     });
                                   },
                                   onTap: () {
@@ -313,13 +365,13 @@ class _SelectLocation extends State<SelectLocation> {
                                   },
                                   controller: _searchController,
                                   focusNode: nodeOne,
-                                  cursorColor: Palette.pinkBox,
+                                  cursorColor: Palette.darkPink,
                                   decoration: InputDecoration(
                                     hintText: newTitle != null
                                         ? newTitle
-                                        : 'Please enter city..',
+                                        : 'Please enter birth city..',
                                     hintStyle: TextStyle(
-                                      color: Palette.pinkBox,
+                                      color:Palette.pinkBox,
                                       fontSize: 18,
                                       fontFamily: 'Barlow-Regular',
                                     ),
@@ -343,7 +395,7 @@ class _SelectLocation extends State<SelectLocation> {
                 top: height / 4.8,
                 left: 10,
                 right: 10,
-                child:
+                child: widget.selected == true &&
                     (_placesList != null &&
                         _searchController.text.isNotEmpty &&
                         _searchController.text.length >= 3)
@@ -400,6 +452,8 @@ class _SelectLocation extends State<SelectLocation> {
 
                                 setState(() {
                                   isLocationLoaded = false;
+
+                                  isSameLocation = false;
                                 });
 
                                 selectedPosition = position;
@@ -414,7 +468,7 @@ class _SelectLocation extends State<SelectLocation> {
                               },
                             ),
                             SizedBox(
-                              height: (height/896) *5,
+                              height: 5,
                             )
                           ],
                         );
@@ -431,6 +485,28 @@ class _SelectLocation extends State<SelectLocation> {
                     height: (height * 0.12) * 0.65,
                     child: GestureDetector(
                       onTap: () {
+                        setState(() {
+                          if (locationCode == "") {
+                            getLocationName(_placesList[position].name);
+                          }
+
+                          if ((locationName == "" &&
+                              locationName == "Fetching location..") ||
+                              _searchController.text == "") {
+                            showAlert(context, 'Oops!',
+                                'Please select city.');
+                          } else {
+                            if (isLocationLoaded == true ) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => BottomNav(index: 0,subIndex: 5,)),
+                              );
+                            } else {
+                              showAlert(context, 'Fetching location!',
+                                  'Please wait..');
+                            }
+                          }
+                        });
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -454,7 +530,7 @@ class _SelectLocation extends State<SelectLocation> {
             ],
           ),
         ),
-    );
+      );
   }
 
   showAlert(BuildContext context, String title, String description) {
@@ -499,7 +575,7 @@ class _SelectLocation extends State<SelectLocation> {
               },
             ),
             SizedBox(
-              height: (height/896) *20,
+              height: 20,
             )
           ],
         ),
@@ -546,7 +622,7 @@ class _SelectLocation extends State<SelectLocation> {
             ),
             FlatButton(
               color: Palette.pinkBox,
-              textColor:Palette.whiteText,
+              textColor: Palette.whiteText,
               child: Text("OK"),
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop('dialog');
@@ -558,7 +634,7 @@ class _SelectLocation extends State<SelectLocation> {
               },
             ),
             SizedBox(
-              height: (height/896) *20,
+              height: 20,
             )
           ],
         ),
