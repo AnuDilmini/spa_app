@@ -448,7 +448,11 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                   borderRadius: BorderRadius.all(Radius.circular(18)),
                                 ),
                                 child: company[index].image != null ? Image.network(Repository.iconUrl+company[index].image, width: 92, height: 72,
-                                  fit: BoxFit.contain,) :new Image.asset("assets/background.png",
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                                    return Image.asset("assets/background.png",
+                                      fit: BoxFit.fill,);
+                                  },) :new Image.asset("assets/background.png",
                                   fit: BoxFit.fill,),
 
                               ),
@@ -605,6 +609,10 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 ),
                                 child: category[index].icon != null ?
                                 Image.network(Repository.iconUrl+category[index].icon,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                                    return Image.asset("assets/background.png",
+                                      fit: BoxFit.fill,);
+                                  },
                                   ):
                                 Image.asset("assets/eyes.png"),
                               ),
