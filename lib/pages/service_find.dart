@@ -477,6 +477,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                   child: Image.network(Repository.iconUrl+company[index].image,
                                   fit: BoxFit.fill,
                                   errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                                    print('service_find::_buildCompanyWidget: ImageNetwork error has occurred.');
                                     return ClipRRect(
                                         borderRadius: BorderRadius.circular(18.0),
                                     child:Image.asset("assets/background.png",
@@ -645,7 +646,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 child: category[index].icon != null ?
                                 Image.network(Repository.iconUrl+category[index].icon,
                                   errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                                    return Image.asset("assets/background.png",
+                                    print('service_find::_buildCategoryWidget: ImageNetwork error has occurred.');
+                                  return Image.asset("assets/background.png",
                                       fit: BoxFit.fill,);
                                   },
                                   ):

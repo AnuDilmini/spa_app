@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,11 +13,9 @@ import 'package:violet_app/style/palette.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:violet_app/utils/network_check.dart';
 import 'bottom_nav.dart';
-import 'home.dart';
 
 class InfoService extends StatefulWidget {
 
@@ -220,6 +216,7 @@ class _InfoService extends State<InfoService> {
                   child: Image.network(Repository.iconUrl+companyDetailsData.companyDetails.logo,
                     fit: BoxFit.fill,
                   errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                    print('info_service::build: ImageNetwork error has occurred.');
                     return ClipRRect(
                         borderRadius: BorderRadius.circular(12.0),
                     child:Image.asset("assets/background.png",
@@ -588,6 +585,7 @@ class _InfoService extends State<InfoService> {
                                              child:  selectedService[index].image != null ?
                                              Image.network(Repository.iconUrl+selectedService[index].image,
                                                errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                                                 print('info_service::slideSheet: ImageNetwork error has occurred.');
                                                  return Image.asset("assets/background.png",
                                                    fit: BoxFit.fill,);
                                                },):
@@ -829,6 +827,7 @@ class _InfoService extends State<InfoService> {
                                   child:Image.network(Repository.iconUrl+companyServices[index].image,
                                       fit: BoxFit.fill,
                                 errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                                    print('info_service::_buildServiceWidget: ImageNetwork error has occurred.');
                                   return ClipRRect(
                                       borderRadius: BorderRadius.circular(12.0),
                                   child:Image.asset("assets/background.png",

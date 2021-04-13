@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:violet_app/model/place_model.dart';
 import 'package:violet_app/style/palette.dart';
 
@@ -111,7 +110,7 @@ class _SelectLocation extends State<SelectLocation> {
       return;
     }
     String request =
-        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&radius=1000&key=$kGoogleApiKey&types=(cities)';
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&radius=1000&key=$kGoogleApiKey';// &types=(cities)
 
     var response = await Dio().get(request);
 

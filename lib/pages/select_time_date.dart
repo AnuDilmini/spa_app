@@ -58,6 +58,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
   String companyId;
   String customerId;
   String token;
+  DateTime now = DateTime.now();
   List<String> months = ["January", "February", "March", "April",
   "May", "June", "July", "August", "September", "October", "November", "December"];
   final Dio _dio = Dio();
@@ -92,7 +93,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
       selectedService = CompanyServices.decode(serviceListJson);
       selectedServiceCount = selectedService.length;
     }
-    _selectedDate = DateTime.now();
+    _selectedDate = now;
 
     setState(() {
     });
@@ -349,9 +350,9 @@ class _SelectTimeDate extends State<SelectTimeDate> {
               child:  Container(
                 alignment: Alignment.topCenter,
                   child: CalendarTimeline(
-                    initialDate: _selectedDate,
-                    firstDate: DateTime(DateTime.now().year -1, 1, 15),
-                    lastDate: DateTime.now().add(Duration(days: 365)),
+                    initialDate: (_selectedDate == null)?now:_selectedDate,
+                    firstDate: DateTime(now.year -1, 1, 15),
+                    lastDate: now.add(Duration(days: 365)),
                     onDateSelected: (date) {
 
                       _selectedDate = date;
