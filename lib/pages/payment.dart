@@ -149,9 +149,9 @@ class _PaymentState extends State<Payment> {
                       //   size: 20,),
                       // ),
                     ),
-                    onTap: () async{
-                      String serviceList = CompanyServices.encode(selectedService);
-                      await SharedPreferencesHelper.setSelectedService(serviceList);
+                    onTap: () {
+                      // String serviceList = CompanyServices.encode(selectedService);
+                      // await SharedPreferencesHelper.setSelectedService(serviceList);
                       FocusScope.of(context).requestFocus(new FocusNode());
                       Navigator.push(
                           context,

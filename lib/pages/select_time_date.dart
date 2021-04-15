@@ -114,8 +114,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 
-
-
     return Scaffold(
       key: _scaffoldKey,
       body: Stack(
@@ -515,7 +513,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
     mobileRegController.dispose();
   }
 
-
   Future<bool> postReservationDateTime() async {
     ReservationDateTimeResponse result;
     bool networkResults = await NetworkCheck.checkNetwork();
@@ -744,7 +741,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           height: (height/896) * 57,
                           width: (width/414) * 312,
                           child: TextFormField(
-                            textAlign : TextAlign.center,
+                            textAlign : TextAlign.left,
                             maxLines: 3,
                             style: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',

@@ -580,12 +580,9 @@ class _InfoService extends State<InfoService> {
                                    height: (height/896) * 65,
                                    width: width - (width/414) * 60,
                                    padding: EdgeInsets.only(bottom: (height/896) * 6),
-                                   child: Stack(
+                                   child: Row(
                                      children: [
-                                       Positioned(
-                                         top: (height/896) * 4,
-                                         left: (width/414) * 1,
-                                         child: Container(
+                                     Container(
                                              height: (height/896) * 49,
                                              width:(width/414) * 60,
                                              decoration: BoxDecoration(
@@ -599,19 +596,12 @@ class _InfoService extends State<InfoService> {
                                                  return Image.asset("assets/background.png",
                                                    fit: BoxFit.fill,);
                                                },):
-                                             // CachedNetworkImage(
-                                             //   imageUrl: selectedService[index].image,
-                                             //   placeholder: (context, url) => CircularProgressIndicator(),
-                                             //   errorWidget: (context, url, error) => Icon(Icons.error),
-                                             // ):
                                              Image.asset("assets/background.png")
                                          ),
-                                       ),
-                                       Positioned(
-                                           top: (height/896) * 10,
-                                           left: (width/414) * 73,
-                                           width: (width/414) * 230,
-                                           child: Column(
+                                     Container(
+                                       width:  (width/208) *120,
+                                       padding: EdgeInsets.only(left:  (width/208) * 5, top:  (height/449) * 5 , right: (height/449) * 5),
+                                       child: Column(
                                              crossAxisAlignment: CrossAxisAlignment.start,
                                              children: [
                                                Text(
@@ -631,12 +621,9 @@ class _InfoService extends State<InfoService> {
                                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                                                )
                                              ],
-                                           )
-                                       ),
-                                       Positioned(
-                                         top: (height/896) * 20,
-                                         left: (width/414) *  320,
-                                         child: GestureDetector(
+                                           ),
+                                     ),
+                                       GestureDetector(
                                            child: Container(
                                              decoration: BoxDecoration(
                                                borderRadius: BorderRadius.circular(8),
@@ -651,7 +638,6 @@ class _InfoService extends State<InfoService> {
                                              ),
                                            ),
                                          ),
-                                       )
                                      ],
                                    ),
                                  ),
@@ -828,12 +814,9 @@ class _InfoService extends State<InfoService> {
                     height: (height/896) * 57,
                     width: width,
                     margin: EdgeInsets.only(bottom: (height/896) * 6),
-                    child: Stack(
+                    child: Row(
                       children: [
-                        Positioned(
-                          top: (height/896) * 4,
-                          left: (width/414) * 1,
-                          child: Container(
+                       Container(
                               height: (height/896) * 49,
                               width:(width/414) * 60,
                               child: companyServices[index].image != null ?
@@ -842,7 +825,7 @@ class _InfoService extends State<InfoService> {
                                   child:Image.network(Repository.iconUrl+companyServices[index].image,
                                       fit: BoxFit.fill,
                                 errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                                    print('info_service::_buildServiceWidget: ImageNetwork error has occurred.');
+                                    // print('info_service::_buildServiceWidget: ImageNetwork error has occurred.');
                                   return ClipRRect(
                                       borderRadius: BorderRadius.circular(12.0),
                                   child:Image.asset("assets/background.png",
@@ -856,11 +839,9 @@ class _InfoService extends State<InfoService> {
                                       fit: BoxFit.fill)
                               ),
                           ),
-                        ),
-                        Positioned(
-                            top: (height/896) * 10,
-                            left: (width/414) * 75,
-                            width: (width/414) * 230,
+                        Container(
+                          padding: EdgeInsets.only(left:  (width/208) * 10, top:  (height/449) * 5 , right: (height/449) * 10),
+                          width:  (width/208) *135,
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children:[
@@ -881,12 +862,8 @@ class _InfoService extends State<InfoService> {
                                 ),
                               ]
                           ),
-
-                        ),
-                        Positioned(
-                          top: (height/896) * 20,
-                          left: (width/414) *  340,
-                          child: GestureDetector(
+                       ),
+                       GestureDetector(
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
@@ -912,7 +889,6 @@ class _InfoService extends State<InfoService> {
 
                             },
                           ),
-                        )
                       ],
                     ),
                   ),
