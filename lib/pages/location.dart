@@ -31,6 +31,7 @@ class _LocationState extends State<LocationPage> {
   bool isSearch = false;
   LocationData _locationData;
   GoogleMapController _controller;
+  String lanCode = "en";
 
   final LatLng _center = const LatLng(24.774265, 46.738586);
 
@@ -54,6 +55,8 @@ class _LocationState extends State<LocationPage> {
   @override
   void dispose() {
     super.dispose();
+    _controller.dispose();
+    messageController.dispose();
   }
 
   @override
@@ -66,6 +69,8 @@ class _LocationState extends State<LocationPage> {
         .of(context)
         .size
         .height;
+
+    lanCode = context.locale.languageCode;
 
 
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -230,7 +235,8 @@ class _LocationState extends State<LocationPage> {
                                         style: TextStyle(
                                           color: Palette.pinkBox,
                                           fontSize: (height/896) *15,
-                                          fontWeight: FontWeight.normal
+                                          fontWeight: FontWeight.normal,
+                                          fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                         ),).tr(),
                                         ),
                                     GestureDetector(
@@ -244,6 +250,7 @@ class _LocationState extends State<LocationPage> {
                                          Text(LocaleKeys.pick_the_location,
                                            style: TextStyle(
                                              color: Palette.pinkBox,
+                                               fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                              fontSize: (height/896) *15,
                                                fontWeight: FontWeight.normal
                                            ),).tr(),
@@ -269,6 +276,7 @@ class _LocationState extends State<LocationPage> {
                                   child:  Text(LocaleKeys.choose_a_drop_off_location,
                                     style: TextStyle(
                                       color: Palette.pinkBox,
+                                      fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       fontWeight: FontWeight.bold,
                                       fontSize: (height/896) *18,
                                     ),).tr(),
@@ -303,6 +311,7 @@ class _LocationState extends State<LocationPage> {
                         child: Text(LocaleKeys.confirm,
                           style: TextStyle(
                             fontSize: 20,
+                            fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             color: Palette.whiteText,
                           ),).tr(),
                       ),

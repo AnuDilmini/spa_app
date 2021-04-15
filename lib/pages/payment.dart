@@ -91,6 +91,12 @@ class _PaymentState extends State<Payment> {
     void dispose() {
       super.dispose();
       commentController.dispose();
+      otpController.dispose();
+      cardNoController.dispose();
+      cardNameController.dispose();
+      exDateController.dispose();
+      cvvController.dispose();
+
     }
 
     @override
@@ -143,9 +149,9 @@ class _PaymentState extends State<Payment> {
                       //   size: 20,),
                       // ),
                     ),
-                    onTap: () async{
-                      String serviceList = CompanyServices.encode(selectedService);
-                      await SharedPreferencesHelper.setSelectedService(serviceList);
+                    onTap: () {
+                      // String serviceList = CompanyServices.encode(selectedService);
+                      // await SharedPreferencesHelper.setSelectedService(serviceList);
                       FocusScope.of(context).requestFocus(new FocusNode());
                       Navigator.push(
                           context,
@@ -180,6 +186,7 @@ class _PaymentState extends State<Payment> {
                                 Text("FOUR\n SPA",
                                   style: TextStyle(
                                     fontSize: (height/896) *11,
+                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     color: Color.fromRGBO(247, 127, 151, 1),
                                   ),),
                               ]
@@ -242,7 +249,8 @@ class _PaymentState extends State<Payment> {
                                           children: <Widget>[
                                             Text(
                                               "No Selected Services",
-                                              style: TextStyle(color: Palette.pinkBox),
+                                              style: TextStyle(color: Palette.pinkBox,
+                                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                                             )
                                           ],
                                         )
@@ -259,6 +267,7 @@ class _PaymentState extends State<Payment> {
                                           child: Text(
                                             LocaleKeys.delivery_charge,
                                             style: TextStyle(
+                                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                 fontSize: (height/896) *17,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
@@ -271,6 +280,7 @@ class _PaymentState extends State<Payment> {
                                             "1150 SAR",
                                             maxLines: 1,
                                             style: TextStyle(
+                                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                 fontSize: (height/896) *16,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
@@ -290,6 +300,7 @@ class _PaymentState extends State<Payment> {
                                           child: Text(
                                             LocaleKeys.total,
                                             style: TextStyle(
+                                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                 fontSize: (height/896) *16,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
@@ -301,6 +312,7 @@ class _PaymentState extends State<Payment> {
                                           child:  Text(
                                             "$total SAR",
                                             style: TextStyle(
+                                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                 fontSize: (height/896) *17,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
@@ -315,14 +327,16 @@ class _PaymentState extends State<Payment> {
                                     padding: EdgeInsets.only(left: (width/414) * 5, right: (width/414) * 5, top: (height/896) * 5),
                                     child:   Row(
                                       children: [
-                                        Text(tr('* ( ${LocaleKeys.include_vat.tr()}'),
+                                        Text('* ( ${LocaleKeys.include_vat.tr()}',
                                           style: TextStyle(
+                                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                               fontSize: (height/896) *12,
                                               fontWeight: FontWeight.w500,
                                               color: Palette.textGrey),
                                         ),
                                         Text("15.0 % )",
                                           style: TextStyle(
+                                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                               fontSize: (height/896) *12,
                                               fontWeight: FontWeight.w500,
                                               color: Palette.textGrey),
@@ -350,6 +364,7 @@ class _PaymentState extends State<Payment> {
                             child: Text(
                               LocaleKeys.add_comment,
                               style: TextStyle(
+                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                   fontSize: (height/896) *22,
                                   fontWeight: FontWeight.w400,
                                   color: Palette.pinkBox
@@ -380,6 +395,7 @@ class _PaymentState extends State<Payment> {
                               Text(
                                 LocaleKeys.payment,
                                 style: TextStyle(
+                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     fontSize: (height/896) *21,
                                     fontWeight: FontWeight.normal,
                                     color: Palette.pinkBox
@@ -394,6 +410,7 @@ class _PaymentState extends State<Payment> {
                                  children: [
                                   Text(LocaleKeys.card_number,
                                     style: TextStyle(
+                                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                         fontSize: (height/896) *14,
                                         fontWeight: FontWeight.normal,
                                         color: Palette.pinkBox
@@ -414,16 +431,17 @@ class _PaymentState extends State<Payment> {
                                     decoration: InputDecoration(
                                       hintText: tr(LocaleKeys.enter_card_no).tr(),
                                       hintStyle: TextStyle(
+                                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       color: Palette.labelColor,
                                       fontSize: (height/896) *14,
-                                      fontFamily: 'Barlow-Regular',
                                       ),
                                       border: InputBorder.none,
                                     ),
                                       style: TextStyle(
+                                          fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       color: Palette.pinkBox,
                                       fontSize: 14,
-                                      fontFamily: 'Barlow-Regular'),
+                                      ),
                                     ),
                                      ),
                                    SizedBox(
@@ -431,6 +449,7 @@ class _PaymentState extends State<Payment> {
                                    ),
                                    Text(LocaleKeys.card_name,
                                      style: TextStyle(
+                                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                          fontSize: (height/896) *14,
                                          fontWeight: FontWeight.normal,
                                          color: Palette.pinkBox
@@ -453,14 +472,14 @@ class _PaymentState extends State<Payment> {
                                          hintStyle: TextStyle(
                                            color: Palette.labelColor,
                                            fontSize: (height/896) *14,
-                                           fontFamily: 'Barlow-Regular',
+                                           fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                          ),
                                          border: InputBorder.none,
                                        ),
                                        style: TextStyle(
                                            color: Palette.pinkBox,
                                            fontSize: 14,
-                                           fontFamily: 'Barlow-Regular'),
+                                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                                      ),
                                    ),
                                    SizedBox(
@@ -479,7 +498,8 @@ class _PaymentState extends State<Payment> {
                                              style: TextStyle(
                                                  fontSize: (height/896) *14,
                                                  fontWeight: FontWeight.normal,
-                                                 color: Palette.pinkBox
+                                                 color: Palette.pinkBox,
+                                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                              ),
                                            ).tr(),
 
@@ -498,7 +518,7 @@ class _PaymentState extends State<Payment> {
                                                style: TextStyle(
                                                    color: Palette.pinkBox,
                                                    fontSize: 14,
-                                                   fontFamily: 'Barlow-Regular'),
+                                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                                              ),
                                            ),
                                          ],
@@ -515,6 +535,7 @@ class _PaymentState extends State<Payment> {
                                            children: [
                                              Text(LocaleKeys.cvv,
                                                style: TextStyle(
+                                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                    fontSize: (height/896) *14,
                                                    fontWeight: FontWeight.normal,
                                                    color: Palette.pinkBox
@@ -535,7 +556,7 @@ class _PaymentState extends State<Payment> {
                                                  style: TextStyle(
                                                      color: Palette.pinkBox,
                                                      fontSize: 14,
-                                                     fontFamily: 'Barlow-Regular'),
+                                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                                                ),
                                              ),
                                            ],
@@ -557,6 +578,7 @@ class _PaymentState extends State<Payment> {
                                      ),
                                      child: Text(LocaleKeys.pay_now,
                                        style: TextStyle(
+                                           fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                            fontSize: (height/896) *15,
                                            fontWeight: FontWeight.normal,
                                            color: Palette.whiteText
@@ -746,6 +768,7 @@ class _PaymentState extends State<Payment> {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
+                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                   fontSize:  (height/896) *16,
                                   letterSpacing: 1,
                                   color:  Palette.pinkBox,
@@ -780,6 +803,7 @@ class _PaymentState extends State<Payment> {
                               valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
                             ) :Text(LocaleKeys.slied_to_checkout,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize:  (height/896) *18,
                                 color: isAgree ? Palette.whiteText : Palette.pinkBox,
                               ),
@@ -842,9 +866,10 @@ class _PaymentState extends State<Payment> {
     if(commentController.text == null){
       commentController.text = "NO COMMENT";
     }
+    print("token $token companyId -$companyId customerId -$customerId");
 
     bool networkResults = await NetworkCheck.checkNetwork();
-    var params = {"start_time":dateTime, "customer_comment":commentController.text, "customer_id": customerId, "type_reservation": "HOME_RESERVATION",  "company_id": companyId ,
+    var params = {"start_time":dateTime, "customer_comment":commentController.text, "customer_id":customerId, "type_reservation": "HOME_RESERVATION",  "company_id":companyId ,
       "details": detailsList
     };
 
@@ -858,6 +883,11 @@ class _PaymentState extends State<Payment> {
 
         if (response.statusCode == 200) {
           final item = response.data['data'];
+          print("response data ${response.data}");
+
+          String resID = item['id'];
+          print("response id $resID");
+          await SharedPreferencesHelper.setReservationID(resID);
           showSnackbar(context, "New Reservation added", Colors.blue);
 
           Future.delayed(const Duration(seconds: 1), () =>
@@ -872,6 +902,7 @@ class _PaymentState extends State<Payment> {
           showAlert(context,"Something went wrong!");
         }
       } catch (e) {
+        print("e $e");
         showAlert(context, "Something went wrong!");
       }
       return true;
@@ -911,6 +942,7 @@ class _PaymentState extends State<Payment> {
                             margin: EdgeInsets.only( top: (height/896) *25,left: (width/414) * 18, right:  (width/414) * 18),
                             child: Text(msg,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize:  (height/896) *22,
                                 color: Palette.pinkBox,
                               ),).tr(),
@@ -922,6 +954,7 @@ class _PaymentState extends State<Payment> {
                             margin: EdgeInsets.only( top: (height/896) * 50, bottom: (height/896) * 35,left: (width/414) * 18,  right:  (width/414) * 40),
                             child: Text(LocaleKeys.ok,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize:  (height/896) *16,
                                 color: Palette.labelColor,
                               ),).tr(),
@@ -981,12 +1014,14 @@ class _PaymentState extends State<Payment> {
                  '${selectedService[index].name}',
                   maxLines: 1,
                   style: TextStyle(
+                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                       fontSize:  (height/896) *16,
                       color: Palette.pinkBox),
                  ),
                   Text(
                       '${selectedService[index].duration_min} min - ${selectedService[index].price} SAR',
                         style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         fontSize:  (height/896) *11,
                         color: Palette.labelColor),
                  ),
@@ -1061,6 +1096,7 @@ class _PaymentState extends State<Payment> {
                 index ==1 ? "Apple Pay":
                 "Cash",
                   style: TextStyle(
+                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                       letterSpacing: 2,
                       fontSize:  (height/896) *16,
                       color: Palette.balckColor),
@@ -1146,6 +1182,7 @@ class _PaymentState extends State<Payment> {
                             margin: EdgeInsets.only( top: (height/896) *4, left: 15, right: 15),
                             child: Text(LocaleKeys.add_comment,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 decoration: TextDecoration.none,
                                 letterSpacing: 0.01,
                                 fontSize:  (height/896) *23,
@@ -1167,6 +1204,7 @@ class _PaymentState extends State<Payment> {
                                 controller: commentController,
                                 maxLines: 3,
                                 style: TextStyle(
+                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     decoration: TextDecoration.none,
                                     fontSize:  (height/896) *18,
                                     color: Palette.mainColor
@@ -1176,6 +1214,7 @@ class _PaymentState extends State<Payment> {
                                     border: InputBorder.none,
                                     hintText: "${LocaleKeys.write_your_message_here}..".tr(),
                                     hintStyle: TextStyle(
+                                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                         decoration: TextDecoration.none,
                                         fontSize:  (height/896) * 15,
                                         fontWeight: FontWeight.normal,
@@ -1199,6 +1238,7 @@ class _PaymentState extends State<Payment> {
                           child: Center(
                             child: Text(LocaleKeys.submit,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontWeight: FontWeight.normal,
                                 color: Palette.whiteText,
                                 fontSize:  (height/896) *16,
@@ -1222,6 +1262,7 @@ class _PaymentState extends State<Payment> {
     final snackBar = SnackBar(
       content: Text(msg,
         style: TextStyle(
+            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
             color: Colors.white,
             fontSize: (height/896) * 18
         ),),

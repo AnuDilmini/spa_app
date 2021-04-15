@@ -7,6 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:violet_app/model/place_model.dart';
+import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/style/palette.dart';
 
 import 'bottom_nav.dart';
@@ -58,12 +59,26 @@ class _SelectLocation extends State<SelectLocation> {
   bool isLocationLoaded = false;
   final LatLng _center = const LatLng(24.774265, 46.738586);
   GoogleMapController _controller;
+  String lanCode = 'en';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getShared();
 
+  }
+
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _controller.dispose();
+
+  }
+
+  getShared() async{
+    lanCode = await SharedPreferencesHelper.getLanguage();
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -178,6 +193,7 @@ class _SelectLocation extends State<SelectLocation> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
     return
       Scaffold(
         backgroundColor: Colors.white,
@@ -289,7 +305,7 @@ class _SelectLocation extends State<SelectLocation> {
                   style: TextStyle(
                       color: Palette.pinkBox,
                       fontSize: 19,
-                      fontFamily: 'Rubik-Medium'),
+                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                 )
               ),
               Center(
@@ -371,14 +387,14 @@ class _SelectLocation extends State<SelectLocation> {
                                     hintStyle: TextStyle(
                                       color:Palette.pinkBox,
                                       fontSize: 18,
-                                      fontFamily: 'Barlow-Regular',
+                                      fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     ),
                                     border: InputBorder.none,
                                   ),
                                   style: TextStyle(
                                       color: Palette.pinkBox,
                                       fontSize: 18,
-                                      fontFamily: 'Barlow-Regular'),
+                                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                                 ),
                               ),
                             ),
@@ -437,7 +453,7 @@ class _SelectLocation extends State<SelectLocation> {
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 18,
-                                        fontFamily: "Barlow-Regular",
+                                        fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       ),
                                     ),
                                   ),
@@ -517,7 +533,7 @@ class _SelectLocation extends State<SelectLocation> {
                             style: TextStyle(
                                 color: Palette.whiteText,
                                 fontSize: 19,
-                                fontFamily: 'Rubik-Medium'),
+                              fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                           ),
                         ),
                       ),
@@ -547,9 +563,9 @@ class _SelectLocation extends State<SelectLocation> {
                 title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontFamily: "MerriweatherSans-Regular",
-                    fontSize: 20.0,
-                    color: Palette.pinkBox),
+                   fontSize: 20.0,
+                    color: Palette.pinkBox,
+                  fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026'),
               ),
             ),
             Padding(
@@ -559,8 +575,8 @@ class _SelectLocation extends State<SelectLocation> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Palette.pinkBox,
-                  fontFamily: "MerriweatherSans-Regular",
                   fontSize: 16.0,
+                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                 ),
               ),
             ),
@@ -601,7 +617,7 @@ class _SelectLocation extends State<SelectLocation> {
                 title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontFamily: "MerriweatherSans-Regular",
+                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                     fontSize: 20.0,
                     color: Palette.pinkBox),
               ),
@@ -613,7 +629,7 @@ class _SelectLocation extends State<SelectLocation> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Palette.pinkBox,
-                  fontFamily: "MerriweatherSans-Regular",
+                  fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                   fontSize: 16.0,
                 ),
               ),

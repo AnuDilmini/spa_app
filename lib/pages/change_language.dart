@@ -66,6 +66,7 @@ class _ChangeLang extends State<ChangeLang> {
   @override
   void dispose() {
     super.dispose();
+    messageController.dispose();
   }
 
   @override
@@ -152,6 +153,7 @@ class _ChangeLang extends State<ChangeLang> {
                       child:
                       Text(LocaleKeys.change_language,
                         style: TextStyle(
+                          fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           fontSize: (height/896) *20,
                           color: Palette.pinkBox,
                         ),).tr()
@@ -175,6 +177,7 @@ class _ChangeLang extends State<ChangeLang> {
                             groupValue: selectedRadio,
                             title: Text(LocaleKeys.english,
                               style: TextStyle(
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               fontSize: (height/896) *18,
                               color: Palette.pinkBox,
                             ),).tr(),
@@ -193,6 +196,7 @@ class _ChangeLang extends State<ChangeLang> {
                           value: 2,
                             title: Text(LocaleKeys.arabic,
                               style: TextStyle(
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
                               ),).tr(),
@@ -233,6 +237,7 @@ class _ChangeLang extends State<ChangeLang> {
                         Center(
                           child: Text(LocaleKeys.update,
                             style: TextStyle(
+                              fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               fontSize: (height/896) *20,
                               color: Palette.whiteText,
                             ),).tr(),

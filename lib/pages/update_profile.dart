@@ -164,6 +164,7 @@ class _UpdateState extends State<UpdateProfile> {
                 ),
                Text(LocaleKeys.edit_photo,
                style: TextStyle(
+                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                  fontSize: 16,
                  color: Palette.pinkBox,
                ),).tr(),
@@ -212,6 +213,7 @@ class _UpdateState extends State<UpdateProfile> {
                                border: InputBorder.none,
                              hintText: LocaleKeys.name.tr(),
                              hintStyle: TextStyle(
+                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                fontSize: 15,
                                color: Palette.labelColor,
                              )
@@ -254,6 +256,7 @@ class _UpdateState extends State<UpdateProfile> {
                                  hintText: LocaleKeys.e_mail.tr(),
                                  border: InputBorder.none,
                                  hintStyle: TextStyle(
+                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                    fontSize: 15,
                                    color: Palette.labelColor,
                                  )
@@ -275,6 +278,7 @@ class _UpdateState extends State<UpdateProfile> {
                                  hintText: LocaleKeys.phone.tr(),
                                  border: InputBorder.none,
                                  hintStyle: TextStyle(
+                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                    fontSize: 15,
                                    color: Palette.labelColor,
                                  )
@@ -302,6 +306,7 @@ class _UpdateState extends State<UpdateProfile> {
                                      value: _cityValue,
                                      hint:  Text(LocaleKeys.city,
                                      style: TextStyle(
+                                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                        fontSize: 15,
                                        color: Palette.labelColor,
                                      )).tr(),
@@ -319,6 +324,7 @@ class _UpdateState extends State<UpdateProfile> {
                                            child: Text(
                                              item,
                                                  style: TextStyle(
+                                                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                      color: Palette.pinkBox,
                                                      fontSize: 16.0),
                                                ),
@@ -342,6 +348,7 @@ class _UpdateState extends State<UpdateProfile> {
                                  hintText: LocaleKeys.district.tr(),
                                  border: InputBorder.none,
                                  hintStyle: TextStyle(
+                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                    fontSize: 15,
                                    color: Palette.labelColor,
                                  )
@@ -363,6 +370,7 @@ class _UpdateState extends State<UpdateProfile> {
                                  hintText: LocaleKeys.building_number.tr(),
                                  border: InputBorder.none,
                                  hintStyle: TextStyle(
+                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                    fontSize: 15,
                                    color: Palette.labelColor,
                                  )
@@ -396,6 +404,7 @@ class _UpdateState extends State<UpdateProfile> {
                     child: Text(LocaleKeys.update,
                       style: TextStyle(
                         fontSize: 20,
+                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         color: Palette.whiteText,
                       ),).tr(),
                   ),

@@ -120,5 +120,8 @@ abstract class  LocaleKeys {
   static const pay_now = "pay_now";
   static const cvv = "cvv";
   static const no_internet = "no_internet";
+  static const comment_req = "comment_req";
+  static const rating_req = "rating_req";
+  static const something_wrong = "something_wrong";
 
 }
