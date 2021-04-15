@@ -66,6 +66,7 @@ class _ChangePassword extends State<ChangePassword> {
   @override
   void dispose() {
     super.dispose();
+    messageController.dispose();
   }
 
   @override
@@ -154,6 +155,7 @@ class _ChangePassword extends State<ChangePassword> {
                         style: TextStyle(
                           fontSize: (height/896) *18,
                           color: Palette.pinkBox,
+                          fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         ),).tr()
                   ),
                 ),
@@ -177,6 +179,7 @@ class _ChangePassword extends State<ChangePassword> {
                         style: TextStyle(
                             decoration: TextDecoration.none,
                             fontSize: (height/896) *16,
+                            fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             color: Palette.pinkText
                         ),
                         autofocus: false,
@@ -187,6 +190,7 @@ class _ChangePassword extends State<ChangePassword> {
                                 decoration: TextDecoration.none,
                                 fontSize: (height/896) *16,
                                 fontWeight: FontWeight.normal,
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.greyText
                             )
                         ),
@@ -206,6 +210,7 @@ class _ChangePassword extends State<ChangePassword> {
                       Text(LocaleKeys.renter_pass,
                         style: TextStyle(
                           fontSize: (height/896) *18,
+                          fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           color: Palette.pinkBox,
                         ),).tr()
                   ),
@@ -229,6 +234,7 @@ class _ChangePassword extends State<ChangePassword> {
                         maxLines: 1,
                         style: TextStyle(
                             decoration: TextDecoration.none,
+                            fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) *16,
                             color: Palette.pinkText
                         ),
@@ -239,6 +245,7 @@ class _ChangePassword extends State<ChangePassword> {
                             hintStyle: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: (height/896) *16,
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontWeight: FontWeight.normal,
                                 color: Palette.greyText
                             )
@@ -268,6 +275,7 @@ class _ChangePassword extends State<ChangePassword> {
                         Center(
                           child: Text(LocaleKeys.update,
                             style: TextStyle(
+                              fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               fontSize: (height/896) *20,
                               color: Palette.whiteText,
                             ),).tr(),

@@ -32,6 +32,7 @@ class _BottomNavState extends State<BottomNav> {
 
   int _currentIndex = 0, subIndex , page;
   double height, width;
+  String lanCode = "en";
 
   final List<Widget> _children = [
     ServiceFindPage(), //0
@@ -53,6 +54,7 @@ class _BottomNavState extends State<BottomNav> {
     super.initState();
     _currentIndex = widget.index;
     subIndex = widget.subIndex;
+
     // print("_currentIndex $_currentIndex, subIndex $subIndex ");
     if(_currentIndex == 0){
         if(subIndex == 1){
@@ -104,6 +106,8 @@ class _BottomNavState extends State<BottomNav> {
         .size
         .height;
 
+    lanCode = context.locale.languageCode;
+
     return Scaffold(
       body: SizedBox.expand(
         child: _children[page],
@@ -121,9 +125,9 @@ class _BottomNavState extends State<BottomNav> {
               padding: const EdgeInsets.all(2),
               child: Text(LocaleKeys.violet ,
                 style: TextStyle(
+                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                     color: Palette.whiteText,
                     fontSize: (height/896) * 15,
-                    fontFamily: "Poppins-Medium"
                 ),
               ).tr(),
             ),
@@ -139,9 +143,9 @@ class _BottomNavState extends State<BottomNav> {
               padding: const EdgeInsets.all(4.0),
               child: Text(LocaleKeys.orders,
                 style: TextStyle(
+                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                     color: Palette.whiteText,
                     fontSize: (height/896) *15,
-                    fontFamily: "Poppins-Medium"
                 ),
               ).tr(),
             ),
@@ -157,9 +161,9 @@ class _BottomNavState extends State<BottomNav> {
               padding: const EdgeInsets.all(4.0),
               child: Text(LocaleKeys.profile,
                 style: TextStyle(
+                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                     color: Palette.whiteText,
                     fontSize: (height/896) *15,
-                    fontFamily: "Poppins-Medium"
                 ),
               ).tr(),
             ),

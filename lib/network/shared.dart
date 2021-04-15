@@ -104,4 +104,16 @@ class SharedPreferencesHelper {
     String dateTime = prefs.getString('dateTime');
     return dateTime;
   }
+
+  static setReservationID(String reservationID) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('reservationID', reservationID);
+  }
+
+  static Future<String> getReservationID() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String reservationID = prefs.getString('reservationID');
+    return reservationID;
+  }
+
 }

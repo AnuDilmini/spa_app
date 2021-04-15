@@ -28,6 +28,7 @@ class _SettingState extends State<Setting> {
   AlertDialog alert;
   final messageController = TextEditingController();
   bool isSearch = false;
+  String lanCode = "en";
 
   @override
   void initState() {
@@ -54,7 +55,7 @@ class _SettingState extends State<Setting> {
         .size
         .height;
 
-
+    lanCode = context.locale.languageCode;
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
@@ -100,6 +101,7 @@ class _SettingState extends State<Setting> {
                               style: TextStyle(
                                 fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
                         ),
                         Container(
@@ -143,6 +145,7 @@ class _SettingState extends State<Setting> {
                           style: TextStyle(
                             fontSize: (height/896) *18,
                             color: Palette.pinkBox,
+                            fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           ),).tr(),
                       ),
                       Container(
@@ -185,6 +188,7 @@ class _SettingState extends State<Setting> {
                               style: TextStyle(
                                 fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
                         ),
                         Container(
@@ -218,6 +222,7 @@ class _SettingState extends State<Setting> {
                               style: TextStyle(
                                 fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
                         ),
                         Container(
@@ -251,6 +256,7 @@ class _SettingState extends State<Setting> {
                               style: TextStyle(
                                 fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
                         ),
                         Container(
@@ -284,6 +290,7 @@ class _SettingState extends State<Setting> {
                               style: TextStyle(
                                 fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
                         ),
                         Container(
@@ -317,6 +324,7 @@ class _SettingState extends State<Setting> {
                               style: TextStyle(
                                 fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
                         ),
                         Container(

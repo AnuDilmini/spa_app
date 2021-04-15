@@ -32,6 +32,7 @@ class _ProfileState extends State<Profile> {
   final messageController = TextEditingController();
   bool isSearch = false;
   bool _switchValue  =false;
+  String lanCode = "en";
 
 
   @override
@@ -71,6 +72,7 @@ class _ProfileState extends State<Profile> {
         .size
         .height;
 
+    lanCode = context.locale.languageCode;
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 
@@ -128,6 +130,7 @@ class _ProfileState extends State<Profile> {
                   child: Text("Atheer",
                   style: TextStyle(
                     fontSize:  (height/896) *28,
+                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                     color: Palette.pinkBox,
                   ),)
                 ),
@@ -163,6 +166,7 @@ class _ProfileState extends State<Profile> {
                               Text(LocaleKeys.contact_us,
                               style: TextStyle(
                                 fontSize:  (height/896) *18,
+                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.pinkBox,
                               ),).tr(),
                             ],
@@ -205,6 +209,7 @@ class _ProfileState extends State<Profile> {
                         Text(LocaleKeys.Settings,
                           style: TextStyle(
                             fontSize:  (height/896) *18,
+                            fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             color: Palette.pinkBox,
                           ),).tr(),
                       ],
@@ -252,6 +257,7 @@ class _ProfileState extends State<Profile> {
                         Text(LocaleKeys.share_app,
                           style: TextStyle(
                             fontSize:  (height/896) *18,
+                            fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             color: Palette.pinkBox,
                           ),).tr(),
                       ],
@@ -341,6 +347,7 @@ class _ProfileState extends State<Profile> {
               child: Text(LocaleKeys.edit_profile,
               style: TextStyle(
                 fontSize:  (height/896) *20,
+                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                 color: Palette.whiteText,
               ),).tr(),
             ),

@@ -87,6 +87,8 @@ class _InfoService extends State<InfoService> {
   @override
   void dispose() {
     super.dispose();
+    messageController.dispose();
+    controller.dispose();
   }
 
   @override
@@ -197,6 +199,7 @@ class _InfoService extends State<InfoService> {
                     width: (width/414) * 20,
                     child: Text("${selectedService.length}",
                       style: TextStyle(
+                          fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         color: Colors.white,
                         fontSize: (height/896) * 12
                       ),
@@ -243,6 +246,7 @@ class _InfoService extends State<InfoService> {
                   ),
                   child: Text(LocaleKeys.info,
                     style: TextStyle(
+                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                       fontSize: (height/896) *27,
                       color: Palette.pinkBox,
                     ),
@@ -271,6 +275,7 @@ class _InfoService extends State<InfoService> {
                     ),
                     child: Text(LocaleKeys.service,
                       style: TextStyle(
+                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         fontSize: (height/896) *27,
                         color: Palette.pinkBox,
                           ),
@@ -310,7 +315,7 @@ class _InfoService extends State<InfoService> {
                                 fontSize:   (height/896) * 18,
                                 color:  Palette.whiteText,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "Audrey-Normal"
+                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
 
                             ),).tr(),
                         )
@@ -327,6 +332,7 @@ class _InfoService extends State<InfoService> {
                               alignment: Alignment.centerLeft,
                               child:Text("${companyDetailsData.companyDetails.name}",
                               style: TextStyle(
+                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.pinkBox,
                                 fontSize: (height/896) *18
                                   ),
@@ -342,7 +348,7 @@ class _InfoService extends State<InfoService> {
                                     fontSize: (height/896) *18,
                                     color:  Palette.pinkText,
                                     fontWeight: FontWeight.w600,
-                                    fontFamily: "Audrey-Normal"
+                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 ),
                               ),
                             ),
@@ -379,7 +385,8 @@ class _InfoService extends State<InfoService> {
                                   child:Text(LocaleKeys.address,
                                     style: TextStyle(
                                         color: Palette.pinkBox,
-                                        fontSize: (height/896) *17
+                                        fontSize: (height/896) *17,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     ),
                                   ).tr(),
                                 ),
@@ -395,7 +402,7 @@ class _InfoService extends State<InfoService> {
                                     style: TextStyle(
                                         fontSize: (height/896) *18,
                                         color:  Palette.balckColor,
-                                        // fontFamily: "Audrey-Normal"
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     ),
                                   ),
                                 ),
@@ -411,7 +418,8 @@ class _InfoService extends State<InfoService> {
                                   child:Text(LocaleKeys.phone,
                                     style: TextStyle(
                                         color: Palette.pinkBox,
-                                        fontSize: (height/896) *17
+                                        fontSize: (height/896) *17,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     ),
                                   ).tr(),
                                 ),
@@ -426,7 +434,7 @@ class _InfoService extends State<InfoService> {
                                     style: TextStyle(
                                       fontSize: (height/896) *18,
                                       color:  Palette.balckColor,
-                                      // fontFamily: "Audrey-Normal"
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     ),
                                   ),
                                 ),
@@ -442,7 +450,8 @@ class _InfoService extends State<InfoService> {
                                   child:Text(LocaleKeys.hours,
                                     style: TextStyle(
                                         color: Palette.pinkBox,
-                                        fontSize: (height/896) *17
+                                        fontSize: (height/896) *17,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     ),
                                   ).tr(),
                                 ),
@@ -457,7 +466,7 @@ class _InfoService extends State<InfoService> {
                                     style: TextStyle(
                                       fontSize: (height/896) *18,
                                       color:  Palette.balckColor,
-                                      // fontFamily: "Audrey-Normal"
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     ),
                                   ),
                                 ),
@@ -477,7 +486,7 @@ class _InfoService extends State<InfoService> {
                                 fontSize:   (height/896) * 18,
                                 color:  Palette.whiteText,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "Audrey-Normal"
+                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
 
                             ),).tr(),
                         )
@@ -545,7 +554,8 @@ class _InfoService extends State<InfoService> {
                           children: <Widget>[
                           Text(
                           "No Selected Services",
-                          style: TextStyle(color: Palette.pinkBox),
+                          style: TextStyle(color: Palette.pinkBox,
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                           )
                           ],
                           )
@@ -610,13 +620,15 @@ class _InfoService extends State<InfoService> {
                                                  overflow: TextOverflow.clip,
                                                  style: TextStyle(
                                                      fontSize: (height/896) *18,
-                                                     color: Palette.pinkBox),
+                                                     color: Palette.pinkBox,
+                                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                                                ),
                                                Text(
                                                  "${selectedService[index].duration_min} min - ${selectedService[index].price} SR",
                                                  style: TextStyle(
                                                      fontSize: (height/896) *14,
-                                                     color: Palette.labelColor),
+                                                     color: Palette.labelColor,
+                                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                                                )
                                              ],
                                            )
@@ -671,7 +683,8 @@ class _InfoService extends State<InfoService> {
                                        style: TextStyle(
                                          color: Palette.pinkBox,
                                          fontSize:(height/896) * 20.0,
-                                         fontWeight: FontWeight.bold
+                                         fontWeight: FontWeight.bold,
+                                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                        ),)
                                      )
                                      ),
@@ -687,7 +700,8 @@ class _InfoService extends State<InfoService> {
                                                style: TextStyle(
                                                    color: Palette.pinkBox,
                                                    fontSize: (height/896) *19,
-                                                   fontWeight: FontWeight.w400
+                                                   fontWeight: FontWeight.w400,
+                                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                ),)
                                          )
                                      ),
@@ -711,7 +725,7 @@ class _InfoService extends State<InfoService> {
                            child: Center(
                                child: Text(LocaleKeys.checkout,
                            style: TextStyle(
-                             fontFamily: "Audrey-Medium",
+                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                              fontSize: (height/896) *23,
                              fontWeight: FontWeight.w600,
                              color: Palette.pinkBox
@@ -791,7 +805,8 @@ class _InfoService extends State<InfoService> {
               children: <Widget>[
                 Text(
                   "No More Services",
-                  style: TextStyle(color: Colors.black45),
+                  style: TextStyle(color: Colors.black45,
+                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                 )
               ],
             )
@@ -854,11 +869,13 @@ class _InfoService extends State<InfoService> {
                                   maxLines: 1,
                                   style: TextStyle(
                                       fontSize:  (height/896) *17,
-                                      color: Palette.pinkBox),
+                                      color: Palette.pinkBox,
+                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                                 ),
                                 Text(
                                   '${companyServices[index].duration_min} min - ${companyServices[index].price} SAR',
                                   style: TextStyle(
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       fontSize:  (height/896) *12,
                                       color: Palette.labelColor),
                                 ),

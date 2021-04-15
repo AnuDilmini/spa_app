@@ -168,7 +168,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                       letterSpacing: 1,
                       fontSize: (height/896) * 24,
                       color:  Palette.whiteText,
-                      fontFamily: "Audrey-Medium"),
+                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                 ).tr(),
               ),
               Positioned(
@@ -198,6 +198,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 hintText: tr(LocaleKeys.what_you_are_looking),
                                 hintStyle: TextStyle(
                                   color: Palette.textGrey,
+                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                   fontSize: (height/896) * 21
                                 )
                               ),
@@ -265,7 +266,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                       letterSpacing: 1,
                       fontSize: (height/896) *30,
                       color:  Palette.whiteText,
-                      fontFamily: "Audrey-Medium"),
+                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                 ).tr(),
               ),
               Positioned(
@@ -282,7 +283,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               fontSize:   (height/896) * 18,
                                 color:  Palette.whiteText,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "Audrey-Normal"
+                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
 
                             ),).tr(),
                           )
@@ -322,7 +323,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 fontSize:   (height/896) * 18,
                                 color:  Palette.pinkBox,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "Audrey-Normal"
+                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
 
                             ),).tr(),
                         )
@@ -441,7 +442,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
               children: <Widget>[
                 Text(
                   "No More Companies",
-                  style: TextStyle(color: Colors.black45),
+                  style: TextStyle(color: Colors.black45,
+                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                 )
               ],
             )
@@ -506,7 +508,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                               fontSize: (height/896) * 18,
                                               color:  Palette.pinkText,
                                               fontWeight: FontWeight.w900,
-                                              fontFamily: "Audrey-Normal"
+                                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
 
                                           ),),
                                       ),
@@ -517,7 +519,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                               fontSize: (height/896) *15,
                                               color:  Palette.pinkText,
                                               fontWeight: FontWeight.w600,
-                                              fontFamily: "Audrey-Normal"
+                                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                           ),),
                                       ),
                                       Container(
@@ -533,7 +535,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                                     fontSize: (height/896) *17,
                                                     color:  Palette.pinkText,
                                                     fontWeight: FontWeight.w600,
-                                                    fontFamily: "Audrey-Normal"
+                                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                 ),
                                               ),
                                             ),
@@ -546,7 +548,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                                     fontSize: (height/896) *18,
                                                     color:  Palette.pinkText,
                                                     fontWeight: FontWeight.w600,
-                                                    fontFamily: "Audrey-Normal"
+                                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                 ),
                                               ),
                                             ),
@@ -608,7 +610,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
               children: <Widget>[
                 Text(
                   "No More Categories",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white,
+                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                 )
               ],
             )
@@ -665,6 +668,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                     style: TextStyle(
                                       fontSize: (height/896) *15,
                                       color: Palette.whiteText,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     ),),
                                 ),
                               ),

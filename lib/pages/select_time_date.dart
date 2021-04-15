@@ -214,6 +214,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                   child: Text("${selectedService.length}",
                     style: TextStyle(
                         color: Colors.white,
+                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                       fontSize: (height/896) * 12
                     ),
                   )
@@ -231,7 +232,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                    width: width,
                    child: Text(LocaleKeys.our_specialist,
                   style: TextStyle(
-                    fontFamily: "Audrey-Medium",
+                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                     color: Palette.darkPink,
                     fontSize: (height/896) *25,
                     fontWeight: FontWeight.w500,
@@ -256,7 +257,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                               style: TextStyle(
                                 color: Palette.darkPink,
                                 fontSize: (height/896) *23,
-                                // fontFamily: "Audrey-Normal",
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontWeight: FontWeight.w400,
                               ),
                               ),
@@ -277,7 +278,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     width: width,
                     child: Text(LocaleKeys.available_date,
                       style: TextStyle(
-                        fontFamily: "Audrey-Medium",
+                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         color: Palette.darkPink,
                         fontSize: (height/896) *25,
                         fontWeight: FontWeight.w500,
@@ -378,7 +379,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                   width: width,
                   child: Text(LocaleKeys.available_time,
                     style: TextStyle(
-                      fontFamily: "Audrey-Medium",
+                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                       color: Palette.darkPink,
                       fontSize: (height/896) *25,
                       fontWeight: FontWeight.w500,
@@ -534,14 +535,14 @@ class _SelectTimeDate extends State<SelectTimeDate> {
 
 
         } else {
-          showAlert(context,"Something went wrong!");
+          showAlert(context,LocaleKeys.something_wrong);
         }
       } catch (e) {
-        showAlert(context, "Something went wrong!");
+        showAlert(context, LocaleKeys.something_wrong);
       }
       return true;
     }else{
-      showAlert(context, "No Internet!");
+      showAlert(context, LocaleKeys.no_internet);
     }
   }
 
@@ -670,6 +671,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             child: Text(LocaleKeys.register_to_violet,
                               style: TextStyle(
                                 fontSize: (height/896) *26,
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -680,6 +682,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         child: Text(LocaleKeys.we_just_need,
                           style: TextStyle(
                             fontSize: (height/896) *18,
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
@@ -688,6 +691,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
                         child: Text(LocaleKeys.phone_number,
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) * 20,
                             color: Palette.pinkBox,
                           ),).tr(),
@@ -710,6 +714,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             maxLines: 3,
                             style: TextStyle(
                                 decoration: TextDecoration.none,
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize: (height/896) *18,
                                 color: Palette.mainColor
                             ),
@@ -718,6 +723,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 border: InputBorder.none,
                                 hintText: LocaleKeys.enter_your_number.tr() ,
                                 hintStyle: TextStyle(
+                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     decoration: TextDecoration.none,
                                     fontSize: (height/896) *15,
                                     fontWeight: FontWeight.normal,
@@ -741,6 +747,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             textAlign : TextAlign.center,
                             maxLines: 3,
                             style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize: (height/896) *15,
                                 color: Palette.mainColor
                             ),
@@ -749,6 +756,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                               border: InputBorder.none,
                               hintText: LocaleKeys.your_name.tr(),
                               hintStyle: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize: (height/896) *15,
                                 color: Color.fromRGBO(149, 152, 154, 0.38),
                               ),
@@ -760,6 +768,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) * 20, left: (width/414) * 18),
                         child: Text(LocaleKeys.a_digit,
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) *17,
                             color: Palette.labelColor,
                           ),).tr(),
@@ -777,6 +786,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           width: (width/414) * 156,
                           child: Text(LocaleKeys.register,
                             style: TextStyle(
+                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               fontSize: (height/896) *18,
                               color: Palette.whiteText,
                             ),).tr(),
@@ -802,6 +812,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                         child: Text("${LocaleKeys.or_you_can_login}",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
+                                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                             fontSize: (height/896) * 14,
                                             color: Palette.pinkBox,
                                           ),).tr()
@@ -823,6 +834,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                   child: Text(LocaleKeys.login,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       fontSize: (height/896) *14,
                                       fontWeight: FontWeight.bold,
                                       color: Palette.pinkBox,
@@ -888,6 +900,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25),
                             child: Text(LocaleKeys.register_to_violet,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize:  (height/896) *26,
                                 color: Palette.pinkBox,
                               ),).tr(),
@@ -898,6 +911,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) * 50, left: (width/414) * 18),
                         child: Text(LocaleKeys.enter_the,
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) *16,
                             color: Palette.labelColor,
                           ),).tr(),
@@ -907,6 +921,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         padding: EdgeInsets.only( top: (height/896) *30, left: (width/414) * 18),
                         child: Text("$mobile",
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) *16,
                             color: Palette.pinkBox,
                           ),),
@@ -925,6 +940,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 eachFieldWidth:(width/414) * 50,
                                 fieldsCount: 4,
                                 textStyle: TextStyle(
+                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                   fontSize: (height/896) *24,
                                   color: Palette.pinkBox,
                                   fontWeight: FontWeight.normal,
@@ -976,6 +992,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
                           child: Text(LocaleKeys.resend_otp,
                             style: TextStyle(
+                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               fontSize: (height/896) *20,
                               color: Palette.pinkBox,
                             ),).tr(),
@@ -992,9 +1009,10 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
                         child: Text("OTP $otpReg",
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) *20,
                             color: Palette.pinkBox,
-                          ),).tr(),
+                          ),),
                       ),
                     ],
                   )
@@ -1033,6 +1051,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25),
                             child: Text(LocaleKeys.login_to_violet,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize: (height/896) *25,
                                 color: Palette.pinkBox,
                               ),).tr(),
@@ -1043,6 +1062,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
                         child: Text(LocaleKeys.we_just_need,
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) *18,
                             color: Palette.labelColor,
                           ),).tr(),
@@ -1054,6 +1074,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           style: TextStyle(
                             fontSize: (height/896) *20,
                             color: Palette.pinkBox,
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           ),).tr(),
                       ),
                       Container(
@@ -1073,6 +1094,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             keyboardType: TextInputType.phone,
                             maxLines: 3,
                             style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 decoration: TextDecoration.none,
                                 fontSize: (height/896) *18,
                                 color: Palette.mainColor
@@ -1082,6 +1104,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 border: InputBorder.none,
                                 hintText: LocaleKeys.enter_your_number.tr() ,
                                 hintStyle: TextStyle(
+                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     decoration: TextDecoration.none,
                                     fontSize: (height/896) *15,
                                     fontWeight: FontWeight.normal,
@@ -1098,6 +1121,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           style: TextStyle(
                             fontSize: (height/896) *14,
                             color: Palette.labelColor,
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           ),).tr(),
                       ),
                       GestureDetector(
@@ -1113,6 +1137,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           width: (width/414) * 156,
                           child: Text(LocaleKeys.login,
                             style: TextStyle(
+                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               fontSize: (height/896) *18,
                               color: Palette.whiteText,
                             ),).tr(),
@@ -1143,6 +1168,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                     child: Text(LocaleKeys.new_register_now,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
+                                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                         fontSize: (height/896) *14,
                                         color: Palette.labelColor,
                                       ),).tr(),),
@@ -1172,6 +1198,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                   child: Text(LocaleKeys.forget_password,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       fontSize: (height/896) *14,
                                       color: Palette.labelColor,
                                     ),).tr(),
@@ -1247,6 +1274,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25),
                             child: Text(LocaleKeys.login_to_violet,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize: (height/896) *26,
                                 color: Palette.pinkBox,
                               ),).tr(),
@@ -1257,6 +1285,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) * 50, left: (width/414) * 18),
                         child: Text(LocaleKeys.enter_the,
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) *16,
                             color: Palette.labelColor,
                           ),).tr(),
@@ -1266,6 +1295,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         padding: EdgeInsets.only( top: (height/896) *30, left: (width/414) * 18),
                         child: Text("$mobile",
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) *16,
                             color: Palette.pinkBox,
                           ),),
@@ -1284,6 +1314,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 eachFieldWidth:(width/414) * 50,
                                 fieldsCount: 4,
                                 textStyle: TextStyle(
+                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                   fontSize: (height/896) *24,
                                   color: Palette.pinkBox,
                                   fontWeight: FontWeight.normal,
@@ -1334,6 +1365,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
                           child: Text(LocaleKeys.resend_otp,
                             style: TextStyle(
+                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               fontSize: (height/896) *20,
                               color: Palette.pinkBox,
                             ),).tr(),
@@ -1349,6 +1381,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
                         child: Text("$otpLogin",
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontSize: (height/896) *20,
                             color: Palette.pinkBox,
                           ),).tr(),
@@ -1387,10 +1420,10 @@ class _SelectTimeDate extends State<SelectTimeDate> {
 
         } else if (responseCode == 425) {
           Navigator.pop(context);
-          showAlert(context, " Error !");
+          showAlert(context, LocaleKeys.something_wrong);
         } else {
           Navigator.pop(context);
-          showAlert(context, " Error !");
+          showAlert(context, LocaleKeys.something_wrong);
         }
         return "Success";
       } catch (Exception) {
@@ -1398,7 +1431,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         });
       }
     }else{
-      showAlert(context, "No internet Available!");
+      showAlert(context, LocaleKeys.no_internet);
     }
   }
 
@@ -1433,6 +1466,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25,left: (width/414) * 18, right:  (width/414) * 18),
                             child: Text(msg,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize: (height/896) *22,
                                 color: Palette.pinkBox,
                               ),).tr(),
@@ -1444,6 +1478,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) * 50, bottom: (height/896) * 35,left: (width/414) * 18,  right:  (width/414) * 40),
                             child: Text(LocaleKeys.ok,
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize: (height/896) *16,
                                 color: Palette.labelColor,
                               ),).tr(),
@@ -1492,10 +1527,10 @@ class _SelectTimeDate extends State<SelectTimeDate> {
           showAlert(context, "Server error ! ");
         }
       } catch (Exception) {
-        showAlert(context, " Error !");
+        showAlert(context, LocaleKeys.something_wrong);
       }
     } else {
-      showAlert(context, "No Internet ! ");
+      showAlert(context, LocaleKeys.no_internet);
 
     }
     return "success";
@@ -1550,11 +1585,11 @@ class _SelectTimeDate extends State<SelectTimeDate> {
         }
       } catch (Exception) {
         Navigator.pop(context);
-        showAlert(context, " Error $Exception!");
+        showAlert(context, LocaleKeys.something_wrong);
       }
     } else {
       Navigator.pop(context);
-      showAlert(context, "No Internet !! ");
+      showAlert(context,LocaleKeys.no_internet);
 
 
     }
@@ -1566,6 +1601,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
       content: Text(msg,
       style: TextStyle(
         color: Colors.white,
+          fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
         fontSize: (height/896) *18
       ),),
       backgroundColor: color,

@@ -1,12 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:violet_app/network/repository.dart';
+import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/pages/update_profile.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:violet_app/style/local.keys.dart';
+import 'package:violet_app/utils/network_check.dart';
 
 import 'bottom_nav.dart';
 import 'home.dart';
@@ -24,17 +28,32 @@ class _OrderComplete extends State<OrderComplete> {
   double height, width;
   AlertDialog alert;
   final messageController = TextEditingController();
+  final feedController = TextEditingController();
   bool isInfo = false;
+  final Dio _dio = Dio();
+  String lngCode = "en";
+  String token, reservationID;
+  bool isSubmit = false;
+  double rate =0.0;
 
 
   @override
   void initState() {
     super.initState();
+    getData();
+  }
+
+  getData() async{
+    lngCode = await SharedPreferencesHelper.getLanguage();
+    token = await SharedPreferencesHelper.getToken();
+    reservationID = await SharedPreferencesHelper.getReservationID();
   }
 
   @override
   void dispose() {
     super.dispose();
+    messageController.dispose();
+    feedController.dispose();
   }
 
   @override
@@ -138,6 +157,7 @@ class _OrderComplete extends State<OrderComplete> {
                         Text(LocaleKeys.your_order_is_completed,
                         style: TextStyle(
                           fontSize: (height/896) *28,
+                          fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           color: Palette.pinkBox,
                         ),).tr(),
                         Container(
@@ -158,6 +178,7 @@ class _OrderComplete extends State<OrderComplete> {
                               text: 'Order number:\n',
                               style: TextStyle(
                                   fontSize: (height/896) *20,
+                                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                   height: (height/896) * 1.5,
                                   color: Palette.textGrey),
                               children: <TextSpan>[
@@ -165,32 +186,38 @@ class _OrderComplete extends State<OrderComplete> {
                                   style: TextStyle(
                                       fontSize: (height/896) *17,
                                       height: (height/896) *1.2,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       color: Palette.pinkBox),),
                                 TextSpan(text: 'Date and Time\n',
                                   style: TextStyle(
                                       fontSize: (height/896) *20,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       height: (height/896) *3,
                                       color: Palette.textGrey),),
                                 TextSpan(text: ' 19 January, 1:12\n',
                                 style: TextStyle(
                                     fontSize: (height/896) *17,
                                     height: (height/896) *1,
+                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     color: Palette.pinkBox),
                               ),
                                 TextSpan(text: 'Order\n',
                                   style: TextStyle(
                                       fontSize: (height/896) *20,
                                       height: (height/896) *3,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       color: Palette.textGrey),),
                                 TextSpan(text: ' HAIR COLOR           100SAR\n',
                                   style: TextStyle(
                                       fontSize: (height/896) *17,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       height: (height/896) *1.3,
                                       color: Palette.pinkBox),
                                 ),
                                 TextSpan(text: ' HAIR CUT                500SAR\n',
                                   style: TextStyle(
                                       fontSize: (height/896) *17,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       height: (height/896) *1.3,
                                       color: Palette.pinkBox),
                                 ),
@@ -314,6 +341,7 @@ class _OrderComplete extends State<OrderComplete> {
                               maxLines: 1,
                               style: TextStyle(
                                 decoration: TextDecoration.none,
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 letterSpacing: 0.01,
                                 fontSize: (height/896) *16,
                                 color: Palette.pinkBox,
@@ -323,7 +351,7 @@ class _OrderComplete extends State<OrderComplete> {
                       Container(
                         margin: EdgeInsets.only( top: (height/896) *14),
                         child:  RatingBar.builder(
-                          initialRating: 0,
+                          initialRating: rate,
                           minRating: 1,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
@@ -336,6 +364,7 @@ class _OrderComplete extends State<OrderComplete> {
                             color: Colors.yellow,
                           ),
                           onRatingUpdate: (rating) {
+                            rate = rating;
                             print(rating);
                           },
                         ),
@@ -348,6 +377,7 @@ class _OrderComplete extends State<OrderComplete> {
                               maxLines: 1,
                               style: TextStyle(
                                 decoration: TextDecoration.none,
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 letterSpacing: 0.01,
                                 fontSize: (height/896) *18,
                                 color: Palette.pinkBox,
@@ -365,9 +395,11 @@ class _OrderComplete extends State<OrderComplete> {
                               ),
                               margin: EdgeInsets.only( left:(width/414) * 15, right: (width/414) * 15, top:  (height/896) *30),
                               child: TextFormField(
+                                controller: feedController,
                                 maxLines: 3,
                                 style: TextStyle(
                                     decoration: TextDecoration.none,
+                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     fontSize: (height/896) *14,
                                     color: Palette.mainColor
                                 ),
@@ -377,6 +409,7 @@ class _OrderComplete extends State<OrderComplete> {
                                     hintText: LocaleKeys.write_your_message_here.tr(),
                                     hintStyle: TextStyle(
                                         decoration: TextDecoration.none,
+                                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                         fontSize: (height/896) *14,
                                         color: Palette.greyText
                                     )
@@ -399,21 +432,140 @@ class _OrderComplete extends State<OrderComplete> {
                           width:  (width/414) * 85,
                           height: (height/896) * 45,
                           child: Center(
-                            child: Text(LocaleKeys.submit,
+                            child: isSubmit ?
+                            CircularProgressIndicator(
+                              valueColor: new AlwaysStoppedAnimation<Color>(Palette.whiteText),
+                              strokeWidth: 4.0,
+                            ):
+                            Text(LocaleKeys.submit,
                             style: TextStyle(
                               fontSize: (height/896) *18,
                               fontWeight: FontWeight.w400,
-                              fontFamily:"Audrey-Medium.otf",
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               color: Palette.whiteText
                             ),
                           ),
                           ),
                         ),
                        onTap:(){
-
+                           if(feedController.text == null){
+                             showAlert(context, LocaleKeys.comment_req);
+                           }else if(rate == 0.0){
+                             showAlert(context, LocaleKeys.rating_req);
+                           }else {
+                             sendFeedBack();
+                             setState(() {
+                               isSubmit = true;
+                             });
+                           }
                        }
                        ),
                       ),
+
+                    ],
+                  )
+              ),
+            ),
+          );
+        });
+  }
+
+  Future<bool> sendFeedBack() async {
+    bool networkResults = await NetworkCheck.checkNetwork();
+    var params = {'customer_comment': "feedController.text.toString()",
+                  'rating': "rate.toString()"};
+      Options options = Options(headers: {"Accept-Language": lngCode,
+      'Authorization' : "Bearer "+token});
+    if (networkResults) {
+      try {
+        Response response = await _dio.post(
+            Repository.feedBack + reservationID,
+            data: params,
+            options: options);
+        print("response.statusCode ${response.statusCode}");
+        if (response.statusCode == 200) {
+          final item = response.data['data'];
+
+          print("item $item");
+          Navigator.pop(context);
+
+        } else {
+          Navigator.pop(context);
+          showAlert(context, LocaleKeys.something_wrong);
+        }
+      } catch (e) {
+        print("e $e");
+        Navigator.pop(context);
+        showAlert(context, LocaleKeys.something_wrong);
+      }
+      setState(() {
+        isSubmit = false;
+      });
+      return true;
+    }else{
+      Navigator.pop(context);
+      showAlert(context, LocaleKeys.no_internet);
+      setState(() {
+        isSubmit = false;
+      });
+    }
+  }
+
+  showAlert(BuildContext context, String msg) {
+
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierColor: Color.fromRGBO(112, 112, 112, 0.67),
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(25)), //this right here
+            child: Container(
+
+              // alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(12),
+                color: Palette.whiteText,
+              ),
+              width: (width/414) * 347,
+              child: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: Container(
+                            margin: EdgeInsets.only( top: (height/896) *25,left: (width/414) * 18, right:  (width/414) * 18),
+                            child: Text(msg,
+                              style: TextStyle(
+                                fontSize:  (height/896) *22,
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                                color: Palette.pinkBox,
+                              ),).tr(),
+                          )
+                      ),
+                      GestureDetector(
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.only( top: (height/896) * 50, bottom: (height/896) * 35,left: (width/414) * 18,  right:  (width/414) * 40),
+                            child: Text(LocaleKeys.ok,
+                              style: TextStyle(
+                                fontSize:  (height/896) *16,
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                                color: Palette.labelColor,
+                              ),).tr(),
+                          ),
+                          onTap: () {
+                            // setState(() {
+                            //   loading = false;
+                            // });
+                            Navigator.pop(context);
+                          }
+                      )
                     ],
                   )
               ),

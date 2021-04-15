@@ -31,6 +31,7 @@ class Repository {
   static String serviceCategoryAdd = baseUrl+"/service_category";
   static String companiesByCategory = baseUrl+"/companies-by-category";
   static String reservationsDateTime = baseUrl+"/reservations-date-time-by-company-employee-services";
+  static String feedBack = baseUrl+"/feedback-update/";
 
   //GET
   static String serviceCategory = baseUrl+"/service_category";

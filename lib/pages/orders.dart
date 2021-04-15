@@ -59,6 +59,7 @@ class _Orders extends State<Orders> {
   @override
   void dispose() {
     super.dispose();
+    messageController.dispose();
   }
 
   @override
@@ -110,6 +111,7 @@ class _Orders extends State<Orders> {
                     child: Text(LocaleKeys.order_history,
                       style: TextStyle(
                         fontSize: (height/896) *28,
+                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         color: Palette.pinkBox,
                       ),).tr()
                 ),
@@ -154,6 +156,7 @@ class _Orders extends State<Orders> {
                       ),
                       Text(LocaleKeys.there_no_reservation,
                       style: TextStyle(
+                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         fontWeight: FontWeight.bold,
                         color: Palette.pinkBox,
                         height: 2,
@@ -161,6 +164,7 @@ class _Orders extends State<Orders> {
                       ),).tr(),
                       Text(LocaleKeys.enjoying_your_Time,
                         style: TextStyle(
+                          fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           fontWeight: FontWeight.normal,
                           color: Palette.darkPink,
                           height: 2,
@@ -187,6 +191,7 @@ class _Orders extends State<Orders> {
                         child: Center(
                           child: Text(LocaleKeys.reserve_now,
                           style: TextStyle(
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             fontWeight: FontWeight.normal,
                             color: Palette.whiteText,
                             fontSize: (height/896) *16,
@@ -256,7 +261,7 @@ class _Orders extends State<Orders> {
                           color: Palette.darkPink,
                           fontSize: (height/896) *25,
                           fontWeight: FontWeight.normal,
-                          fontFamily: "Audrey-Normal",
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         ),),
                       SizedBox(
                         height: (height/896) *35,
@@ -266,7 +271,7 @@ class _Orders extends State<Orders> {
                           color: Palette.darkPink,
                           fontSize: (height/896) *20,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "Audrey-Normal",
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         ),),
                       SizedBox(
                         height: (height/896) *15,
@@ -276,7 +281,7 @@ class _Orders extends State<Orders> {
                           color: Palette.darkPink,
                           fontSize: (height/896) *20,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "Audrey-Normal",
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         ),),
                       SizedBox(
                         height: (height/896) * 12,
@@ -286,7 +291,7 @@ class _Orders extends State<Orders> {
                           color: Palette.darkPink,
                           fontSize:(height/896) * 20,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "Audrey-Normal",
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         ),),
                       SizedBox(
                         height: (height/896) *12,
@@ -296,7 +301,7 @@ class _Orders extends State<Orders> {
                           color: Palette.darkPink,
                           fontSize: (height/896) *20,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "Audrey-Normal",
+                            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         ),),
                       SizedBox(
                         height: (height/896) *12,
@@ -306,7 +311,7 @@ class _Orders extends State<Orders> {
                           color: Palette.darkPink,
                           fontSize: (height/896) *20,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "Audrey-Normal",
+                          fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         ),),
                       SizedBox(
                         height: (height/896) *15,
@@ -391,6 +396,7 @@ class _Orders extends State<Orders> {
                               style: TextStyle(
                                 fontSize: (height/896) *22,
                                 color: Palette.pinkBox,
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
                           )
                       ),
@@ -401,6 +407,7 @@ class _Orders extends State<Orders> {
                             child: Text(LocaleKeys.ok,
                               style: TextStyle(
                                 fontSize: (height/896) *16,
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.labelColor,
                               ),).tr(),
                           ),
@@ -441,6 +448,7 @@ class _Orders extends State<Orders> {
             padding: EdgeInsets.only(left: (width/414) * 25, right: (width/414) * 25),
             child: Text(timeFormatter(responseList[index]['start_time']),
               style: TextStyle(
+                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                 color: Palette.darkPink,
                 fontSize: (height/896) *15,
               ),),
@@ -465,6 +473,7 @@ class _Orders extends State<Orders> {
                           width:(width/414) * 30,),
                           Text("FOUR\nSPA",
                             style: TextStyle(
+                              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               fontSize: (height/896) *12,
                               color: selectOrder == index ? Palette.whiteText :Palette.pinkBox,
                             ),)
@@ -484,6 +493,7 @@ class _Orders extends State<Orders> {
                             children: <TextSpan>[
                               TextSpan(text: responseList[index]['net_total'] +' SR',
                                 style: TextStyle(
+                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     fontSize: (height/896) *17,
                                     color: selectOrder == index ? Palette.whiteText :Palette.pinkBox),),
                             ],
@@ -501,6 +511,7 @@ class _Orders extends State<Orders> {
                             height: (height/896) * 30,
                             child:Text("#2133",
                               style: TextStyle(
+                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontSize: (height/896) * 13,
                                 color:  selectOrder == index ? Palette.whiteText :Palette.pinkBox,
                               ),),

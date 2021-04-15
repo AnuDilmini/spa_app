@@ -23,6 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   double height, width;
+  String lanCode = "en";
 
 
   @override
@@ -40,9 +41,7 @@ class _HomePageState extends State<HomePage> {
 
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-
-    var connectionStatus = Provider.of<ConnectivityStatus>(context);
-
+    lanCode = context.locale.languageCode;
 
     SystemChrome.setEnabledSystemUIOverlays([]);
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -98,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                     letterSpacing: 1,
                     fontSize: (height/896) *40,
                     color: Palette.whiteText,
-                    fontFamily: "Ah-moharram-bold"
+                  fontFamily: 'ArbFONTS-026',
                 )),
               ]
               ),
@@ -113,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                       fontSize: (height/896) *27,
                       color: Palette.whiteText,
-                      fontFamily: "Audrey-Medium"
+                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                   )).tr(),
               ),
           ),
@@ -155,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                 fontSize: (height/896) *23,
                                 // letterSpacing: 0.01,
                                 color: Palette.whiteText,
-                                fontFamily: "Audrey-Medium"
+                              fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             )).tr(),
                         ),
                       ),
@@ -209,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                                       fontSize: (height/896) *22,
                                       // letterSpacing: 0.01,
                                       color: Palette.whiteText,
-                                      fontFamily: "Audrey-Medium"
+                                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                   )).tr(),
                             ),
                           ),
