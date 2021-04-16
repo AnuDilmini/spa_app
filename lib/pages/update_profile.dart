@@ -36,6 +36,7 @@ class _UpdateState extends State<UpdateProfile> {
   final messageController = TextEditingController();
   bool isSearch = false;
   String lngCode = "en";
+  double zoom = 1;
   List cityList = List();
   String _cityValue ;
 
@@ -58,6 +59,11 @@ class _UpdateState extends State<UpdateProfile> {
 
   checkDataSet() async {
     lngCode = await SharedPreferencesHelper.getLanguage();
+    if (lngCode == "ar") {
+      zoom = 2;
+    } else {
+      zoom = 1;
+    }
     cityListBloc..getCity(lngCode);
   }
 
@@ -403,7 +409,7 @@ class _UpdateState extends State<UpdateProfile> {
                     Center(
                     child: Text(LocaleKeys.update,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: (height/896) * 20 * zoom,
                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         color: Palette.whiteText,
                       ),).tr(),

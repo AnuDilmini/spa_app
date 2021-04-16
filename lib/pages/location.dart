@@ -32,6 +32,7 @@ class _LocationState extends State<LocationPage> {
   LocationData _locationData;
   GoogleMapController _controller;
   String lanCode = "en";
+  double zoom = 1;
 
   final LatLng _center = const LatLng(24.774265, 46.738586);
 
@@ -71,7 +72,11 @@ class _LocationState extends State<LocationPage> {
         .height;
 
     lanCode = context.locale.languageCode;
-
+    if (lanCode == "ar") {
+      zoom = 2;
+    } else {
+      zoom = 1;
+    }
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 
@@ -234,7 +239,7 @@ class _LocationState extends State<LocationPage> {
                                         Text(LocaleKeys.delivered_to,
                                         style: TextStyle(
                                           color: Palette.pinkBox,
-                                          fontSize: (height/896) *15,
+                                          fontSize: (height/896) * 15 * zoom,
                                           fontWeight: FontWeight.normal,
                                           fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                         ),).tr(),
@@ -251,7 +256,7 @@ class _LocationState extends State<LocationPage> {
                                            style: TextStyle(
                                              color: Palette.pinkBox,
                                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                             fontSize: (height/896) *15,
+                                             fontSize: (height/896) * 15 * zoom,
                                                fontWeight: FontWeight.normal
                                            ),).tr(),
                                          Icon(Icons.arrow_forward_ios,
@@ -278,7 +283,7 @@ class _LocationState extends State<LocationPage> {
                                       color: Palette.pinkBox,
                                       fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       fontWeight: FontWeight.bold,
-                                      fontSize: (height/896) *18,
+                                      fontSize: (height/896) * 18 * zoom,
                                     ),).tr(),
                                 )
 
@@ -310,7 +315,7 @@ class _LocationState extends State<LocationPage> {
                    Center(
                         child: Text(LocaleKeys.confirm,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 20 * zoom,
                             fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             color: Palette.whiteText,
                           ),).tr(),

@@ -1,7 +1,5 @@
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:violet_app/pages/home.dart';
 import 'package:violet_app/pages/payment.dart';
 import 'package:violet_app/pages/profile.dart';
 import 'package:violet_app/pages/select_time_date.dart';
@@ -33,6 +31,7 @@ class _BottomNavState extends State<BottomNav> {
   int _currentIndex = 0, subIndex , page;
   double height, width;
   String lanCode = "en";
+  double zoom = 1;
 
   final List<Widget> _children = [
     ServiceFindPage(), //0
@@ -107,6 +106,11 @@ class _BottomNavState extends State<BottomNav> {
         .height;
 
     lanCode = context.locale.languageCode;
+    if (lanCode == "ar") {
+      zoom = 2;
+    } else {
+      zoom = 1;
+    }
 
     return Scaffold(
       body: SizedBox.expand(
@@ -118,56 +122,44 @@ class _BottomNavState extends State<BottomNav> {
           BottomNavigationBarItem(
             icon: Image(
               image:AssetImage('assets/white_art.png'),
-              height:(height/896) * 30,
-              width: (height/896) * 30,
+              height: (height/896) * 30 * zoom,
+              width: (height/896) * 30 * zoom,
             ),
-            title: Padding(
-              padding: const EdgeInsets.all(2),
-              child: Text(LocaleKeys.violet ,
-                style: TextStyle(
-                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                    color: Palette.whiteText,
-                    fontSize: (height/896) * 15,
-                ),
-              ).tr(),
-            ),
-            // label: 'Violate',
+            title: Text(LocaleKeys.violet ,
+              style: TextStyle(
+                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                color: Palette.whiteText,
+                fontSize: (height/896) * 15 * zoom,
+              ),
+            ).tr()
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.menu,
               color: Colors.white,
-              size: (height/896) *25,
+              size: (height/896) * 25 * zoom,
             ),
-            title: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Text(LocaleKeys.orders,
-                style: TextStyle(
-                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                    color: Palette.whiteText,
-                    fontSize: (height/896) *15,
-                ),
-              ).tr(),
-            ),
-            // label: 'Orders',
+            title: Text(LocaleKeys.orders,
+              style: TextStyle(
+                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                color: Palette.whiteText,
+                fontSize: (height/896) * 15 * zoom,
+              ),
+            ).tr()
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
               color: Colors.white,
-              size: (height/896) *25,
+              size: (height/896) * 25 * zoom,
             ),
-            title: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Text(LocaleKeys.profile,
-                style: TextStyle(
-                    fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                    color: Palette.whiteText,
-                    fontSize: (height/896) *15,
-                ),
-              ).tr(),
-            ),
-            // label: 'Profile',
+            title: Text(LocaleKeys.profile,
+              style: TextStyle(
+                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                color: Palette.whiteText,
+                fontSize: (height/896) * 15 * zoom,
+              ),
+            ).tr()
           ),
         ],
         currentIndex: _currentIndex,

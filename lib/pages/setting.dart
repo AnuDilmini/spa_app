@@ -29,6 +29,7 @@ class _SettingState extends State<Setting> {
   final messageController = TextEditingController();
   bool isSearch = false;
   String lanCode = "en";
+  double zoom = 1;
 
   @override
   void initState() {
@@ -56,6 +57,11 @@ class _SettingState extends State<Setting> {
         .height;
 
     lanCode = context.locale.languageCode;
+    if (lanCode == "ar") {
+      zoom = 2;
+    } else {
+      zoom = 1;
+    }
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
@@ -99,7 +105,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.change_language,
                               style: TextStyle(
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) * 18 * zoom,
                                 color: Palette.pinkBox,
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
@@ -143,7 +149,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.change_pass,
                           style: TextStyle(
-                            fontSize: (height/896) *18,
+                            fontSize: (height/896) * 18 * zoom,
                             color: Palette.pinkBox,
                             fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           ),).tr(),
@@ -186,7 +192,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.privacy_policy,
                               style: TextStyle(
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) * 18 * zoom,
                                 color: Palette.pinkBox,
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
@@ -220,7 +226,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.about,
                               style: TextStyle(
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) * 18 * zoom,
                                 color: Palette.pinkBox,
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
@@ -254,7 +260,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                           child: Text(LocaleKeys.terms_conditions,
                               style: TextStyle(
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) * 18 * zoom,
                                 color: Palette.pinkBox,
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
@@ -288,7 +294,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.join_us,
                               style: TextStyle(
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) * 18 * zoom,
                                 color: Palette.pinkBox,
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),
@@ -322,7 +328,7 @@ class _SettingState extends State<Setting> {
                         alignment: Alignment.centerLeft,
                         child: Text(LocaleKeys.legal,
                               style: TextStyle(
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) * 18 * zoom,
                                 color: Palette.pinkBox,
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               ),).tr(),

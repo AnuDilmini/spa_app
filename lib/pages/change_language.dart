@@ -3,12 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:violet_app/network/shared.dart';
-import 'package:violet_app/pages/profile.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:violet_app/style/local.keys.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 
 import 'bottom_nav.dart';
 
@@ -26,9 +24,9 @@ class _ChangeLang extends State<ChangeLang> {
   AlertDialog alert;
   final messageController = TextEditingController();
   bool isSearch = false;
-  int selectedRadio ;
+  int selectedRadio;
   String lanCode;
-
+  double zoom = 1;
 
   @override
   void initState()  {
@@ -40,17 +38,20 @@ class _ChangeLang extends State<ChangeLang> {
   getLang() async{
     lanCode = await SharedPreferencesHelper.getLanguage();
 
-    if(lanCode == "en"){
+    if (lanCode == "en") {
       setState(() {
         selectedRadio = 1;
+        zoom = 1;
       });
-    }else if(lanCode == "ar"){
+    } else if(lanCode == "ar") {
       setState(() {
         selectedRadio = 2;
+        zoom = 2;
       });
-    }else{
+    } else {
       setState(() {
         selectedRadio = 1;
+        zoom = 1;
       });
     }
   }
@@ -125,7 +126,7 @@ class _ChangeLang extends State<ChangeLang> {
                 right:  (width/414) * 16 ,
                 child:GestureDetector(
                   child: Container(
-                      alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+                      alignment: lanCode == "en" ? Alignment.centerLeft : Alignment.centerRight,
                       child:
                       Icon(Icons.arrow_back_ios,
                       color: Colors.white,
@@ -154,7 +155,7 @@ class _ChangeLang extends State<ChangeLang> {
                       Text(LocaleKeys.change_language,
                         style: TextStyle(
                           fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                          fontSize: (height/896) *20,
+                          fontSize: (height/896) * 20 * zoom,
                           color: Palette.pinkBox,
                         ),).tr()
                     ),
@@ -178,7 +179,7 @@ class _ChangeLang extends State<ChangeLang> {
                             title: Text(LocaleKeys.english,
                               style: TextStyle(
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                              fontSize: (height/896) *18,
+                              fontSize: (height/896) * 18 * zoom,
                               color: Palette.pinkBox,
                             ),).tr(),
                             activeColor: Palette.pinkBox,
@@ -197,7 +198,7 @@ class _ChangeLang extends State<ChangeLang> {
                             title: Text(LocaleKeys.arabic,
                               style: TextStyle(
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) * 18 * zoom,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           groupValue: selectedRadio,
@@ -218,13 +219,13 @@ class _ChangeLang extends State<ChangeLang> {
               ),
 
               Positioned(
-                top: (height/896) * 701,
+                top: (height/896) * 600,
                 left: (width/414) * 55,
                 right: (width/414) * 55,
                 child:GestureDetector(
                   child: Center(
                     child: Container(
-                      height: (height/896) * 45,
+                      height: (height/896) * 45 * zoom,
                       width: width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -238,7 +239,7 @@ class _ChangeLang extends State<ChangeLang> {
                           child: Text(LocaleKeys.update,
                             style: TextStyle(
                               fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                              fontSize: (height/896) *20,
+                              fontSize: (height/896) * 20 * zoom,
                               color: Palette.whiteText,
                             ),).tr(),
                         ),

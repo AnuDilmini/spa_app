@@ -55,6 +55,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
   int selectedTime, selectedRealTime;
   DateTime _selectedDate;
   String lngCode = "en";
+  double zoom = 1;
   String companyId;
   String customerId;
   String token;
@@ -83,6 +84,11 @@ class _SelectTimeDate extends State<SelectTimeDate> {
 
   checkDataSet() async {
     lngCode = await SharedPreferencesHelper.getLanguage();
+    if (lngCode == "ar") {
+      zoom = 2;
+    } else {
+      zoom = 1;
+    }
     companyId = await SharedPreferencesHelper.getCompanyId();
     token = await SharedPreferencesHelper.getToken();
     customerId = await SharedPreferencesHelper.getCustomerID();
@@ -353,7 +359,6 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     firstDate: DateTime(now.year -1, 1, 15),
                     lastDate: now.add(Duration(days: 365)),
                     onDateSelected: (date) {
-
                       _selectedDate = date;
                     },
                     leftMargin: 0,
@@ -362,8 +367,8 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     activeDayColor: Colors.white,
                     activeBackgroundDayColor: Palette.pinkBox,
                     dotsColor:  Palette.pinkBox,
-                    selectableDayPredicate: (date) => date.day != 23,
-                    locale: context.locale.languageCode,
+                    //selectableDayPredicate: (date) => date.day != 23,
+                    locale: "en"//context.locale.languageCode,
                   )
               ),
             ),
@@ -379,7 +384,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     style: TextStyle(
                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                       color: Palette.darkPink,
-                      fontSize: (height/896) *25,
+                      fontSize: (height/896) * 25 * zoom,
                       fontWeight: FontWeight.w500,
                     ),).tr()
               ),

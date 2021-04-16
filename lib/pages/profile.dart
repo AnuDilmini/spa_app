@@ -33,7 +33,7 @@ class _ProfileState extends State<Profile> {
   bool isSearch = false;
   bool _switchValue  =false;
   String lanCode = "en";
-
+  double zoom = 1;
 
   @override
   void initState() {
@@ -73,6 +73,11 @@ class _ProfileState extends State<Profile> {
         .height;
 
     lanCode = context.locale.languageCode;
+    if (lanCode == "ar") {
+      zoom = 2;
+    } else {
+      zoom = 1;
+    }
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 
@@ -165,7 +170,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Text(LocaleKeys.contact_us,
                               style: TextStyle(
-                                fontSize:  (height/896) *18,
+                                fontSize: (height/896) * 18 * zoom,
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.pinkBox,
                               ),).tr(),
@@ -208,7 +213,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         Text(LocaleKeys.Settings,
                           style: TextStyle(
-                            fontSize:  (height/896) *18,
+                            fontSize: (height/896) * 18 * zoom,
                             fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             color: Palette.pinkBox,
                           ),).tr(),
@@ -256,7 +261,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         Text(LocaleKeys.share_app,
                           style: TextStyle(
-                            fontSize:  (height/896) *18,
+                            fontSize: (height/896) * 18 * zoom,
                             fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             color: Palette.pinkBox,
                           ),).tr(),
@@ -327,13 +332,13 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             Positioned(
-          top: (height/896) * 701,
+          top: (height/896) * 650,
           left: (width/414) * 55,
           right: (width/414) * 55,
           child: GestureDetector(
             child: Center(
             child: Container(
-              height: (height/896) * 50,
+              height: (height/896) * 80,
               width: width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -346,7 +351,7 @@ class _ProfileState extends State<Profile> {
                 child:   Center(
               child: Text(LocaleKeys.edit_profile,
               style: TextStyle(
-                fontSize:  (height/896) *20,
+                fontSize: (height/896) * 20 * zoom,
                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                 color: Palette.whiteText,
               ),).tr(),
