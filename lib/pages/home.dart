@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
     height = MediaQuery.of(context).size.height;
     lanCode = context.locale.languageCode;
     if (lanCode == "ar") {
-      zoom = 2;
+      zoom = 1.5;
     } else {
       zoom = 1;
     }
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-            top: (height/449) * 150,
+            top: lanCode == "en"? (height/449) * 150 : (height/449) * 140,
             width: width,
               child:  Center(
                 child: Text(
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                       ),
                       Positioned(
-                        top:  (width/208) * 55,
+                        top:  lanCode == "en"?   (width/208) * 55 :  (width/208) * 48,
                         width:  (width/208) *71,
                         child: Center(
                           child: Text(
@@ -202,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Positioned(
-                            top:  (width/208) * 55,
+                            top:  lanCode == "en"?   (width/208) * 55 :  (width/208) * 48,
                             width:  (width/208) *71,
                             child: Center(
                               child: Text(

@@ -31,6 +31,7 @@ class _Orders extends State<Orders> {
   int selectOrder;
   bool clickOrder = false;
   String lngCode = "en";
+  double zoom = 1;
   String customerId;
   String token;
   List responseList;
@@ -46,6 +47,12 @@ class _Orders extends State<Orders> {
     lngCode = await SharedPreferencesHelper.getLanguage();
     token = await SharedPreferencesHelper.getToken();
     customerId = await SharedPreferencesHelper.getCustomerID();
+
+    if (lngCode == "ar") {
+      zoom = 1.2;
+    } else {
+      zoom = 1;
+    }
 
     if(customerId != null) {
       getOrders();
@@ -110,7 +117,7 @@ class _Orders extends State<Orders> {
                     height: (height/896) * 75,
                     child: Text(LocaleKeys.order_history,
                       style: TextStyle(
-                        fontSize: (height/896) *28,
+                        fontSize: (height/896) *28 * zoom,
                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         color: Palette.pinkBox,
                       ),).tr()

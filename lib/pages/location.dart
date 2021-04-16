@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:violet_app/style/local.keys.dart';
@@ -14,8 +15,12 @@ import 'drop_location.dart';
 import 'home.dart';
 
 class LocationPage extends StatefulWidget {
-
-  LocationPage({Key key}) : super(key: key);
+  String lat = '';
+  String lng = '';
+  LocationPage({Key key,
+    this.lat,
+    this.lng
+  }) : super(key: key);
 
   @override
   _LocationState createState() => _LocationState();
@@ -24,6 +29,8 @@ class LocationPage extends StatefulWidget {
 class _LocationState extends State<LocationPage> {
 
   Location location = Location();
+  final String mapStyle =
+      "[\r\n  {\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#f5f5f5\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"elementType\": \"labels.icon\",\r\n    \"stylers\": [\r\n      {\r\n        \"visibility\": \"off\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#616161\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"elementType\": \"labels.text.stroke\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#f5f5f5\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"administrative.land_parcel\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#bdbdbd\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"poi\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#eeeeee\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"poi\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#757575\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"poi.park\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#e5e5e5\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"poi.park\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#9e9e9e\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#ffffff\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road.arterial\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#757575\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road.highway\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#dadada\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road.highway\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#616161\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"road.local\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#9e9e9e\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"transit.line\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#e5e5e5\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"transit.station\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#eeeeee\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"water\",\r\n    \"elementType\": \"geometry\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#c9c9c9\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"featureType\": \"water\",\r\n    \"elementType\": \"labels.text.fill\",\r\n    \"stylers\": [\r\n      {\r\n        \"color\": \"#9e9e9e\"\r\n      }\r\n    ]\r\n  }\r\n]";
 
   double height, width;
   AlertDialog alert;
@@ -33,19 +40,51 @@ class _LocationState extends State<LocationPage> {
   GoogleMapController _controller;
   String lanCode = "en";
   double zoom = 1;
+  String lat = "", lng = "";
+  var place;
+  var coordinates, addresses, first;
 
-  final LatLng _center = const LatLng(24.774265, 46.738586);
+  final LatLng _center = const LatLng(0, 0);
 
-  void _onMapCreated(GoogleMapController _cntlr)
-  {
+  void _onMapCreated(GoogleMapController _cntlr) async {
     _controller = _cntlr;
+
+    _controller.setMapStyle(mapStyle);
+
+    print("(widget.lat ${widget.lat}");
+    if (widget.lat != null) {
+      print("yes*************** yes");
+      var latitude = double.parse(widget.lat);
+      var longitude = double.parse(widget.lng);
+      _controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(latitude, longitude), zoom: 14.0),
+        ),
+      );
+      getLocation(double.parse(widget.lat),double.parse(widget.lng));
+    } else {
+    print("yes*************** no");
     location.onLocationChanged.listen((l) {
       _controller.animateCamera(
         CameraUpdate.newCameraPosition(
-          CameraPosition(target: LatLng(l.latitude, l.longitude),zoom: 15),
+          CameraPosition(target: LatLng(l.latitude, l.longitude), zoom: 15),
+
         ),
       );
+      getLocation(l.latitude, l.longitude);
     });
+    }
+  }
+
+  getLocation (double latNew, double lngNew) async{
+     lat = latNew.toString();
+     lng = lngNew.toString();
+     coordinates = new Coordinates(latNew, lngNew);
+     addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+     first = addresses.first.addressLine;
+     setState(() {
+
+     });
   }
 
   @override
@@ -73,7 +112,7 @@ class _LocationState extends State<LocationPage> {
 
     lanCode = context.locale.languageCode;
     if (lanCode == "ar") {
-      zoom = 2;
+      zoom = 1.4;
     } else {
       zoom = 1;
     }
@@ -221,7 +260,7 @@ class _LocationState extends State<LocationPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              padding: EdgeInsets.only(left:(width/414) * 10),
+                              padding: EdgeInsets.only(left:(width/414) * 10, right:(width/414) * 10),
                               child: Icon(Icons.location_on_outlined,
                               color: Palette.pinkBox,
                               size: (height/896) *25,)
@@ -233,13 +272,12 @@ class _LocationState extends State<LocationPage> {
                                 Row(
                                   children: [
                                       Container(
-                                        padding:  EdgeInsets.only(left:(width/414) * 15),
                                         width:(width/414) * 170,
                                       child:
                                         Text(LocaleKeys.delivered_to,
                                         style: TextStyle(
                                           color: Palette.pinkBox,
-                                          fontSize: (height/896) * 15 * zoom,
+                                          fontSize: (height/896) * 16 * zoom,
                                           fontWeight: FontWeight.normal,
                                           fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                         ),).tr(),
@@ -256,34 +294,36 @@ class _LocationState extends State<LocationPage> {
                                            style: TextStyle(
                                              color: Palette.pinkBox,
                                                fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                             fontSize: (height/896) * 15 * zoom,
+                                             fontSize: (height/896) * 16 * zoom,
                                                fontWeight: FontWeight.normal
                                            ),).tr(),
-                                         Icon(Icons.arrow_forward_ios,
+                                         Container(
+                                           padding: EdgeInsets.only(top: lanCode == "en"? 0 : (height/896) * 12),
+                                             child: Icon(Icons.arrow_forward_ios,
                                            color: Palette.pinkBox,
                                            size: (height/896) * 15,)
+                                         ),
                                      ]
                                      ),
                                    ),
                                       onTap: (){
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) => SelectLocation()),
+                                          MaterialPageRoute(builder: (context) => SelectLocation(lat:lat, lng:lng, title: first)),
                                         );
-
                                       },
                                     ),
                                   ],
                                 ),
                                 Container(
-                                  padding:  EdgeInsets.only(top:(height/896) * 10,
-                                      left:(width/414) * 15),
-                                  child:  Text(LocaleKeys.choose_a_drop_off_location,
+                                  padding:  EdgeInsets.only(top: lanCode == "en"?  (height/896) * 10 : 0,
+                                      ),
+                                  child:  Text( first != null ? first : LocaleKeys.choose_a_drop_off_location,
                                     style: TextStyle(
                                       color: Palette.pinkBox,
                                       fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       fontWeight: FontWeight.bold,
-                                      fontSize: (height/896) * 18 * zoom,
+                                      fontSize: (height/896) * 10 *  zoom ,
                                     ),).tr(),
                                 )
 

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_credit_card/credit_card_form.dart';
+import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:violet_app/enums/connectivity_status.dart';
 import 'package:violet_app/model/companyService.dart';
 import 'package:violet_app/network/repository.dart';
@@ -59,7 +61,14 @@ class _PaymentState extends State<Payment> {
   String lngCode = "en";
   String dateTime = "29-03-2021 12:00:00";
   final Dio _dio = Dio();
-  bool isMaster = false, isModa = false, isVisa = false, isStc = false, isIpay = false;
+  bool isMaster = false, isModa = false, isVisa = false, isStc = false, isIpay = false, isCash = false;
+  double zoom = 1;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String cardNumber = '';
+  String expiryDate = '';
+  String cardHolderName = '';
+  String cvvCode = '';
+  bool isCvvFocused = false;
 
   @override
   void initState() {
@@ -75,6 +84,12 @@ class _PaymentState extends State<Payment> {
     token = await SharedPreferencesHelper.getToken();
     dateTime = await SharedPreferencesHelper.getDateTime();
 
+
+    if(lngCode == "en"){
+      zoom = 1;
+    }else if(lngCode == "ar"){
+      zoom = 1.5;
+    }
 
     if (serviceListJson != "") {
       selectedService = CompanyServices.decode(serviceListJson);
@@ -118,7 +133,7 @@ class _PaymentState extends State<Payment> {
           child: Stack(
               children: [
                 Container(
-                  height: height* 1.2,
+                  height:  lngCode == "en"? height* 1.3 : height* 1.4,
                 ),
                 Positioned(
                   top: (height/896) * 2,
@@ -137,7 +152,7 @@ class _PaymentState extends State<Payment> {
                   child:GestureDetector(
                     child: Center(
                       child: Container(
-                          alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+                          alignment:  lngCode == "en"? Alignment.centerLeft : Alignment.centerRight,
                           child:
                           Icon(Icons.arrow_back_ios,
                             color: Palette.pinkBox,
@@ -150,6 +165,7 @@ class _PaymentState extends State<Payment> {
                       // ),
                     ),
                     onTap: () {
+                      print("anuuuuu");
                       // String serviceList = CompanyServices.encode(selectedService);
                       // await SharedPreferencesHelper.setSelectedService(serviceList);
                       FocusScope.of(context).requestFocus(new FocusNode());
@@ -268,7 +284,7 @@ class _PaymentState extends State<Payment> {
                                             LocaleKeys.delivery_charge,
                                             style: TextStyle(
                                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                                fontSize: (height/896) *17,
+                                                fontSize: (height/896) *17  * zoom,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
                                             ),
@@ -277,11 +293,11 @@ class _PaymentState extends State<Payment> {
                                       Expanded(
                                           flex: 1,
                                           child: Text(
-                                            "1150 SAR",
+                                            "1150  SAR",
                                             maxLines: 1,
                                             style: TextStyle(
                                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                                fontSize: (height/896) *16,
+                                                fontSize: (height/896) *16 ,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
                                             ),
@@ -301,7 +317,7 @@ class _PaymentState extends State<Payment> {
                                             LocaleKeys.total,
                                             style: TextStyle(
                                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                                fontSize: (height/896) *16,
+                                                fontSize: (height/896) *16* zoom,
                                                 fontWeight: FontWeight.w500,
                                                 color: Palette.pinkBox
                                             ),
@@ -330,7 +346,7 @@ class _PaymentState extends State<Payment> {
                                         Text('* ( ${LocaleKeys.include_vat.tr()}',
                                           style: TextStyle(
                                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                              fontSize: (height/896) *12,
+                                              fontSize: (height/896) *12 * zoom,
                                               fontWeight: FontWeight.w500,
                                               color: Palette.textGrey),
                                         ),
@@ -365,7 +381,7 @@ class _PaymentState extends State<Payment> {
                               LocaleKeys.add_comment,
                               style: TextStyle(
                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                  fontSize: (height/896) *22,
+                                  fontSize: (height/896) *22 * zoom,
                                   fontWeight: FontWeight.w400,
                                   color: Palette.pinkBox
                               ),
@@ -396,199 +412,275 @@ class _PaymentState extends State<Payment> {
                                 LocaleKeys.payment,
                                 style: TextStyle(
                                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                    fontSize: (height/896) *21,
+                                    fontSize: (height/896) *21 * zoom,
                                     fontWeight: FontWeight.normal,
                                     color: Palette.pinkBox
                                 ),
                               ).tr(),
                               (isMaster  || isModa  || isVisa || isStc )?
-                              Container(
-                                  margin: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15, top: (height/896) * 10),
-                                  child:
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                 children: [
-                                  Text(LocaleKeys.card_number,
-                                    style: TextStyle(
-                                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                        fontSize: (height/896) *14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Palette.pinkBox
-                                    ),
-                                  ).tr(),
-                                 SizedBox(
-                                   height: (height/896) *7,
-                                 ),
-                                 Container(
-                                    padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
-                                    decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    shape: BoxShape.rectangle,
-                                    color: Palette.greyWhite
-                                    ),
-                                   child: TextField(
-                                   controller: cardNoController,
-                                    decoration: InputDecoration(
-                                      hintText: tr(LocaleKeys.enter_card_no).tr(),
-                                      hintStyle: TextStyle(
-                                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                      color: Palette.labelColor,
-                                      fontSize: (height/896) *14,
+                                  Container(
+                                    child: Column(
+                                        children:[
+                                          CreditCardForm(
+                                      formKey: formKey, // Required
+                                      onCreditCardModelChange: (CreditCardModel data) {}, // Required
+                                      themeColor: Palette.pinkBox,
+                                      obscureCvv: true,
+                                      obscureNumber: true,
+                                      cardNumberDecoration: const InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderSide: const BorderSide(color: Palette.darkPink, width: 4.0),
+                                        ),
+                                        labelText: 'Card Number',
+                                        labelStyle: TextStyle(
+                                          color: Palette.pinkBox
+
+                                        ),
+                                        hintText: 'XXXX XXXX XXXX XXXX',
                                       ),
-                                      border: InputBorder.none,
+                                      cardHolderDecoration: const InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderSide: const BorderSide(color: Palette.darkPink, width: 4.0),
+                                        ),
+                                        labelText: 'CardHolder Name',
+                                        labelStyle: TextStyle(
+                                            color: Palette.pinkBox
+
+                                        ),
+                                      ),
+                                      expiryDateDecoration: const InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderSide: const BorderSide(color: Palette.darkPink, width: 4.0),
+                                        ),
+                                        labelText: 'Expired Date',
+                                        labelStyle: TextStyle(
+                                            color: Palette.pinkBox
+
+                                        ),
+                                        hintText: 'XX/XX',
+                                      ),
+                                      cvvCodeDecoration: const InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderSide: const BorderSide(color: Palette.darkPink, width: 4.0),
+                                        ),
+                                        labelText: "CVV",
+                                        labelStyle: TextStyle(
+                                            color: Palette.pinkBox
+
+                                        ),
+                                        hintText: 'XXX',
+                                      ),
+
                                     ),
+                                    Container(
+                                      margin: EdgeInsets.only( left: (width/414) *95, right: (width/414) * 95),
+                                      padding: EdgeInsets.only( top: (height/896) * 10, bottom: (height/896) * 10),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      shape: BoxShape.rectangle,
+                                      color: Palette.pinkBox
+                                      ),
+                                      child: Text(LocaleKeys.pay_now,
                                       style: TextStyle(
-                                          fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                      color: Palette.pinkBox,
-                                      fontSize: 14,
+                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                                      fontSize: (height/896) *15* zoom,
+                                      fontWeight: FontWeight.normal,
+                                      color: Palette.whiteText
                                       ),
-                                    ),
-                                     ),
-                                   SizedBox(
-                                     height: (height/896) *7,
-                                   ),
-                                   Text(LocaleKeys.card_name,
-                                     style: TextStyle(
-                                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                         fontSize: (height/896) *14,
-                                         fontWeight: FontWeight.normal,
-                                         color: Palette.pinkBox
-                                     ),
-                                   ).tr(),
-                                   SizedBox(
-                                     height: (height/896) *7,
-                                   ),
-                                   Container(
-                                     padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
-                                     decoration: BoxDecoration(
-                                         borderRadius: BorderRadius.circular(15),
-                                         shape: BoxShape.rectangle,
-                                         color: Palette.greyWhite
-                                     ),
-                                     child: TextField(
-                                       controller: cardNameController,
-                                       decoration: InputDecoration(
-                                         hintText: tr(LocaleKeys.enter_card_name).tr(),
-                                         hintStyle: TextStyle(
-                                           color: Palette.labelColor,
-                                           fontSize: (height/896) *14,
-                                           fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                         ),
-                                         border: InputBorder.none,
-                                       ),
-                                       style: TextStyle(
-                                           color: Palette.pinkBox,
-                                           fontSize: 14,
-                                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
-                                     ),
-                                   ),
-                                   SizedBox(
-                                     height: (height/896) *7,
-                                   ),
-                                   Row(
-                                     mainAxisAlignment: MainAxisAlignment.center,
-                                     children: [
-                                       Expanded(
-                                         flex: 1,
-                                         child:
-                                       Column(
-                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                         children: [
-                                           Text(LocaleKeys.ex_date,
-                                             style: TextStyle(
-                                                 fontSize: (height/896) *14,
-                                                 fontWeight: FontWeight.normal,
-                                                 color: Palette.pinkBox,
-                                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                             ),
-                                           ).tr(),
+                                      ).tr(),
+                                    )
 
-                                           Container(
-                                             padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
-                                             decoration: BoxDecoration(
-                                                 borderRadius: BorderRadius.circular(15),
-                                                 shape: BoxShape.rectangle,
-                                                 color: Palette.greyWhite
-                                             ),
-                                             child: TextField(
-                                               controller: exDateController,
-                                               decoration: InputDecoration(
-                                                 border: InputBorder.none,
-                                               ),
-                                               style: TextStyle(
-                                                   color: Palette.pinkBox,
-                                                   fontSize: 14,
-                                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
-                                             ),
-                                           ),
-                                         ],
-                                       ),
-                                       ),
-                                       SizedBox(
-                                         width: (width/414) * 10,
-                                       ),
-                                       Expanded(
-                                         flex: 1,
-                                         child:
-                                         Column(
-                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                           children: [
-                                             Text(LocaleKeys.cvv,
-                                               style: TextStyle(
-                                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                                   fontSize: (height/896) *14,
-                                                   fontWeight: FontWeight.normal,
-                                                   color: Palette.pinkBox
-                                               ),
-                                             ).tr(),
-                                             Container(
-                                               padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
-                                               decoration: BoxDecoration(
-                                                   borderRadius: BorderRadius.circular(15),
-                                                   shape: BoxShape.rectangle,
-                                                   color: Palette.greyWhite
-                                               ),
-                                               child: TextField(
-                                                 controller: cvvController,
-                                                 decoration: InputDecoration(
-                                                   border: InputBorder.none,
-                                                 ),
-                                                 style: TextStyle(
-                                                     color: Palette.pinkBox,
-                                                     fontSize: 14,
-                                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
-                                               ),
-                                             ),
-                                           ],
-                                         ),
-                                       ),
-                                     ],
-                                   ),
-                                   SizedBox(
-                                     height: (height/896) *10,
-                                   ),
-                                   Container(
-                                     margin: EdgeInsets.only( left: (width/414) *95, right: (width/414) * 95),
-                                     padding: EdgeInsets.only( top: (height/896) * 10, bottom: (height/896) * 10),
-                                     alignment: Alignment.center,
-                                     decoration: BoxDecoration(
-                                         borderRadius: BorderRadius.circular(10),
-                                         shape: BoxShape.rectangle,
-                                         color: Palette.pinkBox
-                                     ),
-                                     child: Text(LocaleKeys.pay_now,
-                                       style: TextStyle(
-                                           fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                           fontSize: (height/896) *15,
-                                           fontWeight: FontWeight.normal,
-                                           color: Palette.whiteText
-                                       ),
-                                     ).tr(),
+                                   ]
                                    )
-
-                                 ]
-                                )
-                              ):
+                                  ):
+                              // Container(
+                              //     margin: EdgeInsets.only(left: (width/414) * 15, right: (width/414) * 15, top: (height/896) * 10),
+                              //     child:
+                              //   Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //    children: [
+                              //     Text(LocaleKeys.card_number,
+                              //       style: TextStyle(
+                              //           fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                              //           fontSize: (height/896) *14 * zoom,
+                              //           fontWeight: FontWeight.normal,
+                              //           color: Palette.pinkBox
+                              //       ),
+                              //     ).tr(),
+                              //    SizedBox(
+                              //      height: (height/896) *7,
+                              //    ),
+                              //    Container(
+                              //       padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
+                              //       decoration: BoxDecoration(
+                              //       borderRadius: BorderRadius.circular(15),
+                              //       shape: BoxShape.rectangle,
+                              //       color: Palette.greyWhite
+                              //       ),
+                              //      child: TextField(
+                              //      controller: cardNoController,
+                              //       decoration: InputDecoration(
+                              //         hintText: tr(LocaleKeys.enter_card_no).tr(),
+                              //         hintStyle: TextStyle(
+                              //           fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                              //         color: Palette.labelColor,
+                              //         fontSize: (height/896) *14* zoom,
+                              //         ),
+                              //         border: InputBorder.none,
+                              //       ),
+                              //         style: TextStyle(
+                              //             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                              //         color: Palette.pinkBox,
+                              //         fontSize: (height/896) *14* zoom,
+                              //         ),
+                              //       ),
+                              //        ),
+                              //      SizedBox(
+                              //        height: (height/896) *7,
+                              //      ),
+                              //      Text(LocaleKeys.card_name,
+                              //        style: TextStyle(
+                              //            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                              //            fontSize: (height/896) *14* zoom,
+                              //            fontWeight: FontWeight.normal,
+                              //            color: Palette.pinkBox
+                              //        ),
+                              //      ).tr(),
+                              //      SizedBox(
+                              //        height: (height/896) *7,
+                              //      ),
+                              //      Container(
+                              //        padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
+                              //        decoration: BoxDecoration(
+                              //            borderRadius: BorderRadius.circular(15),
+                              //            shape: BoxShape.rectangle,
+                              //            color: Palette.greyWhite
+                              //        ),
+                              //        child: TextField(
+                              //          controller: cardNameController,
+                              //          decoration: InputDecoration(
+                              //            hintText: tr(LocaleKeys.enter_card_name).tr(),
+                              //            hintStyle: TextStyle(
+                              //              color: Palette.labelColor,
+                              //              fontSize: (height/896) *14 * zoom,
+                              //              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                              //            ),
+                              //            border: InputBorder.none,
+                              //          ),
+                              //          style: TextStyle(
+                              //              color: Palette.pinkBox,
+                              //              fontSize: 14,
+                              //            fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
+                              //        ),
+                              //      ),
+                              //      SizedBox(
+                              //        height: (height/896) *7,
+                              //      ),
+                              //      Row(
+                              //        mainAxisAlignment: MainAxisAlignment.center,
+                              //        children: [
+                              //          Expanded(
+                              //            flex: 1,
+                              //            child:
+                              //          Column(
+                              //            crossAxisAlignment: CrossAxisAlignment.start,
+                              //            children: [
+                              //              Text(LocaleKeys.ex_date,
+                              //                style: TextStyle(
+                              //                    fontSize: (height/896) *14* zoom,
+                              //                    fontWeight: FontWeight.normal,
+                              //                    color: Palette.pinkBox,
+                              //                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                              //                ),
+                              //              ).tr(),
+                              //
+                              //              Container(
+                              //                padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
+                              //                decoration: BoxDecoration(
+                              //                    borderRadius: BorderRadius.circular(15),
+                              //                    shape: BoxShape.rectangle,
+                              //                    color: Palette.greyWhite
+                              //                ),
+                              //                child: TextField(
+                              //                  controller: exDateController,
+                              //                  decoration: InputDecoration(
+                              //                    border: InputBorder.none,
+                              //                  ),
+                              //                  style: TextStyle(
+                              //                      color: Palette.pinkBox,
+                              //                      fontSize:  (height/896) *14* zoom,
+                              //                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
+                              //                ),
+                              //              ),
+                              //            ],
+                              //          ),
+                              //          ),
+                              //          SizedBox(
+                              //            width: (width/414) * 10,
+                              //          ),
+                              //          Expanded(
+                              //            flex: 1,
+                              //            child:
+                              //            Column(
+                              //              crossAxisAlignment: CrossAxisAlignment.start,
+                              //              children: [
+                              //                Text(LocaleKeys.cvv,
+                              //                  style: TextStyle(
+                              //                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                              //                      fontSize: (height/896) *14* zoom,
+                              //                      fontWeight: FontWeight.normal,
+                              //                      color: Palette.pinkBox
+                              //                  ),
+                              //                ).tr(),
+                              //                Container(
+                              //                  padding: EdgeInsets.only(left: (width/414) * 10, right: (width/414) * 10),
+                              //                  decoration: BoxDecoration(
+                              //                      borderRadius: BorderRadius.circular(15),
+                              //                      shape: BoxShape.rectangle,
+                              //                      color: Palette.greyWhite
+                              //                  ),
+                              //                  child: TextField(
+                              //                    controller: cvvController,
+                              //                    decoration: InputDecoration(
+                              //                      border: InputBorder.none,
+                              //                    ),
+                              //                    style: TextStyle(
+                              //                        color: Palette.pinkBox,
+                              //                        fontSize:  (height/896) *14* zoom,
+                              //                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
+                              //                  ),
+                              //                ),
+                              //              ],
+                              //            ),
+                              //          ),
+                              //        ],
+                              //      ),
+                              //      SizedBox(
+                              //        height: (height/896) *10,
+                              //      ),
+                              //      Container(
+                              //        margin: EdgeInsets.only( left: (width/414) *95, right: (width/414) * 95),
+                              //        padding: EdgeInsets.only( top: (height/896) * 10, bottom: (height/896) * 10),
+                              //        alignment: Alignment.center,
+                              //        decoration: BoxDecoration(
+                              //            borderRadius: BorderRadius.circular(10),
+                              //            shape: BoxShape.rectangle,
+                              //            color: Palette.pinkBox
+                              //        ),
+                              //        child: Text(LocaleKeys.pay_now,
+                              //          style: TextStyle(
+                              //              fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                              //              fontSize: (height/896) *15* zoom,
+                              //              fontWeight: FontWeight.normal,
+                              //              color: Palette.whiteText
+                              //          ),
+                              //        ).tr(),
+                              //      )
+                              //
+                              //    ]
+                              //   )
+                              // ):
                               Container(
                                 padding: EdgeInsets.only(top: (height/896) *20),
                                 alignment: Alignment.center,
@@ -725,6 +817,31 @@ class _PaymentState extends State<Payment> {
                                           )
                                         ),
                                         ),
+                                        SizedBox(
+                                          width: (width/414) * 15,
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){
+                                            setState(() {
+                                              isCash = true;
+                                              isIpay = false; isVisa = false; isMaster =false; isStc =false;
+                                            });
+                                          },
+                                          child: Container(
+                                              alignment: Alignment.topLeft,
+                                              height: (height/896) *37,
+                                              width:(width/414) * 55,
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  shape: BoxShape.rectangle,
+                                                  color: isCash ? Palette.darkPink : Palette.greyWhite
+                                              ),
+                                              child: Center(
+                                                  child:
+                                                  Image.asset("assets/cash.png")
+                                              )
+                                          ),
+                                        ),
                                       ]
                                     ),
                                   ],
@@ -769,7 +886,7 @@ class _PaymentState extends State<Payment> {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                  fontSize:  (height/896) *16,
+                                  fontSize:  (height/896) *16 * zoom,
                                   letterSpacing: 1,
                                   color:  Palette.pinkBox,
                                 ),
@@ -804,7 +921,7 @@ class _PaymentState extends State<Payment> {
                             ) :Text(LocaleKeys.slied_to_checkout,
                               style: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize:  (height/896) *18,
+                                fontSize:  (height/896) *18* zoom,
                                 color: isAgree ? Palette.whiteText : Palette.pinkBox,
                               ),
                             ).tr(),
@@ -1055,84 +1172,84 @@ class _PaymentState extends State<Payment> {
     );
   }
 
-  listPayment(int index){
-    return Container(
-      height: (height/896) * 40,
-      width: width,
-      // padding: EdgeInsets.only(bottom: (height/896) * 1),
-      child: Stack(
-        children: [
-          Positioned(
-            top: (height/896) * 5,
-            left: (width/414) * 1,
-            child: Container(
-              // padding: EdgeInsets.all(1.0),
-              alignment: Alignment.topLeft,
-                height: (height/896) *37,
-                width:(width/414) * 55,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    shape: BoxShape.rectangle,
-                    color: Palette.greyWhite
-                    // image: new DecorationImage(
-                    //   image: index == 0 ? new AssetImage("assets/master.png") :
-                    //   index == 1 ?  new AssetImage("assets/ipay.png")
-                    //       : new AssetImage("assets/cash.png"),
-                    //   ),
-                    ),
-                child: Center(
-                    child: index == 0 ?Image.asset("assets/master.png") :
-                index == 1 ? Image.asset("assets/ipay.png") :
-                Image.asset("assets/cash.png")
-                )
-                )
-            ),
-          Positioned(
-              top: (height/896) * 18,
-              left: (width/414) * 75,
-              width: (width/414) * 170,
-              child:Text(
-                index == 0 ?'**** **** 3256' :
-                index ==1 ? "Apple Pay":
-                "Cash",
-                  style: TextStyle(
-                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                      letterSpacing: 2,
-                      fontSize:  (height/896) *16,
-                      color: Palette.balckColor),
-                ),
-              ),
-          Positioned(
-            top: (height/896) * 15,
-            left: (width/414) *  310,
-            child: GestureDetector(
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: selectPayment == index ? Palette.pinkBox : Color.fromRGBO(168, 132, 153, 0.20),
-                ),
-                height: (height/896) * 25,
-                width: (height/896) * 30,
-                child: Center(
-                    child: Icon(Icons.check,
-                      color: Palette.boxWhite,
-                      size:  (height/896) *20,)
-                ),
-              ),
-              onTap: (){
-                 selectPayment = index;
-                  if(index == selectPayment)
-                    setState(() {
-                    isSelect = !isSelect;
-                  });
-              },
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  // listPayment(int index){
+  //   return Container(
+  //     height: (height/896) * 40,
+  //     width: width,
+  //     // padding: EdgeInsets.only(bottom: (height/896) * 1),
+  //     child: Stack(
+  //       children: [
+  //         Positioned(
+  //           top: (height/896) * 5,
+  //           left: (width/414) * 1,
+  //           child: Container(
+  //             // padding: EdgeInsets.all(1.0),
+  //             alignment: Alignment.topLeft,
+  //               height: (height/896) *37,
+  //               width:(width/414) * 55,
+  //               decoration: BoxDecoration(
+  //                   borderRadius: BorderRadius.circular(15),
+  //                   shape: BoxShape.rectangle,
+  //                   color: Palette.greyWhite
+  //                   // image: new DecorationImage(
+  //                   //   image: index == 0 ? new AssetImage("assets/master.png") :
+  //                   //   index == 1 ?  new AssetImage("assets/ipay.png")
+  //                   //       : new AssetImage("assets/cash.png"),
+  //                   //   ),
+  //                   ),
+  //               child: Center(
+  //                   child: index == 0 ?Image.asset("assets/master.png") :
+  //               index == 1 ? Image.asset("assets/ipay.png") :
+  //               Image.asset("assets/cash.png")
+  //               )
+  //               )
+  //           ),
+  //         Positioned(
+  //             top: (height/896) * 18,
+  //             left: (width/414) * 75,
+  //             width: (width/414) * 170,
+  //             child:Text(
+  //               index == 0 ?'**** **** 3256' :
+  //               index ==1 ? "Apple Pay":
+  //               "Cash",
+  //                 style: TextStyle(
+  //                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+  //                     letterSpacing: 2,
+  //                     fontSize:  (height/896) *16,
+  //                     color: Palette.balckColor),
+  //               ),
+  //             ),
+  //         Positioned(
+  //           top: (height/896) * 15,
+  //           left: (width/414) *  310,
+  //           child: GestureDetector(
+  //             child: Container(
+  //               alignment: Alignment.center,
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(6),
+  //                 color: selectPayment == index ? Palette.pinkBox : Color.fromRGBO(168, 132, 153, 0.20),
+  //               ),
+  //               height: (height/896) * 25,
+  //               width: (height/896) * 30,
+  //               child: Center(
+  //                   child: Icon(Icons.check,
+  //                     color: Palette.boxWhite,
+  //                     size:  (height/896) *20,)
+  //               ),
+  //             ),
+  //             onTap: (){
+  //                selectPayment = index;
+  //                 if(index == selectPayment)
+  //                   setState(() {
+  //                   isSelect = !isSelect;
+  //                 });
+  //             },
+  //           ),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
   showComment(BuildContext context) {
 
@@ -1206,7 +1323,7 @@ class _PaymentState extends State<Payment> {
                                 style: TextStyle(
                                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     decoration: TextDecoration.none,
-                                    fontSize:  (height/896) *18,
+                                    fontSize:  (height/896) *18* zoom,
                                     color: Palette.mainColor
                                 ),
                                 autofocus: false,
@@ -1216,7 +1333,7 @@ class _PaymentState extends State<Payment> {
                                     hintStyle: TextStyle(
                                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                         decoration: TextDecoration.none,
-                                        fontSize:  (height/896) * 15,
+                                        fontSize:  (height/896) * 15 * zoom,
                                         fontWeight: FontWeight.normal,
                                         color: Palette.greyText
                                     )
@@ -1241,7 +1358,7 @@ class _PaymentState extends State<Payment> {
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontWeight: FontWeight.normal,
                                 color: Palette.whiteText,
-                                fontSize:  (height/896) *16,
+                                fontSize:  (height/896) *16* zoom,
                               ),).tr(),
                           ),
                         ),
@@ -1264,10 +1381,20 @@ class _PaymentState extends State<Payment> {
         style: TextStyle(
             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
             color: Colors.white,
-            fontSize: (height/896) * 18
+            fontSize: (height/896) * 18* zoom,
         ),),
       backgroundColor: color,
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+  void onCreditCardModelChange(CreditCardModel creditCardModel) {
+    setState(() {
+      cardNumber = creditCardModel.cardNumber;
+      expiryDate = creditCardModel.expiryDate;
+      cardHolderName = creditCardModel.cardHolderName;
+      cvvCode = creditCardModel.cvvCode;
+      isCvvFocused = creditCardModel.isCvvFocused;
+    });
   }
 }

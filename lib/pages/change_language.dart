@@ -46,7 +46,7 @@ class _ChangeLang extends State<ChangeLang> {
     } else if(lanCode == "ar") {
       setState(() {
         selectedRadio = 2;
-        zoom = 2;
+        zoom = 1.5;
       });
     } else {
       setState(() {

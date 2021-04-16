@@ -52,6 +52,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
   var dir;
   File file;
   String lngCode = "en";
+  double zoom = 1;
   SharedPreferences prefs;
   int curTime, jsonTime, difference;
   int clickCategoryIndex ;
@@ -68,6 +69,11 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
     lngCode = await SharedPreferencesHelper.getLanguage();
     bool networkResults = await NetworkCheck.checkNetwork();
 
+    if (lngCode == "ar") {
+      zoom = 1.5;
+    } else {
+      zoom = 1;
+    }
     if (networkResults) {
       setState(() {
         isNoInternet =false;
@@ -160,19 +166,19 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                 ),
               ),
               isSearch ?  Container() : Positioned(
-                top: (height/449) * 70,
+                top: (height/449) * 60,
                 left: 15,
                 child:Text(
                   LocaleKeys.welcome,
                   style: TextStyle(
                       letterSpacing: 1,
-                      fontSize: (height/896) * 24,
+                      fontSize: (height/896) * 24 * zoom,
                       color:  Palette.whiteText,
                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                 ).tr(),
               ),
               Positioned(
-                top: (height/449) * 69,
+                top: (height/449) * 64,
                 left:  isSearch ? (width/208) * 60 :  (width/208) * 173,
                 right:  (width/208) * 10 ,
                 child: isSearch ? GestureDetector(
@@ -185,12 +191,14 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                     ),
                     child : Row(
                         children: [
-                          Container(
+                         Center(
+                    child: Container(
                             alignment: Alignment.centerLeft,
                             // padding: EdgeInsets.only( right:(width/208) * 5),
                             width: (width/208) * 112,
                             child:
                             TextFormField(
+                              textAlign: TextAlign.center,
                               controller : searchController,
                               cursorColor: Palette.pinkBox,
                               decoration: InputDecoration(
@@ -199,7 +207,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 hintStyle: TextStyle(
                                   color: Palette.textGrey,
                                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                  fontSize: (height/896) * 21
+                                  fontSize: (height/896) * 21  * zoom
                                 )
                               ),
                               onChanged: (content) {
@@ -223,6 +231,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                               },
                             ),
                           ),
+                         ),
                           Container(
                             padding: EdgeInsets.all(5.0),
                             child:
@@ -258,13 +267,13 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                 ),
               ),
               Positioned(
-                top: (height/449) * 96,
+                top: (height/449) * 90,
                 left: 15,
                 child:Text(
                   LocaleKeys.find_service,
                   style: TextStyle(
                       letterSpacing: 1,
-                      fontSize: (height/896) *30,
+                      fontSize: (height/896) *24  * zoom,
                       color:  Palette.whiteText,
                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',),
                 ).tr(),
@@ -280,7 +289,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                             alignment: Alignment.center,
                             child: Text("",
                             style: TextStyle(
-                              fontSize:   (height/896) * 18,
+                              fontSize:   (height/896) * 18  * zoom,
                                 color:  Palette.whiteText,
                                 fontWeight: FontWeight.bold,
                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
@@ -320,7 +329,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                           alignment: Alignment.center,
                           child: Text(LocaleKeys.no_internet,
                             style: TextStyle(
-                                fontSize:   (height/896) * 18,
+                                fontSize:   (height/896) * 18  * zoom,
                                 color:  Palette.pinkBox,
                                 fontWeight: FontWeight.bold,
                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
@@ -505,7 +514,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                           overflow: TextOverflow.clip,
                                           maxLines: 1,
                                           style: TextStyle(
-                                              fontSize: (height/896) * 18,
+                                              fontSize: (height/896) * 18 ,
                                               color:  Palette.pinkText,
                                               fontWeight: FontWeight.w900,
                                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
@@ -516,7 +525,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                         child:Text("- Salon",
                                           overflow: TextOverflow.clip,
                                           style: TextStyle(
-                                              fontSize: (height/896) *15,
+                                              fontSize: (height/896) *15 ,
                                               color:  Palette.pinkText,
                                               fontWeight: FontWeight.w600,
                                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
@@ -532,7 +541,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                                 maxLines: 1,
                                                 overflow: TextOverflow.clip,
                                                 style: TextStyle(
-                                                    fontSize: (height/896) *17,
+                                                    fontSize: (height/896) *17 ,
                                                     color:  Palette.pinkText,
                                                     fontWeight: FontWeight.w600,
                                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
@@ -545,7 +554,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                               child:
                                               Text("${company[index].rating} ",
                                                 style: TextStyle(
-                                                    fontSize: (height/896) *18,
+                                                    fontSize: (height/896) *18 ,
                                                     color:  Palette.pinkText,
                                                     fontWeight: FontWeight.w600,
                                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
@@ -629,7 +638,6 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
               itemCount: category.length,
               itemBuilder: (BuildContext context, int index) {
                 return
-
                     GestureDetector(
                       child: Container(
                         padding: EdgeInsets.only(
@@ -660,13 +668,13 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 child: Container(
                                   width: (width / 208) * 50,
                                   alignment: Alignment.center,
-                                  padding: EdgeInsets.only(left: 0, top: 5),
+                                  padding: EdgeInsets.only(left: 0, top: lngCode == "en"? 5 : 0),
                                   child: Text("${category[index].name}",
                                     textAlign: TextAlign.center,
                                     overflow: TextOverflow.clip,
                                     maxLines: 2,
                                     style: TextStyle(
-                                      fontSize: (height/896) *15,
+                                      fontSize: (height/896) *15  * zoom,
                                       color: Palette.whiteText,
                                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     ),),

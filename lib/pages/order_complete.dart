@@ -32,6 +32,7 @@ class _OrderComplete extends State<OrderComplete> {
   bool isInfo = false;
   final Dio _dio = Dio();
   String lngCode = "en";
+  double zoom = 1;
   String token, reservationID;
   bool isSubmit = false;
   double rate =0.0;
@@ -47,6 +48,12 @@ class _OrderComplete extends State<OrderComplete> {
     lngCode = await SharedPreferencesHelper.getLanguage();
     token = await SharedPreferencesHelper.getToken();
     reservationID = await SharedPreferencesHelper.getReservationID();
+
+    if(lngCode == "en"){
+      zoom = 1;
+    }else if(lngCode == "ar"){
+      zoom = 1.5;
+    }
   }
 
   @override
@@ -120,6 +127,7 @@ class _OrderComplete extends State<OrderComplete> {
             Positioned(
               top: (height/896) * 65,
               left: (width/414) * 16,
+              right: (width/414) * 16,
               child: GestureDetector(
                 child: Center(
                   child: Container(
@@ -156,7 +164,7 @@ class _OrderComplete extends State<OrderComplete> {
                       children: [
                         Text(LocaleKeys.your_order_is_completed,
                         style: TextStyle(
-                          fontSize: (height/896) *28,
+                          fontSize: (height/896) *28 * zoom,
                           fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           color: Palette.pinkBox,
                         ),).tr(),
@@ -177,7 +185,7 @@ class _OrderComplete extends State<OrderComplete> {
                             text: TextSpan(
                               text: 'Order number:\n',
                               style: TextStyle(
-                                  fontSize: (height/896) *20,
+                                  fontSize: (height/896) *20 ,
                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                   height: (height/896) * 1.5,
                                   color: Palette.textGrey),
@@ -190,13 +198,13 @@ class _OrderComplete extends State<OrderComplete> {
                                       color: Palette.pinkBox),),
                                 TextSpan(text: 'Date and Time\n',
                                   style: TextStyle(
-                                      fontSize: (height/896) *20,
+                                      fontSize: (height/896) *20 ,
                                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       height: (height/896) *3,
                                       color: Palette.textGrey),),
                                 TextSpan(text: ' 19 January, 1:12\n',
                                 style: TextStyle(
-                                    fontSize: (height/896) *17,
+                                    fontSize: (height/896) *17 ,
                                     height: (height/896) *1,
                                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     color: Palette.pinkBox),
@@ -209,7 +217,7 @@ class _OrderComplete extends State<OrderComplete> {
                                       color: Palette.textGrey),),
                                 TextSpan(text: ' HAIR COLOR           100SAR\n',
                                   style: TextStyle(
-                                      fontSize: (height/896) *17,
+                                      fontSize: (height/896) *17 ,
                                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       height: (height/896) *1.3,
                                       color: Palette.pinkBox),
@@ -247,25 +255,22 @@ class _OrderComplete extends State<OrderComplete> {
                   )
               ),
             ),
-            Positioned(
-              top: (height/896) * 510,
-              left: (width/414) * 230,
-              child:  Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Color.fromRGBO(247, 127, 151, 0.18),
-                  ),
-                  height: (height/896) * 108,
-                  width: (height/896) * 108,
-                  child: Center(
-                    child:
-                        Image.asset("assets/cart.png",
-                        ),
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: (height/896) * 510,
+            //   left: (width/414) * 100,
+            //  right:  (width/414) * 100,
+            //   child:  Center(
+            //     child: Container(
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(8),
+            //         color: Color.fromRGBO(247, 127, 151, 0.18),
+            //       ),
+            //       height: (height/896) * 108,
+            //       width: width,
+            //
+            //     ),
+            //   ),
+            // ),
             Positioned(
               top: (height/896) * 134,
               left: (width/414) * 378,
@@ -343,7 +348,7 @@ class _OrderComplete extends State<OrderComplete> {
                                 decoration: TextDecoration.none,
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 letterSpacing: 0.01,
-                                fontSize: (height/896) *16,
+                                fontSize: (height/896) *16 * zoom,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -379,7 +384,7 @@ class _OrderComplete extends State<OrderComplete> {
                                 decoration: TextDecoration.none,
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 letterSpacing: 0.01,
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) *18 * zoom,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -400,7 +405,7 @@ class _OrderComplete extends State<OrderComplete> {
                                 style: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                    fontSize: (height/896) *14,
+                                    fontSize: (height/896) *14 * zoom,
                                     color: Palette.mainColor
                                 ),
                                 autofocus: false,
@@ -410,7 +415,7 @@ class _OrderComplete extends State<OrderComplete> {
                                     hintStyle: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                        fontSize: (height/896) *14,
+                                        fontSize: (height/896) *14 * zoom,
                                         color: Palette.greyText
                                     )
                                 ),
@@ -439,12 +444,12 @@ class _OrderComplete extends State<OrderComplete> {
                             ):
                             Text(LocaleKeys.submit,
                             style: TextStyle(
-                              fontSize: (height/896) *18,
+                              fontSize: (height/896) *18 * zoom,
                               fontWeight: FontWeight.w400,
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                               color: Palette.whiteText
                             ),
-                          ),
+                          ).tr(),
                           ),
                         ),
                        onTap:(){
@@ -542,7 +547,7 @@ class _OrderComplete extends State<OrderComplete> {
                             margin: EdgeInsets.only( top: (height/896) *25,left: (width/414) * 18, right:  (width/414) * 18),
                             child: Text(msg,
                               style: TextStyle(
-                                fontSize:  (height/896) *22,
+                                fontSize:  (height/896) *22 * zoom,
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.pinkBox,
                               ),).tr(),
@@ -554,7 +559,7 @@ class _OrderComplete extends State<OrderComplete> {
                             margin: EdgeInsets.only( top: (height/896) * 50, bottom: (height/896) * 35,left: (width/414) * 18,  right:  (width/414) * 40),
                             child: Text(LocaleKeys.ok,
                               style: TextStyle(
-                                fontSize:  (height/896) *16,
+                                fontSize:  (height/896) *16 * zoom,
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.labelColor,
                               ),).tr(),

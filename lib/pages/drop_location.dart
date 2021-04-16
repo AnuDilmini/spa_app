@@ -14,8 +14,14 @@ import 'bottom_nav.dart';
 
 
 class SelectLocation extends StatefulWidget {
+  String lat = '';
+  String lng = '';
+  final String title;
   SelectLocation(
-      {Key key,})
+      {Key key,
+        this.lat,
+        this.lng,
+        this.title,})
       : super(key: key);
   bool selected = false;
 
@@ -65,6 +71,7 @@ class _SelectLocation extends State<SelectLocation> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    newTitle = widget.title;
     getShared();
 
   }
@@ -86,28 +93,22 @@ class _SelectLocation extends State<SelectLocation> {
 
     _controller.setMapStyle(mapStyle);
 
-    _controller.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(latSearch, lngSearch), zoom: 15.0),
-      ),
-    );
 
-    // if( latSearch != null) {
-    //   _controller.animateCamera(
-    //     CameraUpdate.newCameraPosition(
-    //       CameraPosition(target: LatLng(latSearch, lngSearch), zoom: 15.0),
-    //     ),
-    //   );
-    // }else {
-    //   location.onLocationChanged.listen((l) {
-    //     _controller.animateCamera(
-    //       CameraUpdate.newCameraPosition(
-    //         CameraPosition(target: LatLng(l.latitude, l.longitude),zoom: 15),
-    //       ),
-    //     );
-    //   });
-    //
-    // }
+    if (widget.lat != null) {
+      latSearch = double.parse(widget.lat);
+      lngSearch = double.parse(widget.lng);
+      _controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(latSearch, lngSearch), zoom: 14.0),
+        ),
+      );
+    } else {
+      _controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(latSearch, lngSearch), zoom: 14.0),
+        ),
+      );
+    }
   }
 
   void _onMapCreatedNew(GoogleMapController _cntlr)
@@ -202,7 +203,7 @@ class _SelectLocation extends State<SelectLocation> {
           height: height,
           child: Stack(
             children: <Widget>[
-              latSearch != null ?  GoogleMap(
+              latSearch != null || widget.lat != null ?  GoogleMap(
                 initialCameraPosition: CameraPosition(
                   target: _center,
                   zoom: 14.0,
@@ -261,7 +262,7 @@ class _SelectLocation extends State<SelectLocation> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BottomNav(index: 0,subIndex: 5,)),
+                    MaterialPageRoute(builder: (context) => BottomNav(index: 0,subIndex: 5)),
                   );
                 },
                 child: Padding(
@@ -301,7 +302,7 @@ class _SelectLocation extends State<SelectLocation> {
                 top: height / 11,
                 left: 20,
                 child: Text(
-                  "Enter City",
+                  "Enter Location",
                   style: TextStyle(
                       color: Palette.pinkBox,
                       fontSize: 19,
@@ -383,7 +384,7 @@ class _SelectLocation extends State<SelectLocation> {
                                   decoration: InputDecoration(
                                     hintText: newTitle != null
                                         ? newTitle
-                                        : 'Please enter birth city..',
+                                        : 'Please enter your location.',
                                     hintStyle: TextStyle(
                                       color:Palette.pinkBox,
                                       fontSize: 18,
@@ -414,7 +415,7 @@ class _SelectLocation extends State<SelectLocation> {
                         _searchController.text.isNotEmpty &&
                         _searchController.text.length >= 3)
                     ? Container(
-                  height: height,
+                  height: height * 0.35,
                   width: width,
                   child: ListView.builder(
                       padding: EdgeInsets.all(10),
@@ -426,7 +427,7 @@ class _SelectLocation extends State<SelectLocation> {
                           children: <Widget>[
                             GestureDetector(
                               child: Container(
-                                height: 60,
+                                height: (height/896) *65,
                                 width: width,
                                 decoration: BoxDecoration(
                                   boxShadow: [
@@ -508,12 +509,13 @@ class _SelectLocation extends State<SelectLocation> {
                               locationName == "Fetching location..") ||
                               _searchController.text == "") {
                             showAlert(context, 'Oops!',
-                                'Please select city.');
+                                'Please select location.');
                           } else {
                             if (isLocationLoaded == true ) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => BottomNav(index: 0,subIndex: 5,)),
+                                MaterialPageRoute(builder: (context) => BottomNav(index: 0,subIndex: 5, lat: latSearch.toString(),
+                                    lng: lngSearch.toString())),
                               );
                             } else {
                               showAlert(context, 'Fetching location!',

@@ -26,9 +26,8 @@ class _ChangePassword extends State<ChangePassword> {
   AlertDialog alert;
   final messageController = TextEditingController();
   bool isSearch = false;
-  int selectedRadio ;
   String lanCode;
-
+  double zoom = 1;
 
   @override
   void initState()  {
@@ -41,26 +40,14 @@ class _ChangePassword extends State<ChangePassword> {
     lanCode = await SharedPreferencesHelper.getLanguage();
 
     if(lanCode == "en"){
-      setState(() {
-        selectedRadio = 1;
-      });
+      zoom = 1;
     }else if(lanCode == "ar"){
-      setState(() {
-        selectedRadio = 2;
-      });
-    }else{
-      setState(() {
-        selectedRadio = 1;
-      });
+      zoom = 1.5;
     }
+
   }
 
 
-  setSelectedRadio(int val) {
-    setState(() {
-      selectedRadio = val;
-    });
-  }
 
 
   @override
@@ -144,7 +131,7 @@ class _ChangePassword extends State<ChangePassword> {
               ),
 
               Positioned(
-                top: (height/602) * 210,
+                top: lanCode == "en"? (height/602) * 210 : (height/602) * 195 ,
                 left:  (width/414) * 40,
                 right:  (width/414) * 40,
                 child: Center(
@@ -153,7 +140,7 @@ class _ChangePassword extends State<ChangePassword> {
                       child:
                       Text(LocaleKeys.change_pass,
                         style: TextStyle(
-                          fontSize: (height/896) *18,
+                          fontSize: (height/896) *18 * zoom,
                           color: Palette.pinkBox,
                           fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                         ),).tr()
@@ -176,19 +163,20 @@ class _ChangePassword extends State<ChangePassword> {
                       child:
                       TextFormField(
                         maxLines: 1,
-                        style: TextStyle(
-                            decoration: TextDecoration.none,
-                            fontSize: (height/896) *16,
-                            fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            color: Palette.pinkText
-                        ),
+                        obscureText: true,
+                        // style: TextStyle(
+                        //     decoration: TextDecoration.none,
+                        //     fontSize: (height/896) *16 * zoom,
+                        //     fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                        //     color: Palette.pinkText
+                        // ),
                         autofocus: false,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: tr(LocaleKeys.enter_pass.tr()),
                             hintStyle: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontSize: (height/896) *16,
+                                fontSize: (height/896) *16 * zoom,
                                 fontWeight: FontWeight.normal,
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.greyText
@@ -200,7 +188,7 @@ class _ChangePassword extends State<ChangePassword> {
               ),
 
               Positioned(
-                top: (height/602) * 280,
+                top: lanCode == "en"? (height/602) * 280 :  (height/602) * 265,
                 left:  (width/414) * 35,
                 right:  (width/414) * 35,
                 child: Center(
@@ -209,7 +197,7 @@ class _ChangePassword extends State<ChangePassword> {
                       child:
                       Text(LocaleKeys.renter_pass,
                         style: TextStyle(
-                          fontSize: (height/896) *18,
+                          fontSize: (height/896) *18 * zoom,
                           fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           color: Palette.pinkBox,
                         ),).tr()
@@ -232,19 +220,20 @@ class _ChangePassword extends State<ChangePassword> {
                       child:
                       TextFormField(
                         maxLines: 1,
-                        style: TextStyle(
-                            decoration: TextDecoration.none,
-                            fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) *16,
-                            color: Palette.pinkText
-                        ),
+                        obscureText: true,
+                        // style: TextStyle(
+                        //     decoration: TextDecoration.none,
+                        //     fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
+                        //     fontSize: (height/896) *16 * zoom,
+                        //     color: Palette.pinkText
+                        // ),
                         autofocus: false,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: tr(LocaleKeys.renter_your),
                             hintStyle: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontSize: (height/896) *16,
+                                fontSize: (height/896) *16 * zoom,
                                 fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 fontWeight: FontWeight.normal,
                                 color: Palette.greyText
@@ -256,13 +245,13 @@ class _ChangePassword extends State<ChangePassword> {
               ),
 
               Positioned(
-                top: (height/896) * 701,
+                top:  (height/896) * 640,
                 left: (width/414) * 55,
                 right: (width/414) * 55,
                 child:GestureDetector(
                   child: Center(
                     child: Container(
-                      height: (height/896) * 45,
+                      height: (height/896) * 45 * zoom,
                       width: width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -276,7 +265,7 @@ class _ChangePassword extends State<ChangePassword> {
                           child: Text(LocaleKeys.update,
                             style: TextStyle(
                               fontFamily: lanCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                              fontSize: (height/896) *20,
+                              fontSize: (height/896) *20 * zoom,
                               color: Palette.whiteText,
                             ),).tr(),
                         ),

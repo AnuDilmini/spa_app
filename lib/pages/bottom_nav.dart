@@ -20,7 +20,11 @@ import 'orders.dart';
 class BottomNav extends StatefulWidget {
   int index;
   int subIndex;
-  BottomNav({Key key, this.index,this.subIndex}) : super(key: key);
+  String lat = '';
+  String lng = '';
+  BottomNav({Key key, this.index,this.subIndex,
+    this.lat,
+    this.lng}) : super(key: key);
 
   @override
   _BottomNavState createState() => _BottomNavState();
@@ -32,27 +36,33 @@ class _BottomNavState extends State<BottomNav> {
   double height, width;
   String lanCode = "en";
   double zoom = 1;
+  String _lat= "", _lng = "";
 
-  final List<Widget> _children = [
-    ServiceFindPage(), //0
-    Orders(),
-    Profile(),
-    InfoService(),
-    Payment(),
-    OrderComplete(),
-    UpdateProfile(),
-    Setting(),
-    ChangeLang(),
-    SelectTimeDate(),
-    ChangePassword(),
-    LocationPage(),// 11
-  ];
+  List<Widget> _children = [];
 
   @override
   void initState() {
     super.initState();
     _currentIndex = widget.index;
     subIndex = widget.subIndex;
+    _lat = widget.lat;
+    _lng = widget.lng;
+  
+
+    _children = [
+      ServiceFindPage(), //0
+      Orders(),//1
+      Profile(),//2
+      InfoService(),//3
+      Payment(),//4
+      OrderComplete(),//5
+      UpdateProfile(),
+      Setting(),
+      ChangeLang(),
+      SelectTimeDate(),
+      ChangePassword(),
+      LocationPage(lat: _lat, lng: _lng),// 11
+    ];
 
     // print("_currentIndex $_currentIndex, subIndex $subIndex ");
     if(_currentIndex == 0){
@@ -107,7 +117,7 @@ class _BottomNavState extends State<BottomNav> {
 
     lanCode = context.locale.languageCode;
     if (lanCode == "ar") {
-      zoom = 2;
+      zoom = 1.3;
     } else {
       zoom = 1;
     }
@@ -122,8 +132,8 @@ class _BottomNavState extends State<BottomNav> {
           BottomNavigationBarItem(
             icon: Image(
               image:AssetImage('assets/white_art.png'),
-              height: (height/896) * 30 * zoom,
-              width: (height/896) * 30 * zoom,
+              height: (height/896) * 30 ,
+              width: (height/896) * 30 ,
             ),
             title: Text(LocaleKeys.violet ,
               style: TextStyle(
@@ -137,7 +147,7 @@ class _BottomNavState extends State<BottomNav> {
             icon: Icon(
               Icons.menu,
               color: Colors.white,
-              size: (height/896) * 25 * zoom,
+              size: (height/896) * 25 ,
             ),
             title: Text(LocaleKeys.orders,
               style: TextStyle(
@@ -151,7 +161,7 @@ class _BottomNavState extends State<BottomNav> {
             icon: Icon(
               Icons.account_circle,
               color: Colors.white,
-              size: (height/896) * 25 * zoom,
+              size: (height/896) * 25 ,
             ),
             title: Text(LocaleKeys.profile,
               style: TextStyle(
@@ -163,8 +173,8 @@ class _BottomNavState extends State<BottomNav> {
           ),
         ],
         currentIndex: _currentIndex,
-        unselectedFontSize:  (height/896) *18,
-        selectedFontSize: (height/896) * 18,
+        unselectedFontSize:  (height/896) *18  * zoom,
+        selectedFontSize: (height/896) * 18  * zoom,
           selectedItemColor: Palette.blurColor,
         onTap: (index){
 

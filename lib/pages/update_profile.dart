@@ -60,7 +60,7 @@ class _UpdateState extends State<UpdateProfile> {
   checkDataSet() async {
     lngCode = await SharedPreferencesHelper.getLanguage();
     if (lngCode == "ar") {
-      zoom = 2;
+      zoom = 1.5;
     } else {
       zoom = 1;
     }
@@ -171,7 +171,7 @@ class _UpdateState extends State<UpdateProfile> {
                Text(LocaleKeys.edit_photo,
                style: TextStyle(
                  fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                 fontSize: 16,
+                 fontSize: (height/896) * 16 * zoom,
                  color: Palette.pinkBox,
                ),).tr(),
               ]
@@ -220,7 +220,7 @@ class _UpdateState extends State<UpdateProfile> {
                              hintText: LocaleKeys.name.tr(),
                              hintStyle: TextStyle(
                                fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                               fontSize: 15,
+                               fontSize:  (height/896) * 15 * zoom,
                                color: Palette.labelColor,
                              )
                            )
@@ -263,7 +263,7 @@ class _UpdateState extends State<UpdateProfile> {
                                  border: InputBorder.none,
                                  hintStyle: TextStyle(
                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                   fontSize: 15,
+                                   fontSize:  (height/896) * 15 * zoom,
                                    color: Palette.labelColor,
                                  )
                              )
@@ -285,7 +285,7 @@ class _UpdateState extends State<UpdateProfile> {
                                  border: InputBorder.none,
                                  hintStyle: TextStyle(
                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                   fontSize: 15,
+                                   fontSize:  (height/896) * 15 * zoom,
                                    color: Palette.labelColor,
                                  )
                              )
@@ -313,7 +313,7 @@ class _UpdateState extends State<UpdateProfile> {
                                      hint:  Text(LocaleKeys.city,
                                      style: TextStyle(
                                        fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                       fontSize: 15,
+                                       fontSize:  (height/896) * 15 * zoom,
                                        color: Palette.labelColor,
                                      )).tr(),
                                      onChanged: (value_) async {
@@ -332,7 +332,7 @@ class _UpdateState extends State<UpdateProfile> {
                                                  style: TextStyle(
                                                      fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                                      color: Palette.pinkBox,
-                                                     fontSize: 16.0),
+                                                     fontSize: (height/896) * 15 * zoom,),
                                                ),
                                          ),
                                        );
@@ -355,7 +355,7 @@ class _UpdateState extends State<UpdateProfile> {
                                  border: InputBorder.none,
                                  hintStyle: TextStyle(
                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                   fontSize: 15,
+                                   fontSize:  (height/896) * 15 * zoom,
                                    color: Palette.labelColor,
                                  )
                              )
@@ -377,7 +377,7 @@ class _UpdateState extends State<UpdateProfile> {
                                  border: InputBorder.none,
                                  hintStyle: TextStyle(
                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                   fontSize: 15,
+                                   fontSize:(height/896) * 15 * zoom,
                                    color: Palette.labelColor,
                                  )
                              )
@@ -396,7 +396,7 @@ class _UpdateState extends State<UpdateProfile> {
               child:GestureDetector(
                 child: Center(
                 child: Container(
-                  height: (height/896) * 50,
+                  height: (height/896) * 50 * zoom,
                   width: width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),

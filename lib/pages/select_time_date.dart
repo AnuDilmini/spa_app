@@ -85,7 +85,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
   checkDataSet() async {
     lngCode = await SharedPreferencesHelper.getLanguage();
     if (lngCode == "ar") {
-      zoom = 2;
+      zoom = 1.2;
     } else {
       zoom = 1;
     }
@@ -384,7 +384,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                     style: TextStyle(
                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                       color: Palette.darkPink,
-                      fontSize: (height/896) * 25 * zoom,
+                      fontSize: (height/896) * 25 ,
                       fontWeight: FontWeight.w500,
                     ),).tr()
               ),
