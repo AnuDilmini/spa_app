@@ -41,6 +41,7 @@ class _InfoService extends State<InfoService> {
   List<CompanyServices> selectedService = new List();
   double total = 0.0;
   double zoom = 1;
+  var companyDetailsData;
 
 
   @override
@@ -63,12 +64,11 @@ class _InfoService extends State<InfoService> {
     }
 
     if (networkResults) {
-      setState(() {
         isNoInternet =false;
-      });
-      final companyDetailsData = Provider.of<CompanyDetailsDataProvider>(context, listen: false);
+      companyDetailsData = Provider.of<CompanyDetailsDataProvider>(context, listen: false);
       companyDetailsData..getCompanyDetails(lngCode, companyId);
       companyServiceBloc..getCompanyService(lngCode, companyId);
+
     }else{
       setState(() {
         isNoInternet =true;
@@ -151,8 +151,7 @@ class _InfoService extends State<InfoService> {
               right:  (width/414) * 16 ,
               child:GestureDetector(
                 child: Container(
-                      alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
-
+                    alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
                     child:
                     Icon(Icons.arrow_back_ios,
                       size: (height/896) *25,
@@ -655,9 +654,8 @@ class _InfoService extends State<InfoService> {
                                   },
                                  background: Container(color: Palette.pinkBox),
                                );
-
-                             }
-                           ),
+                                }
+                               ),
                                ),
                                Container(
                                  height: (height/816) * 50,
@@ -728,6 +726,7 @@ class _InfoService extends State<InfoService> {
                              if(selectedService.isNotEmpty){
                                String serviceList = CompanyServices.encode(selectedService);
                                await SharedPreferencesHelper.setSelectedService(serviceList);
+                               await SharedPreferencesHelper.setCompanyImage(companyDetailsData.companyDetails.logo);
                                Navigator.push(
                                    context,
                                    PageTransition(
@@ -756,7 +755,6 @@ class _InfoService extends State<InfoService> {
                             ),
                           ),
                         ),),
-
                     ]
                 ),
               ),

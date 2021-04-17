@@ -65,6 +65,7 @@ class _PaymentState extends State<Payment> {
   double zoom = 1;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String cardNumber = '';
+  String companyImage = '';
   String expiryDate = '';
   String cardHolderName = '';
   String cvvCode = '';
@@ -80,11 +81,12 @@ class _PaymentState extends State<Payment> {
     String serviceListJson = await SharedPreferencesHelper.getSelectedService();
     companyId = await SharedPreferencesHelper.getCompanyId();
     customerId = await SharedPreferencesHelper.getCustomerID();
+    companyImage = await SharedPreferencesHelper.getCompanyImage();
     lngCode = await SharedPreferencesHelper.getLanguage();
     token = await SharedPreferencesHelper.getToken();
     dateTime = await SharedPreferencesHelper.getDateTime();
 
-
+     print("companyImage************** $companyImage");
     if(lngCode == "en"){
       zoom = 1;
     }else if(lngCode == "ar"){
@@ -180,37 +182,37 @@ class _PaymentState extends State<Payment> {
                   ),
                 ),
                 Positioned(
-                  top: (height/896) * 104,
+                  top: (height/896) * 100,
                   left: (width/414) *20,
                   right: (width/414) *20,
                   child: Column(
                     children: [
                       Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: Color.fromRGBO(247, 127, 151, 0.18),
-                          ),
-                          height: (height/896) * 110,
-                          width: width,
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                // Image.asset("assets/cart.png",
-                                //   height: (height/896) * 45,
-                                //   width: (width/414) * 27,),
-                                Text("FOUR\n SPA",
-                                  style: TextStyle(
-                                    fontSize: (height/896) *11,
-                                    fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                    color: Color.fromRGBO(247, 127, 151, 1),
-                                  ),),
-                              ]
-                          ),
+                       child: Container(
+                            width:  (height/896)* 85,
+                            height: (height/896) * 85,
+                            child: companyImage  != null ?
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(12.0),
+                                child: Image.network(Repository.iconUrl+companyImage,
+                                  fit: BoxFit.fill,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                                    // print('info_service::build: ImageNetwork error has occurred.');
+                                    return ClipRRect(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        child:Image.asset("assets/background.png",
+                                          fit: BoxFit.fill,)
+                                    );
+                                  },)
+                            ): ClipRRect(
+                              borderRadius: BorderRadius.circular(12.0),
+                              child: new Image.asset("assets/background.png",
+                                fit: BoxFit.fill,),
+                            ),
                         ),
                       ),
                       SizedBox(
-                        height: (height/896) *7,
+                        height: (height/896) *10,
                       ),
                       Center(
                         child: Container(

@@ -118,5 +118,7 @@
   "no_internet" : "لايوجد   انترنت",
   "comment_req" : "حقل    تعليق    الزبون    مطلوب",
   "rating_req" : "حقل    التصنيف    مطلوب.",
-  "something_wrong" : "هناك    خطأ    ما!"
+  "something_wrong" : "هناك    خطأ    ما!",
+  "new_register_now" : "سجل   جديد   الآن !",
+  "forget_password" : "نسيت   كلمة   المرور"
 }

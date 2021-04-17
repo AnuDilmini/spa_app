@@ -116,4 +116,15 @@ class SharedPreferencesHelper {
     return reservationID;
   }
 
+  static setCompanyImage(String companyImage) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('companyImage', companyImage);
+  }
+
+  static Future<String> getCompanyImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String companyImage = prefs.getString('companyImage');
+    return companyImage;
+  }
+
 }

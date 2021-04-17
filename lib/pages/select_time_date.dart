@@ -672,29 +672,31 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             margin: EdgeInsets.only( top: (height/896) *25),
                             child: Text(LocaleKeys.register_to_violet,
                               style: TextStyle(
-                                fontSize: (height/896) *26,
+                                fontSize: (height/896) *26 * zoom,
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
+                        width: width,
+                        // alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18,  right: (width/414) * 18),
                         child: Text(LocaleKeys.we_just_need,
                           style: TextStyle(
-                            fontSize: (height/896) *18,
+                            fontSize: (height/896) *18 * zoom,
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
+                        width: width,
+                        // alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18, right: (width/414) * 18),
                         child: Text(LocaleKeys.phone_number,
                           style: TextStyle(
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) * 20,
+                            fontSize: (height/896) * 20 * zoom,
                             color: Palette.pinkBox,
                           ),).tr(),
                       ),
@@ -706,7 +708,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         ),
                         alignment: Alignment.center,
                         margin: EdgeInsets.only(top: (height/896) *5),
-                        padding: EdgeInsets.only(left: (width/414) * 20,),
+                        padding: EdgeInsets.only(left: (width/414) * 20, right: (width/414) * 20),
                         height: (height/896) * 57,
                         width: (width/414) * 312,
                         child: Center(
@@ -717,7 +719,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) *18 * zoom,
                                 color: Palette.mainColor
                             ),
                             autofocus: false,
@@ -727,7 +729,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 hintStyle: TextStyle(
                                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     decoration: TextDecoration.none,
-                                    fontSize: (height/896) *15,
+                                    fontSize: (height/896) *15 * zoom,
                                     fontWeight: FontWeight.normal,
                                   color: Color.fromRGBO(149, 152, 154, 0.38),
                                 )
@@ -735,22 +737,23 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           ),
                         ),
                       ),
-                      Container(
+                      Center(
+                        child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.circular(12),
                             color: Palette.textField,
                           ),
-                          alignment: Alignment.centerLeft,
                           margin: EdgeInsets.only(top: (height/896) *5),
+                          padding: EdgeInsets.only(left: (width/414) * 20,  right: (width/414) * 20),
                           height: (height/896) * 57,
                           width: (width/414) * 312,
+                            alignment: Alignment.center,
                           child: TextFormField(
-                            textAlign : TextAlign.left,
                             maxLines: 3,
                             style: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize: (height/896) *15,
+                                fontSize: (height/896) *15 * zoom,
                                 color: Palette.mainColor
                             ),
                             autofocus: false,
@@ -759,19 +762,20 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                               hintText: LocaleKeys.your_name.tr(),
                               hintStyle: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize: (height/896) *15,
+                                fontSize: (height/896) *15 * zoom,
                                 color: Color.fromRGBO(149, 152, 154, 0.38),
                               ),
                             ),
                           )
                       ),
+                      ),
                       Container(
                         alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only( top: (height/896) * 20, left: (width/414) * 18),
+                        margin: EdgeInsets.only( top: (height/896) * 20, left: (width/414) * 18, right: (width/414) * 18),
                         child: Text(LocaleKeys.a_digit,
                           style: TextStyle(
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) *17,
+                            fontSize: (height/896) *17 * zoom,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
@@ -789,7 +793,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           child: Text(LocaleKeys.register,
                             style: TextStyle(
                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                              fontSize: (height/896) *18,
+                              fontSize: (height/896) *18 * zoom,
                               color: Palette.whiteText,
                             ),).tr(),
                         ),
@@ -815,7 +819,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                            fontSize: (height/896) * 14,
+                                            fontSize: (height/896) * 14 * zoom,
                                             color: Palette.pinkBox,
                                           ),).tr()
                                     ),
@@ -837,7 +841,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                      fontSize: (height/896) *14,
+                                      fontSize: (height/896) *14 * zoom,
                                       fontWeight: FontWeight.bold,
                                       color: Palette.pinkBox,
                                     ),).tr(),
@@ -903,33 +907,32 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             child: Text(LocaleKeys.register_to_violet,
                               style: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize:  (height/896) *26,
+                                fontSize:  (height/896) *26* zoom,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only( top: (height/896) * 50, left: (width/414) * 18),
+                        margin: EdgeInsets.only( top: (height/896) * 50, left: (width/414) * 18, right: (width/414) * 18),
+                        width: width,
                         child: Text(LocaleKeys.enter_the,
                           style: TextStyle(
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) *16,
+                            fontSize: (height/896) *16 * zoom,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only( top: (height/896) *30, left: (width/414) * 18),
+                        width: width,
+                        padding: EdgeInsets.only( top: (height/896) *30, left: (width/414) * 18, right: (width/414) * 18),
                         child: Text("$mobile",
                           style: TextStyle(
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) *16,
+                            fontSize: (height/896) *16 * zoom,
                             color: Palette.pinkBox,
                           ),),
                       ),
                       Container(
-                        alignment: Alignment.center,
                         padding: EdgeInsets.only(top: (height/896) *15, left:  (width/414) *35, right: (width/414) *35),
                         width: width,
                         child:  Container(
@@ -943,7 +946,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 fieldsCount: 4,
                                 textStyle: TextStyle(
                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                  fontSize: (height/896) *24,
+                                  fontSize: (height/896) *24 * zoom,
                                   color: Palette.pinkBox,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -989,13 +992,12 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                       ),
                       GestureDetector(
                         child: Container(
-                          alignment: Alignment.centerLeft,
                           width: width,
-                          padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
+                          padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18, right: (width/414) * 18),
                           child: Text(LocaleKeys.resend_otp,
                             style: TextStyle(
                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                              fontSize: (height/896) *20,
+                              fontSize: (height/896) *20 * zoom,
                               color: Palette.pinkBox,
                             ),).tr(),
                         ),
@@ -1006,13 +1008,12 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         },
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
                         width: width,
-                        padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
+                        padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18, right: (width/414) * 18),
                         child: Text("OTP $otpReg",
                           style: TextStyle(
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) *20,
+                            fontSize: (height/896) *20 * zoom,
                             color: Palette.pinkBox,
                           ),),
                       ),
@@ -1054,27 +1055,27 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             child: Text(LocaleKeys.login_to_violet,
                               style: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize: (height/896) *25,
+                                fontSize: (height/896) *25 * zoom,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
+                        width: width,
+                        margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18,  right: (width/414) * 18),
                         child: Text(LocaleKeys.we_just_need,
                           style: TextStyle(
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) *18,
+                            fontSize: (height/896) *18 * zoom,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18),
+                        width: width,
+                        margin: EdgeInsets.only( top: (height/896) *15, left: (width/414) * 18, right: (width/414) * 18),
                         child: Text(LocaleKeys.phone_number,
                           style: TextStyle(
-                            fontSize: (height/896) *20,
+                            fontSize: (height/896) *20 * zoom,
                             color: Palette.pinkBox,
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           ),).tr(),
@@ -1098,7 +1099,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             style: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 decoration: TextDecoration.none,
-                                fontSize: (height/896) *18,
+                                fontSize: (height/896) *18 * zoom,
                                 color: Palette.mainColor
                             ),
                             autofocus: false,
@@ -1108,7 +1109,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 hintStyle: TextStyle(
                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     decoration: TextDecoration.none,
-                                    fontSize: (height/896) *15,
+                                    fontSize: (height/896) *15 * zoom,
                                     fontWeight: FontWeight.normal,
                                   color: Color.fromRGBO(149, 152, 154, 0.38),
                                 )
@@ -1121,7 +1122,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                         margin: EdgeInsets.only( top: (height/896) *20, left: (width/414) * 18, right: (width/414) * 18 ),
                         child: Text(LocaleKeys.a_digit,
                           style: TextStyle(
-                            fontSize: (height/896) *14,
+                            fontSize: (height/896) *14 * zoom,
                             color: Palette.labelColor,
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                           ),).tr(),
@@ -1140,7 +1141,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                           child: Text(LocaleKeys.login,
                             style: TextStyle(
                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                              fontSize: (height/896) *18,
+                              fontSize: (height/896) *18 * zoom,
                               color: Palette.whiteText,
                             ),).tr(),
                         ),
@@ -1171,7 +1172,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                        fontSize: (height/896) *14,
+                                        fontSize: (height/896) *14 * zoom,
                                         color: Palette.labelColor,
                                       ),).tr(),),
                                   onTap: (){
@@ -1201,7 +1202,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                      fontSize: (height/896) *14,
+                                      fontSize: (height/896) *14 * zoom,
                                       color: Palette.labelColor,
                                     ),).tr(),
                                 ),
@@ -1277,28 +1278,28 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                             child: Text(LocaleKeys.login_to_violet,
                               style: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize: (height/896) *26,
+                                fontSize: (height/896) *26 * zoom,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only( top: (height/896) * 50, left: (width/414) * 18),
+                        width: width,
+                        margin: EdgeInsets.only( top: (height/896) * 50, left: (width/414) * 18, right: (width/414) * 18),
                         child: Text(LocaleKeys.enter_the,
                           style: TextStyle(
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) *16,
+                            fontSize: (height/896) *16 * zoom,
                             color: Palette.labelColor,
                           ),).tr(),
                       ),
                       Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only( top: (height/896) *30, left: (width/414) * 18),
+                        width: width,
+                        padding: EdgeInsets.only( top: (height/896) *30, left: (width/414) * 18, right: (width/414) * 18),
                         child: Text("$mobile",
                           style: TextStyle(
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) *16,
+                            fontSize: (height/896) *16 * zoom,
                             color: Palette.pinkBox,
                           ),),
                       ),
@@ -1317,7 +1318,7 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                                 fieldsCount: 4,
                                 textStyle: TextStyle(
                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                  fontSize: (height/896) *24,
+                                  fontSize: (height/896) *24 * zoom,
                                   color: Palette.pinkBox,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -1362,13 +1363,12 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                       ),
                       GestureDetector(
                         child: Container(
-                          alignment: Alignment.centerLeft,
                           width: width,
-                          padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
+                          padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18, right: (width/414) * 18),
                           child: Text(LocaleKeys.resend_otp,
                             style: TextStyle(
                               fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                              fontSize: (height/896) *20,
+                              fontSize: (height/896) *20 * zoom,
                               color: Palette.pinkBox,
                             ),).tr(),
                         ),
@@ -1378,13 +1378,12 @@ class _SelectTimeDate extends State<SelectTimeDate> {
                       ),
 
                       Container(
-                        alignment: Alignment.centerLeft,
                         width: width,
-                        padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18),
+                        padding: EdgeInsets.only( top: (height/896) * 25, bottom: (height/896) *40,left: (width/414) * 18, right: (width/414) * 18),
                         child: Text("$otpLogin",
                           style: TextStyle(
                             fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                            fontSize: (height/896) *20,
+                            fontSize: (height/896) *20 * zoom,
                             color: Palette.pinkBox,
                           ),).tr(),
                       ),

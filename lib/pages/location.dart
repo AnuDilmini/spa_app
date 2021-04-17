@@ -82,9 +82,9 @@ class _LocationState extends State<LocationPage> {
      coordinates = new Coordinates(latNew, lngNew);
      addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
      first = addresses.first.addressLine;
-     setState(() {
-
-     });
+     // setState(() {
+     //
+     // });
   }
 
   @override
