@@ -41,6 +41,7 @@ class _Orders extends State<Orders> {
   void initState() {
     super.initState();
     checkDataSet();
+    zoom = Repository.zoom;
   }
 
   checkDataSet() async {
@@ -48,11 +49,11 @@ class _Orders extends State<Orders> {
     token = await SharedPreferencesHelper.getToken();
     customerId = await SharedPreferencesHelper.getCustomerID();
 
-    if (lngCode == "ar") {
-      zoom = 1.2;
-    } else {
-      zoom = 1;
-    }
+    // if (lngCode == "ar") {
+    //   zoom = 1.2;
+    // } else {
+    //   zoom = 1;
+    // }
 
     if(customerId != null) {
       getOrders();

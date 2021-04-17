@@ -10,10 +10,11 @@ class CompanyDetails{
   final String name;
   final String description;
   final String business_name;
+  final String address;
   final City city;
 
   CompanyDetails({this.id, this.country_id, this.city_id, this.image, this.logo,  this.phone, this.rating, this.status, this.name, this.business_name,
-      this.city, this.description});
+      this.city, this.description, this.address});
 
 
   factory CompanyDetails.fromJson(Map<String, dynamic> json) {
@@ -27,6 +28,7 @@ class CompanyDetails{
         rating : json["rating"],
         status : json["status"],
         name : json["name"],
+        address : json["address"],
         description : json["description"],
         business_name : json["business_name"],
         city : (json["city"] != null) ? City.fromJson(json["city"]) : new City(id: 0, name: ""),

@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/notifiers/dark_theme_provider.dart';
 import 'package:violet_app/pages/update_profile.dart';
 import 'package:violet_app/style/local.keys.dart';
@@ -34,6 +35,7 @@ class _SettingState extends State<Setting> {
   @override
   void initState() {
     super.initState();
+    zoom = Repository.zoom;
   }
 
   @override

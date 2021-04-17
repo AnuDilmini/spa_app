@@ -10,9 +10,10 @@ class AppLanguage extends ChangeNotifier {
     if (prefs.getString('language_code') == null) {
       _appLocale = Locale('en');
       return Null;
+    }else {
+      _appLocale = Locale(prefs.getString('language_code'));
+      return Null;
     }
-    _appLocale = Locale(prefs.getString('language_code'));
-    return Null;
   }
 
 

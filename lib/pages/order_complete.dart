@@ -42,18 +42,19 @@ class _OrderComplete extends State<OrderComplete> {
   void initState() {
     super.initState();
     getData();
+
   }
 
   getData() async{
     lngCode = await SharedPreferencesHelper.getLanguage();
     token = await SharedPreferencesHelper.getToken();
     reservationID = await SharedPreferencesHelper.getReservationID();
-
-    if(lngCode == "en"){
-      zoom = 1;
-    }else if(lngCode == "ar"){
-      zoom = 1.5;
-    }
+    zoom = Repository.zoom;
+    // if(lngCode == "en"){
+    //   zoom = 1;
+    // }else if(lngCode == "ar"){
+    //   zoom = 1.5;
+    // }
   }
 
   @override
@@ -183,7 +184,7 @@ class _OrderComplete extends State<OrderComplete> {
                           width: width,
                           child:RichText(
                             text: TextSpan(
-                              text: 'Order number:\n',
+                              text:  LocaleKeys.order_number.tr()+':\n',
                               style: TextStyle(
                                   fontSize: (height/896) *20 ,
                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
@@ -196,7 +197,7 @@ class _OrderComplete extends State<OrderComplete> {
                                       height: (height/896) *1.2,
                                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                       color: Palette.pinkBox),),
-                                TextSpan(text: 'Date and Time\n',
+                                TextSpan(text: LocaleKeys.date_and_time.tr()+'\n',
                                   style: TextStyle(
                                       fontSize: (height/896) *20 ,
                                       fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
@@ -209,7 +210,7 @@ class _OrderComplete extends State<OrderComplete> {
                                     fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                     color: Palette.pinkBox),
                               ),
-                                TextSpan(text: 'Order\n',
+                                TextSpan(text:  LocaleKeys.orders.tr()+'\n',
                                   style: TextStyle(
                                       fontSize: (height/896) *20,
                                       height: (height/896) *3,

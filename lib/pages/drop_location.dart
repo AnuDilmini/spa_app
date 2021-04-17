@@ -7,6 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:violet_app/model/place_model.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/style/palette.dart';
 
@@ -66,12 +67,14 @@ class _SelectLocation extends State<SelectLocation> {
   final LatLng _center = const LatLng(24.774265, 46.738586);
   GoogleMapController _controller;
   String lanCode = 'en';
+  double zoom = 1;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     newTitle = widget.title;
+    zoom = Repository.zoom;
     getShared();
 
   }

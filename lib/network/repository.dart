@@ -19,6 +19,7 @@ class Repository {
   final Dio _dio = Dio();
 
   String token;
+  static double zoom = 1;
   // static String  baseUrl = "https://spa.ammarahmad.net/api/v1/mobile";
   static String  baseUrl = "https://api.violetapp.net/api/v1/mobile";
   static String  iconUrl = "https://api.violetapp.net/storage/app/";

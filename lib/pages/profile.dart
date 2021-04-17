@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/notifiers/dark_theme_provider.dart';
 import 'package:violet_app/pages/update_profile.dart';
@@ -39,6 +40,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     getTheme();
+    zoom = Repository.zoom;
 
   }
 
@@ -73,11 +75,11 @@ class _ProfileState extends State<Profile> {
         .height;
 
     lanCode = context.locale.languageCode;
-    if (lanCode == "ar") {
-      zoom = 2;
-    } else {
-      zoom = 1;
-    }
+    // if (lanCode == "ar") {
+    //   zoom = 2;
+    // } else {
+    //   zoom = 1;
+    // }
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 

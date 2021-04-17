@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/pages/payment.dart';
 import 'package:violet_app/pages/profile.dart';
 import 'package:violet_app/pages/select_time_date.dart';
@@ -116,11 +117,12 @@ class _BottomNavState extends State<BottomNav> {
         .height;
 
     lanCode = context.locale.languageCode;
-    if (lanCode == "ar") {
-      zoom = 1.3;
-    } else {
-      zoom = 1;
-    }
+    zoom = Repository.zoom;
+    // if (lanCode == "ar") {
+    //   zoom = 1.3;
+    // } else {
+    //   zoom = 1;
+    // }
 
     return Scaffold(
       body: SizedBox.expand(

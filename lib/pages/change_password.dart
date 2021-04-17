@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/pages/profile.dart';
 import 'package:violet_app/style/palette.dart';
@@ -38,12 +39,12 @@ class _ChangePassword extends State<ChangePassword> {
 
   getLang() async{
     lanCode = await SharedPreferencesHelper.getLanguage();
-
-    if(lanCode == "en"){
-      zoom = 1;
-    }else if(lanCode == "ar"){
-      zoom = 1.5;
-    }
+    zoom = Repository.zoom;
+    // if(lanCode == "en"){
+    //   zoom = 1;
+    // }else if(lanCode == "ar"){
+    //   zoom = 1.5;
+    // }
 
   }
 

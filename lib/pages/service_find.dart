@@ -33,6 +33,7 @@ class ServiceFindPage extends StatefulWidget {
 
   @override
   _ServiceFindPageState createState() => _ServiceFindPageState();
+
 }
 
 class _ServiceFindPageState extends State<ServiceFindPage> {
@@ -69,11 +70,13 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
     lngCode = await SharedPreferencesHelper.getLanguage();
     bool networkResults = await NetworkCheck.checkNetwork();
 
-    if (lngCode == "ar") {
-      zoom = 1.5;
-    } else {
-      zoom = 1;
-    }
+    print("zoom ${Repository.zoom}");
+    zoom = Repository.zoom;
+    // if (lngCode == "ar") {
+    //   zoom = 1.5;
+    // } else {
+    //   zoom = 1;
+    // }
     if (networkResults) {
       setState(() {
         isNoInternet =false;
@@ -149,7 +152,7 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                 right:  (width/414) * 16,
                 child:GestureDetector(
                   child: Container(
-                      alignment: context.locale.languageCode== "en" ? Alignment.centerLeft : Alignment.centerRight,
+                      alignment: lngCode == "en" ? Alignment.centerLeft : Alignment.centerRight,
                       width: width,
                       child:
                         Icon(Icons.arrow_back_ios,
@@ -165,9 +168,11 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                   },
                 ),
               ),
-              isSearch ?  Container() : Positioned(
+              isSearch ?  Container() :
+              Positioned(
                 top: (height/449) * 60,
-                left: 15,
+                left:  (width/208) * 10,
+                right: (width/208) * 10,
                 child:Text(
                   LocaleKeys.welcome,
                   style: TextStyle(
@@ -179,29 +184,33 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
               ),
               Positioned(
                 top: (height/449) * 64,
-                left:  isSearch ? (width/208) * 60 :  (width/208) * 173,
-                right:  (width/208) * 10 ,
-                child: isSearch ? GestureDetector(
+                left: lngCode == "en" ?(isSearch ? (width/208) * 60 :  (width/208) * 173) : (width/208) * 10,
+                right:  lngCode == "en" ? (width/208) * 10  :(isSearch ? (width/208) * 60 :  (width/208) * 173) ,
+                child: isSearch ?
+                GestureDetector(
                   child: Container(
+                    alignment: Alignment.center,
                     padding: EdgeInsets.only(left: 5, right: 5),
                     height: (height/448) * 20,
                     decoration: BoxDecoration(
                       color: Palette.greyBox,
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    child : Row(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                          Center(
-                    child: Container(
-                            alignment: Alignment.centerLeft,
-                            // padding: EdgeInsets.only( right:(width/208) * 5),
-                            width: (width/208) * 112,
-                            child:
-                            TextFormField(
-                              textAlign: TextAlign.center,
-                              controller : searchController,
-                              cursorColor: Palette.pinkBox,
-                              decoration: InputDecoration(
+                           child: Container(
+                             padding:  EdgeInsets.only(top: lngCode == "en"?(height/448) * 9 : 0),
+                              alignment: Alignment.center,
+                              width: (width/208) * 112,
+                              height: (height/448) * 20,
+                              child:
+                               TextFormField(
+                                controller : searchController,
+                                cursorColor: Palette.pinkBox,
+                                maxLines: 1,
+                                decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: tr(LocaleKeys.what_you_are_looking),
                                 hintStyle: TextStyle(
@@ -210,36 +219,32 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                   fontSize: (height/896) * 21  * zoom
                                 )
                               ),
-                              onChanged: (content) {
-                                if(searchController.text.length > 3){
+                                onChanged: (content) {
+                                  if(searchController.text.length > 3){
 
-                                  searchCategory();
+                                    searchCategory();
 
-                                }else if(searchController.text.length == 0){
-                                  selectedCatList.clear();
-                                  setState(() {
+                                  }else if(searchController.text.length == 0){
+                                    selectedCatList.clear();
+                                    setState(() {
 
-                                  });
-                                  companyListBloc..getCompany(lngCode, "company", [] );
-
-                                }else{
-                                  selectedCatList.clear();
-                                  setState(() {
-
-                                  });
+                                    });
+                                    companyListBloc..getCompany(lngCode, "company", [] );
+                                  }else{
+                                    selectedCatList.clear();
+                                    setState(() {
+                                    });
                                 }
                               },
-                            ),
-                          ),
+                              ),
+                           ),
                          ),
                           Container(
                             padding: EdgeInsets.all(5.0),
-                            child:
-                            Image.asset('assets/search.png',),
+                            child: Icon(Icons.search,
+                                color: Palette.pinkBox),
                           ),
                         ]
-                      // child: Image.asset('assets/search.png',
-                      // fit: BoxFit.fitHeight,
                     ),
                   ),
                   onTap: (){
@@ -247,7 +252,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                       isSearch = !isSearch;
                     });
                   },
-                ): GestureDetector(
+                ):
+                GestureDetector(
                   child: Container(
                     padding: EdgeInsets.all(5.0),
                     width: (width/208) * 25,
@@ -256,8 +262,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                       color: Palette.greyBox,
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    child:
-                    Image.asset('assets/search.png',),
+                    child: Icon(Icons.search,
+                    color: Palette.pinkBox),
                   ),
                   onTap: (){
                     setState(() {
@@ -267,8 +273,9 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                 ),
               ),
               Positioned(
-                top: (height/449) * 90,
-                left: 15,
+                top: (height/449) * 85,
+                left:  (width/208) * 10,
+                right: (width/208) * 10,
                 child:Text(
                   LocaleKeys.find_service,
                   style: TextStyle(
@@ -403,9 +410,8 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
         }
 
         }
-      } else{
-
-    }
+      }
+    else{}
 
   }
 
@@ -488,7 +494,6 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                   child: Image.network(Repository.iconUrl+company[index].image,
                                   fit: BoxFit.fill,
                                   errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                                    print('service_find::_buildCompanyWidget: ImageNetwork error has occurred.');
                                     return ClipRRect(
                                         borderRadius: BorderRadius.circular(18.0),
                                     child:Image.asset("assets/background.png",
@@ -504,13 +509,13 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                 ),
                               ),
                               Container(
-                                  padding: EdgeInsets.only(left:  (width/208) * 5, top:  (height/449) * 5 , right: (height/449) * 5),
+                                  padding: EdgeInsets.only(left:  (width/208) * 5, top:  lngCode == "en"? (height/449) * 5 : 0 , right: (height/449) * 5),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         width:  (width/208) *120,
-                                        child:Text("${company[index].name}",
+                                        child:Text("${company[index].business_name}",
                                           overflow: TextOverflow.clip,
                                           maxLines: 1,
                                           style: TextStyle(
@@ -655,14 +660,24 @@ class _ServiceFindPageState extends State<ServiceFindPage> {
                                     color: (selectedCatList.contains(category[index].id.toString())) ?  Palette.pinkText :  Palette.greyBox
                                 ),
                                 child: category[index].icon != null ?
-                                Image.network(Repository.iconUrl+category[index].icon,
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    child:Image.network(Repository.iconUrl+category[index].icon,
+                                  fit: BoxFit.fill,
                                   errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                                    print('service_find::_buildCategoryWidget: ImageNetwork error has occurred.');
-                                  return Image.asset("assets/background.png",
-                                      fit: BoxFit.fill,);
+                                    return Container(
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: new DecorationImage(
+                                                image: new AssetImage("assets/background.png"),
+                                                fit:  BoxFit. fill
+                                            ),
+                                        ),
+                                    );
                                   },
+                                    ),
                                   ):
-                                Image.asset("assets/eyes.png"),
+                                Image.asset("assets/background.png"),
                               ),
                               Center(
                                 child: Container(

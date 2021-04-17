@@ -75,6 +75,7 @@ class _PaymentState extends State<Payment> {
   void initState() {
     super.initState();
     getData();
+    zoom = Repository.zoom;
   }
 
   getData() async{
@@ -87,11 +88,11 @@ class _PaymentState extends State<Payment> {
     dateTime = await SharedPreferencesHelper.getDateTime();
 
      print("companyImage************** $companyImage");
-    if(lngCode == "en"){
-      zoom = 1;
-    }else if(lngCode == "ar"){
-      zoom = 1.5;
-    }
+    // if(lngCode == "en"){
+    //   zoom = 1;
+    // }else if(lngCode == "ar"){
+    //   zoom = 1.5;
+    // }
 
     if (serviceListJson != "") {
       selectedService = CompanyServices.decode(serviceListJson);
@@ -104,8 +105,8 @@ class _PaymentState extends State<Payment> {
 
     }
 
-    @override
-    void dispose() {
+  @override
+  void dispose() {
       super.dispose();
       commentController.dispose();
       otpController.dispose();
@@ -116,8 +117,8 @@ class _PaymentState extends State<Payment> {
 
     }
 
-    @override
-    Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
       width = MediaQuery
           .of(context)
           .size
@@ -135,7 +136,7 @@ class _PaymentState extends State<Payment> {
           child: Stack(
               children: [
                 Container(
-                  height:  lngCode == "en"? height* 1.3 : height* 1.4,
+                  height:  lngCode == "en"? height* 1.05: height* 1.05,
                 ),
                 Positioned(
                   top: (height/896) * 2,
@@ -151,6 +152,7 @@ class _PaymentState extends State<Payment> {
                 Positioned(
                   top: (height/602) * 40,
                   left: (width/414) * 20,
+                  right: (width/414) * 20,
                   child:GestureDetector(
                     child: Center(
                       child: Container(
@@ -708,7 +710,7 @@ class _PaymentState extends State<Payment> {
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(8),
                                             shape: BoxShape.rectangle,
-                                            color: Palette.greyWhite
+                                            color: Palette.iconBack
                                         ),
                                         child: Center(
                                             child: Image.asset("assets/master.png")
@@ -731,7 +733,7 @@ class _PaymentState extends State<Payment> {
                                       decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                       shape: BoxShape.rectangle,
-                                      color: Palette.greyWhite
+                                      color: Palette.iconBack
                                       ),
                                       child: Center(
                                       child: Image.asset("assets/mada.png")
@@ -755,7 +757,7 @@ class _PaymentState extends State<Payment> {
                                       decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                       shape: BoxShape.rectangle,
-                                      color: Palette.greyWhite
+                                      color: Palette.iconBack
                                      ),
                                     child: Center(
                                       child: Image.asset("assets/visa.png")
@@ -787,7 +789,7 @@ class _PaymentState extends State<Payment> {
                                           decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(8),
                                           shape: BoxShape.rectangle,
-                                          color: Palette.greyWhite
+                                          color: Palette.iconBack
                                           ),
                                           child: Center(
                                             child:
@@ -811,7 +813,7 @@ class _PaymentState extends State<Payment> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(8),
                                             shape: BoxShape.rectangle,
-                                            color: Palette.greyWhite
+                                            color: Palette.iconBack
                                           ),
                                           child: Center(
                                             child:
@@ -836,7 +838,7 @@ class _PaymentState extends State<Payment> {
                                               decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(8),
                                                   shape: BoxShape.rectangle,
-                                                  color: isCash ? Palette.darkPink : Palette.greyWhite
+                                                  color:  Palette.iconBack
                                               ),
                                               child: Center(
                                                   child:
@@ -952,8 +954,7 @@ class _PaymentState extends State<Payment> {
       );
     }
 
-
-  getServiceList(){
+  getServiceList() {
     if(selectedService.isNotEmpty) {
       for (int i = 0; i < selectedService.length; i++) {
         Map<String, dynamic> services = {
@@ -1042,8 +1043,6 @@ class _PaymentState extends State<Payment> {
                 borderRadius:
                 BorderRadius.circular(25)), //this right here
             child: Container(
-
-              // alignment: Alignment.center,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(12),
@@ -1062,7 +1061,7 @@ class _PaymentState extends State<Payment> {
                             child: Text(msg,
                               style: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize:  (height/896) *22,
+                                fontSize:  (height/896) *22 * zoom,
                                 color: Palette.pinkBox,
                               ),).tr(),
                           )
@@ -1074,7 +1073,7 @@ class _PaymentState extends State<Payment> {
                             child: Text(LocaleKeys.ok,
                               style: TextStyle(
                                 fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
-                                fontSize:  (height/896) *16,
+                                fontSize:  (height/896) *16 *zoom,
                                 color: Palette.labelColor,
                               ),).tr(),
                           ),
@@ -1399,4 +1398,5 @@ class _PaymentState extends State<Payment> {
       isCvvFocused = creditCardModel.isCvvFocused;
     });
   }
+
 }

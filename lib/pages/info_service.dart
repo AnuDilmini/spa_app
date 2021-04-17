@@ -57,11 +57,12 @@ class _InfoService extends State<InfoService> {
     lngCode = await SharedPreferencesHelper.getLanguage();
     companyId = await SharedPreferencesHelper.getCompanyId();
 
-    if(lngCode == "en"){
-      zoom = 1;
-    }else if(lngCode == "ar"){
-      zoom = 1.5;
-    }
+    zoom = Repository.zoom;
+    // if(lngCode == "en"){
+    //   zoom = 1;
+    // }else if(lngCode == "ar"){
+    //   zoom = 1.5;
+    // }
 
     if (networkResults) {
         isNoInternet =false;
@@ -335,7 +336,7 @@ class _InfoService extends State<InfoService> {
                             Container(
                               width:  (width/414) * 250,
                               alignment: Alignment.centerLeft,
-                              child:Text("${companyDetailsData.companyDetails.name}",
+                              child:Text("${companyDetailsData.companyDetails.business_name}",
                               style: TextStyle(
                                   fontFamily: lngCode == "en"? 'Audrey-Medium': 'ArbFONTS-026',
                                 color: Palette.pinkBox,
@@ -402,7 +403,7 @@ class _InfoService extends State<InfoService> {
                                   alignment: Alignment.topRight,
                                   // width: (width/208) * 12,
                                   child:
-                                  Text(companyDetailsData.companyDetails.name,
+                                  Text(companyDetailsData.companyDetails.address,
                                     maxLines: 3,
                                     style: TextStyle(
                                         fontSize: (height/896) *18 ,

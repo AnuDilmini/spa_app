@@ -79,16 +79,17 @@ class _SelectTimeDate extends State<SelectTimeDate> {
   void initState() {
     super.initState();
     checkDataSet();
+    zoom = Repository.zoom;
 
   }
 
   checkDataSet() async {
     lngCode = await SharedPreferencesHelper.getLanguage();
-    if (lngCode == "ar") {
-      zoom = 1.2;
-    } else {
-      zoom = 1;
-    }
+    // if (lngCode == "ar") {
+    //   zoom = 1.2;
+    // } else {
+    //   zoom = 1;
+    // }
     companyId = await SharedPreferencesHelper.getCompanyId();
     token = await SharedPreferencesHelper.getToken();
     customerId = await SharedPreferencesHelper.getCustomerID();

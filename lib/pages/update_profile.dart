@@ -46,24 +46,23 @@ class _UpdateState extends State<UpdateProfile> {
     super.initState();
 
     checkDataSet();
+    zoom = Repository.zoom;
 
     new Timer.periodic(
       Duration(seconds: 1),
           (Timer timer) {
-   setState(() {
 
-   });
       },
     );
   }
 
   checkDataSet() async {
     lngCode = await SharedPreferencesHelper.getLanguage();
-    if (lngCode == "ar") {
-      zoom = 1.5;
-    } else {
-      zoom = 1;
-    }
+    // if (lngCode == "ar") {
+    //   zoom = 1.5;
+    // } else {
+    //   zoom = 1;
+    // }
     cityListBloc..getCity(lngCode);
   }
 

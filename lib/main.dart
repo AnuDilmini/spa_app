@@ -8,21 +8,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:provider/provider.dart';
 import 'bloc/get_companyDetails_bloc.dart';
-import 'bloc/reservation_date_time_bloc.dart';
 import 'enums/connectivity_status.dart';
 import 'notifiers/connectivity_service.dart';
 import 'notifiers/dark_theme_provider.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   AppLanguage appLanguage = AppLanguage();
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await appLanguage.fetchLocale();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp
   ]);
   runApp(
-
     EasyLocalization(
         supportedLocales: [Locale('en', 'US'),Locale('ar', '')],
         path: 'lang', // <-- change patch to your
@@ -113,7 +112,6 @@ class  _MyAppState extends State<MyApp> {
             ConnectivityService().connectionStatusController.stream,
           ),
         ],
-
         child: Consumer3<DarkThemeProvider, AppLanguage, CompanyDetailsDataProvider>(
             builder: (context, themeChangeProvider,appLanguage,companyDetailsDataProvider, Widget child) {
               return MaterialApp(

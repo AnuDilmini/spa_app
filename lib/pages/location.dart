@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/style/local.keys.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -90,6 +91,7 @@ class _LocationState extends State<LocationPage> {
   @override
   void initState() {
     super.initState();
+    zoom = Repository.zoom;
   }
 
   @override
@@ -111,11 +113,11 @@ class _LocationState extends State<LocationPage> {
         .height;
 
     lanCode = context.locale.languageCode;
-    if (lanCode == "ar") {
-      zoom = 1.4;
-    } else {
-      zoom = 1;
-    }
+    // if (lanCode == "ar") {
+    //   zoom = 1.4;
+    // } else {
+    //   zoom = 1;
+    // }
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 

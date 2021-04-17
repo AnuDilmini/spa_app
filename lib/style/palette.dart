@@ -26,6 +26,7 @@ class Palette {
   static const Color blur = const Color.fromRGBO(137, 137, 137, 0.92);
   static const Color darkPink = const Color(0xFF725365);
   static const Color textGrey = const Color(0xFF868686);
+  static const Color iconBack = const Color(0xFFF0EDED);
 
 
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {

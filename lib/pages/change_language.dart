@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/network/shared.dart';
 import 'package:violet_app/style/palette.dart';
 import 'package:page_transition/page_transition.dart';
@@ -37,21 +38,19 @@ class _ChangeLang extends State<ChangeLang> {
 
   getLang() async{
     lanCode = await SharedPreferencesHelper.getLanguage();
-
+    zoom = Repository.zoom;
     if (lanCode == "en") {
       setState(() {
         selectedRadio = 1;
-        zoom = 1;
+
       });
     } else if(lanCode == "ar") {
       setState(() {
         selectedRadio = 2;
-        zoom = 1.5;
       });
     } else {
       setState(() {
         selectedRadio = 1;
-        zoom = 1;
       });
     }
   }
@@ -188,6 +187,7 @@ class _ChangeLang extends State<ChangeLang> {
                               setSelectedRadio(val);
 
                               context.locale = Locale('en', 'US');
+                              Repository.zoom = 1;
 
                               await  SharedPreferencesHelper.setLanguage("en");
                             },
@@ -206,6 +206,7 @@ class _ChangeLang extends State<ChangeLang> {
                           onChanged: (val) async {
                             setSelectedRadio(val);
                             context.locale = Locale('ar', '');
+                            Repository.zoom = 1.5;
 
                             await  SharedPreferencesHelper.setLanguage("ar");
 

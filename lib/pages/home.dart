@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:violet_app/enums/connectivity_status.dart';
+import 'package:violet_app/network/repository.dart';
 import 'package:violet_app/pages/network_sensitive.dart';
 import 'package:violet_app/pages/service_find.dart';
 import 'package:violet_app/style/local.keys.dart';
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    zoom = Repository.zoom;
   }
 
   @override
@@ -42,11 +44,11 @@ class _HomePageState extends State<HomePage> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     lanCode = context.locale.languageCode;
-    if (lanCode == "ar") {
-      zoom = 1.5;
-    } else {
-      zoom = 1;
-    }
+    // if (lanCode == "ar") {
+    //   zoom = 1.5;
+    // } else {
+    //   zoom = 1;
+    // }
 
     SystemChrome.setEnabledSystemUIOverlays([]);
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
